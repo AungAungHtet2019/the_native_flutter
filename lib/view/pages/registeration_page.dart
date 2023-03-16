@@ -189,6 +189,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
+  //18 နှစ်ပြည့်မပြည့်စစ်သည်ပြီး အကြောင်းပြန်သည့် function ဖြစ်သည်
   bool isAdult(String birthDateString) {
     String datePattern = "yyyy-MM-dd";
 
@@ -199,7 +200,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     int monthDiff = today.month - birthDate.month;
     int dayDiff = today.day - birthDate.day;
 
-    return yearDiff > 10 || yearDiff == 10 && monthDiff >= 0 && dayDiff >= 0;
+    return yearDiff > 18 || yearDiff == 18 && monthDiff >= 0 && dayDiff >= 0;
   }
 
   void _RequireAlertDialog(String error_title) {
@@ -351,7 +352,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       _registration(_nameController.text,widget.phoneNumber,getDate());
 
                     }else{
-                      _RequireAlertDialog("Yout age must be greater than 10 years old. ");
+                      _RequireAlertDialog("Your age must be greater than 10 years old. ");
                     }
 
                   },

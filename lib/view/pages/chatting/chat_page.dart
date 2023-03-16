@@ -265,7 +265,9 @@ class ChatPageState extends State<ChatPage>{
   channelconnect(){ //function to connect
     try{
       // channel = IOWebSocketChannel.connect("ws://192.168.4.91:6060/$myid"); //channel IP : Port
-      channel = IOWebSocketChannel.connect("ws://68.178.173.121:4242/"+widget.userID); //channel IP : Port
+      // channel = IOWebSocketChannel.connect("ws://68.178.173.121:4242/"+widget.userID); //channel IP : Port
+      channel = IOWebSocketChannel.connect("ws://97.74.83.157:7979/"+widget.userID); //channel IP : Port
+      // channel = IOWebSocketChannel.connect("ws://192.168.4.91:6060/"+widget.userID); //channel IP : Port
 
       channel.stream.listen((message) {
         print(message);
@@ -306,6 +308,7 @@ class ChatPageState extends State<ChatPage>{
           });
         },
         onError: (error) {
+          print("channe.stream.listen onError"); // ")
           print(error.toString());
         },);
     }catch (_){

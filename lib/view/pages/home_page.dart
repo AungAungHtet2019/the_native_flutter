@@ -1,5 +1,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:the_native_flutter/provider/user_provider.dart';
 import 'package:the_native_flutter/view/pages/about_page.dart';
 // import 'package:farm_flutter/view/profile/pages/profile_page.dart';
@@ -93,6 +94,51 @@ class _HomePageState extends State<HomePage> {
     sp.setString("regPhoneNo","");
   }
 
+  //Log out or not confirm dialog box
+  void QuitConfirmDialogBox() {
+    Navigator.of(context).pop();//to close loading dialog
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: new Text("The Native "),
+          content: Padding(
+            padding: const EdgeInsets.only(top:15.0),
+            child: new Text("Will you quit?"),
+          ),
+          actions: <Widget>[
+            // CupertinoDialogAction(
+            //   isDefaultAction: true,
+            //   child: Text("This phone number is already registered",style: TextStyle(color: Colors.red,fontSize: 12.0)),
+            // ),
+            new TextButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.pop(context);
+
+              },
+            ),
+            new TextButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                Navigator.pop(context);
+                _clearSPforLogout();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) => SplashScreen()),
+                        (Route<dynamic> route) => false
+                );
+
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -138,92 +184,101 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.lightGreen,
         ),
         drawer: Drawer(
-          child: ListView(
-            padding: const EdgeInsets.all(0),
-            children: [
-               DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.lightGreen,
-                ), //BoxDecoration
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(color: Colors.lightGreen),
-                  accountName: Text(
-                    Provider.of<UserProvider>(context,listen: true).userModel.UserName,
-                    style: TextStyle(fontSize: 18),
+          child: Container(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(0),
+                    children: [
+                      DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.lightGreen,
+                        ), //BoxDecoration
+                        child: UserAccountsDrawerHeader(
+                          decoration: BoxDecoration(color: Colors.lightGreen),
+                          accountName: Text(
+                            Provider.of<UserProvider>(context,listen: true).userModel.UserName,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          accountEmail: Text(""),
+                          currentAccountPictureSize: Size.square(50),
+                          // currentAccountPicture: CircleAvatar(
+                          //   backgroundColor: Color.fromARGB(255, 165, 255, 137),
+                          //   child: Text(
+                          //     "A",
+                          //     style: TextStyle(fontSize: 30.0, color: Colors.blue),
+                          //   ), //Text
+                          // ), //circleAvatar
+                          currentAccountPicture: ClipRRect(
+                            borderRadius: BorderRadius.circular(800),
+                            child: CachedNetworkImage(
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.cover,
+                              imageUrl: Provider.of<UserProvider>(context,listen: true).userModel.DomainName+Provider.of<UserProvider>(context,listen: true).userModel.UserProfilePicture,
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(value: downloadProgress.progress),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
+                            ),
+                          ), //circleAvatar
+
+                        ), //UserAccountDrawerHeader
+                      ), //DrawerHeader
+                      ListTile(
+                        leading: const Icon(Icons.person),
+                        title: const Text(' My Profile '),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.book),
+                        title: const Text(' My Course '),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.workspace_premium),
+                        title: const Text(' Go Premium '),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.video_label),
+                        title: const Text(' Saved Videos '),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.edit),
+                        title: const Text(' Edit Profile '),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.logout),
+                        title: const Text('LogOut'),
+                        onTap: () {
+                          QuitConfirmDialogBox();
+
+                        },
+                      ),
+
+                    ],
                   ),
-                  accountEmail: Text(""),
-                  currentAccountPictureSize: Size.square(50),
-                  // currentAccountPicture: CircleAvatar(
-                  //   backgroundColor: Color.fromARGB(255, 165, 255, 137),
-                  //   child: Text(
-                  //     "A",
-                  //     style: TextStyle(fontSize: 30.0, color: Colors.blue),
-                  //   ), //Text
-                  // ), //circleAvatar
-                  currentAccountPicture: ClipRRect(
-                    borderRadius: BorderRadius.circular(800),
-                    child: CachedNetworkImage(
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.cover,
-                      imageUrl: Provider.of<UserProvider>(context,listen: true).userModel.DomainName+Provider.of<UserProvider>(context,listen: true).userModel.UserProfilePicture,
-                      progressIndicatorBuilder: (context, url, downloadProgress) =>
-                          CircularProgressIndicator(value: downloadProgress.progress),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  ), //circleAvatar
-
-                ), //UserAccountDrawerHeader
-              ), //DrawerHeader
-              // ListTile(
-              //   leading: const Icon(Icons.person),
-              //   title: const Text(' My Profile '),
-              //   onTap: () {
-              //     Navigator.pop(context);
-              //   },
-              // ),
-              // ListTile(
-              //   leading: const Icon(Icons.book),
-              //   title: const Text(' My Course '),
-              //   onTap: () {
-              //     Navigator.pop(context);
-              //   },
-              // ),
-              // ListTile(
-              //   leading: const Icon(Icons.workspace_premium),
-              //   title: const Text(' Go Premium '),
-              //   onTap: () {
-              //     Navigator.pop(context);
-              //   },
-              // ),
-              // ListTile(
-              //   leading: const Icon(Icons.video_label),
-              //   title: const Text(' Saved Videos '),
-              //   onTap: () {
-              //     Navigator.pop(context);
-              //   },
-              // ),
-              // ListTile(
-              //   leading: const Icon(Icons.edit),
-              //   title: const Text(' Edit Profile '),
-              //   onTap: () {
-              //     Navigator.pop(context);
-              //   },
-              // ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('LogOut'),
-                onTap: () {
-                  _clearSPforLogout();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (BuildContext context) => SplashScreen()),
-                          (Route<dynamic> route) => false
-                  );
-                },
-              ),
-
-            ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text("Version v0.01",style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+              ],
+            )
           ),
         ),
         body:_currentIndex == 0 ? NewsPage():_currentIndex == 1 ? MemberPage() :_currentIndex == 2 ?ProfilePage():AboutPage(),

@@ -198,7 +198,7 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                   ListTile(
                     leading: Icon(Icons.wb_cloudy,color: Colors.green,),
-                    title: Text("zartimyay.org"),
+                    title: Text("https://zartimyay.org"),
                     onTap: (){
                     },
                   ),

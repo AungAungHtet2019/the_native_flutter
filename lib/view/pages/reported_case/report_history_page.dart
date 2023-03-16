@@ -6,14 +6,14 @@ import 'package:card_loading/card_loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:the_native_flutter/view/pages/report_detail_page.dart';
+import 'package:the_native_flutter/view/pages/reported_case/report_detail_page.dart';
 
-import '../../model/case_replied_model.dart';
-import '../../model/report_history_model.dart';
-import '../../provider/report_history_provider.dart';
-import '../../provider/user_provider.dart';
-import '../../utils/dialogue.dart';
-import '../../utils/rest_api.dart';
+import '../../../model/case_replied_model.dart';
+import '../../../model/report_history_model.dart';
+import '../../../provider/report_history_provider.dart';
+import '../../../provider/user_provider.dart';
+import '../../../utils/dialogue.dart';
+import '../../../utils/rest_api.dart';
 import 'case_reply_page.dart';
 
 class ReportHistoryPage extends StatefulWidget {
@@ -424,7 +424,7 @@ class _ReportHistoryPageState extends State<ReportHistoryPage> {
                                                       Text(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
                                                       Row(
                                                         children: [
-                                                          Text(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].CreatedDate.split("T")[0]),
+                                                          Text((Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].CreatedDate.replaceAll("T", " ")).split(".")[0]),
                                                           Container(
                                                             height: 15,
                                                             width: 20,
@@ -472,7 +472,10 @@ class _ReportHistoryPageState extends State<ReportHistoryPage> {
                                     child: Image.asset("assets/icons/paper-plane.png")),
                                 Text("ပြန်ကြားစာ"
                                   ,style: TextStyle(fontWeight: FontWeight.bold),),
-                                Text(" "+Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].caseReplied.length.toString()+" စောင်",style: TextStyle(fontWeight: FontWeight.bold),)
+
+                                //ပြန်ကြားစာအရေအတွက်အား (အထက်ဌာနမှ ပြန်ကြားသည့်အရေအတွက်သာဖော်ပြန်ရန်) ကိုယ်မဟုတ်သည့်ပြန်ကြားစာအရေအတွက်ဖော်ပြထားခြင်းဖြစ်သည်။
+                                Text(" "+Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].caseReplied.where((e) => e.PersonID != widget.userID).toList().length.toString()+" စောင်",style: TextStyle(fontWeight: FontWeight.bold),)
+
                               ],
                             ),
                           ),

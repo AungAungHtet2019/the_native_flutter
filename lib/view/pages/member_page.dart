@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import 'package:the_native_flutter/view/pages/chatting/chat_page.dart';
-import 'package:the_native_flutter/view/pages/report_history_page.dart';
+import 'package:the_native_flutter/view/pages/reported_case/report_history_page.dart';
 import 'package:the_native_flutter/view/pages/report_page.dart';
 import 'package:the_native_flutter/view/pages/success_case/successed_report_history_page.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';

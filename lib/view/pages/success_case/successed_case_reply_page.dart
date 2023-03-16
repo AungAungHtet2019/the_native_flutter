@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
-import 'package:the_native_flutter/view/pages/report_detail_page.dart';
 
 import '../../../model/case_replied_model.dart';
 
@@ -365,10 +364,10 @@ class _SuccessedCaseReplyListPageState extends State<SuccessedCaseReplyListPage>
                                                             ),
                                                             child: ClipRRect(
                                                               borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                              child:e.caseRepliedFile[index].CaseRepliedFileExtension == 'pdf' ? Image.asset('assets/icons/pdf_icon.png'):
+                                                              child:e.caseRepliedFile[index].CaseRepliedFileExtension == '.pdf' ? Image.asset('assets/icons/pdf_icon.png'):
                                                               // Image.network(caseFileList[index].CaseFilePath),
                                                               CachedNetworkImage(
-                                                                imageUrl: e.caseRepliedFile[index].CaseRepliedFilePath,
+                                                                imageUrl: e.DomainName+e.caseRepliedFile[index].CaseRepliedFilePath,
                                                                 imageBuilder: (context, imageProvider) => Container(
                                                                   decoration: BoxDecoration(
                                                                     image: DecorationImage(

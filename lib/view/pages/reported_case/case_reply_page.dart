@@ -8,16 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
-import 'package:the_native_flutter/view/pages/report_detail_page.dart';
 
-import '../../model/case_replied_model.dart';
-import '../../provider/report_history_provider.dart';
-import '../../utils/dialogue.dart';
-import '../../utils/rest_api.dart';
-import '../widgets/files_widget.dart';
-import '../widgets/photo_view_case_replied_file_widget.dart';
-import '../widgets/photo_view_widget.dart';
-import '../widgets/reply_file_widget.dart';
+import '../../../model/case_replied_model.dart';
+import '../../../provider/report_history_provider.dart';
+import '../../../utils/dialogue.dart';
+import '../../../utils/rest_api.dart';
+import '../../widgets/files_widget.dart';
+import '../../widgets/photo_view_case_replied_file_widget.dart';
+import '../../widgets/photo_view_widget.dart';
+import '../../widgets/reply_file_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class CaseReplyListPage extends StatefulWidget {
   String userID;
@@ -70,13 +71,12 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
         textEditingController.clear();
         _submit(value);
         Provider.of<ReportHistoryProvider>(context,listen: false).getReportHistory(widget.groupId);
+
       }
       else{
         // Navigator.pop(context);
         statusDialog("Pleas try again.");
       }
-
-
     });
 
   }
@@ -132,6 +132,12 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
               onPressed: () {
                 Navigator.pop(context);
 
+                setState(() {
+                  resultFiels = null;
+                  images.clear();
+                  files.clear();
+                  resultList.clear();
+                });
               },
             )
           ],
@@ -159,14 +165,14 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
             //   child: Text("This phone number is already registered",style: TextStyle(color: Colors.red,fontSize: 12.0)),
             // ),
             new TextButton(
-              child: new Text("Cancel"),
+              child: new Text("No"),
               onPressed: () {
                 Navigator.pop(context);
 
               },
             ),
             new TextButton(
-              child: new Text("OK"),
+              child: new Text("Yes"),
               onPressed: () {
                 Navigator.pop(context);
                 closeCaseFile(widget.caseId);
@@ -220,6 +226,14 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
     statusDialog("Replied Ok");
   }
 
+  final Uri _url = Uri.parse('https://flutter.dev');
+
+  Future<void> _launchUrl(Uri _url) async {
+    print(_url);
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +352,7 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
                                                   ],
                                                 ),
                                                 ListTile(
-                                                  subtitle: Text(e.CreatedDate.split("T")[0]),
+                                                  subtitle: Text((e.CreatedDate.replaceAll("T", " ")).split(".")[0]),
                                                 ),
                                                 ListTile(
                                                   title: Text(e.RepliedBody),
@@ -413,7 +427,12 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
                                                           ),
                                                           child: ClipRRect(
                                                             borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                            child:e.caseRepliedFile[index].CaseRepliedFileExtension == 'pdf' ? Image.asset('assets/icons/pdf_icon.png'):
+                                                            child:e.caseRepliedFile[index].CaseRepliedFileExtension == '.pdf' ? InkWell(
+                                                                onTap: (){
+                                                                  _launchUrl(Uri.parse(e.caseRepliedFile[index].DomainName+e.caseRepliedFile[index].CaseRepliedFilePath));
+                                                                },
+                                                                child: Image.asset('assets/icons/pdf_icon.png')
+                                                            ):
                                                             // Image.network(caseFileList[index].CaseFilePath),
                                                             InkWell(
                                                               child: CachedNetworkImage(
@@ -457,119 +476,8 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
                                         ),
                                       ),
                                     ),
-                                    // e.CreatedBy == e.PersonID? Container(
-                                    //   height: 40,
-                                    //   width: 40,
-                                    //   child: CircleAvatar(
-                                    //     radius: 70.0,
-                                    //     backgroundImage: AssetImage('assets/images/profile-unknown.png'),
-                                    //     backgroundColor: Colors.white,
-                                    //   ),
-                                    // ):Container(),
                                   ],
                                 ),
-                                // e.caseRepliedFile.length > 0 ?Padding(
-                                //   padding: const EdgeInsets.all(8.0),
-                                //   // child: GridView.builder(
-                                //   //     physics: ScrollPhysics(),
-                                //   //     shrinkWrap: true,
-                                //   //     padding: EdgeInsets.all(16),
-                                //   //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                //   //         crossAxisCount: 2,
-                                //   //         mainAxisSpacing: 8,
-                                //   //         crossAxisSpacing: 8
-                                //   //     ),
-                                //   //     itemCount: widget.reportHistoryModel.caseFile.length,
-                                //   //     itemBuilder: (context,index) {
-                                //   //       // final file = widget.files[index];
-                                //   //       // return buildFile(file);
-                                //   //       return InkWell(
-                                //   //         child: Container(
-                                //   //           padding: EdgeInsets.all(8),
-                                //   //           child: Column(
-                                //   //             children: [
-                                //   //               Expanded(
-                                //   //                 child:widget.reportHistoryModel.caseFile[index].CaseFileExtension == 'pdf' ? Image.asset('assets/icons/pdf_icon.png'):
-                                //   //                 // Image.network(caseFileList[index].CaseFilePath),
-                                //   //                 CachedNetworkImage(
-                                //   //                   imageUrl: widget.reportHistoryModel.caseFile[index].CaseFilePath,
-                                //   //                   imageBuilder: (context, imageProvider) => Container(
-                                //   //                     decoration: BoxDecoration(
-                                //   //                       image: DecorationImage(
-                                //   //                           image: imageProvider,
-                                //   //                           fit: BoxFit.cover,
-                                //   //                           // colorFilter:
-                                //   //                           // ColorFilter.mode(Colors.red, BlendMode.colorBurn)
-                                //   //                       ),
-                                //   //                     ),
-                                //   //                   ),
-                                //   //                   placeholder: (context, url) => Center(
-                                //   //                     child: Container(
-                                //   //                       width: 10,
-                                //   //                         height: 10,
-                                //   //                         child: Center(child: CircularProgressIndicator())),
-                                //   //                   ),
-                                //   //                   errorWidget: (context, url, error) => Icon(Icons.error),
-                                //   //                 ),
-                                //   //               ),
-                                //   //               // Expanded(
-                                //   //               //     child: Text(caseFileList[index].CaseFileName)),
-                                //   //             ],
-                                //   //           ),
-                                //   //         ),
-                                //   //         onTap: (){
-                                //   //           _launchUrl(Uri.parse(widget.reportHistoryModel.caseFile[index].CaseFilePath));
-                                //   //         },
-                                //   //       );
-                                //   //     }
-                                //   // ),
-                                //   child:StaggeredGridView.countBuilder(
-                                //       physics: ScrollPhysics(),
-                                //       shrinkWrap: true,
-                                //       mainAxisSpacing: 10,
-                                //       crossAxisSpacing: 8,
-                                //       crossAxisCount: 4,
-                                //       itemCount: e.caseRepliedFile.length,
-                                //       itemBuilder: (context, index) {
-                                //         return Container(
-                                //           decoration: BoxDecoration(
-                                //             borderRadius: BorderRadius.all(Radius.circular(12)),
-                                //             color: Colors.transparent,
-                                //           ),
-                                //           child: ClipRRect(
-                                //             borderRadius: BorderRadius.all(Radius.circular(12)),
-                                //             child:e.caseRepliedFile[index].CaseRepliedFileExtension == 'pdf' ? Image.asset('assets/icons/pdf_icon.png'):
-                                //             // Image.network(caseFileList[index].CaseFilePath),
-                                //             CachedNetworkImage(
-                                //               imageUrl: e.caseRepliedFile[index].CaseRepliedFilePath,
-                                //               imageBuilder: (context, imageProvider) => Container(
-                                //                 decoration: BoxDecoration(
-                                //                   image: DecorationImage(
-                                //                     image: imageProvider,
-                                //                     fit: BoxFit.cover,
-                                //                     // colorFilter:
-                                //                     // ColorFilter.mode(Colors.red, BlendMode.colorBurn)
-                                //                   ),
-                                //                 ),
-                                //               ),
-                                //               placeholder: (context, url) => Center(
-                                //                 child: Container(
-                                //                     width: 10,
-                                //                     height: 10,
-                                //                     child: Center(child: CircularProgressIndicator())),
-                                //               ),
-                                //               errorWidget: (context, url, error) => Icon(Icons.error),
-                                //             ),
-                                //           ),
-                                //           // Expanded(
-                                //           //     child: Text(caseFileList[index].CaseFileName)),
-                                //         );
-                                //       },
-                                //       staggeredTileBuilder: (index) {
-                                //         return StaggeredTile.count(1, index.isEven ? 1.4 : 1.9);
-                                //       }),
-                                // ):Container(
-                                // )
                               ],
                             ),
                           );
