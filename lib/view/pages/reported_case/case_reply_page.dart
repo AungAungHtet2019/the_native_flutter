@@ -241,16 +241,16 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
       appBar: AppBar(
         title: Center(child: Text(widget.caseTitle,style: TextStyle(color: Colors.white),)),
         backgroundColor: Colors.lightGreen,
-        actions: <Widget>[
+         actions: <Widget>[
           PopupMenuButton(
             itemBuilder: (BuildContext context) {
               return [
                 PopupMenuItem(
                     child: InkWell(
                         splashColor: Colors.grey, // splash color
-                        child: Text('လုပ်ငန်းပြီးဆုံးကြောင်းအတည်ပြုသည်',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                        child: widget.userID != Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[widget.myIndex].PersonID? Text(""): Text('လုပ်ငန်းပြီးဆုံးကြောင်းအတည်ပြုသည်',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                       onTap: (){
-                        closeCaseFileConfirmDialog();
+                         closeCaseFileConfirmDialog();
                       },
                     )
                 ),
