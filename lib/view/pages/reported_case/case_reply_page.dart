@@ -277,7 +277,7 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
           child: Stack(
             children: <Widget>[
               Column(
-                children: <Widget>[
+                 children: <Widget>[
                   // List of messages
                   Expanded(
                       child:ListView(

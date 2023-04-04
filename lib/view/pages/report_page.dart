@@ -169,7 +169,6 @@ class _ReportPageState extends State<ReportPage> {
                 }
                 else{
                   Navigator.pop(context);
-                  Navigator.pop(context);
                 }
 
 
@@ -413,7 +412,7 @@ class _ReportPageState extends State<ReportPage> {
                   sendReportFormData(widget.userID,widget.gurdiamGroupID,currentSelectedValue,_contentTxtController.text,_summeryTxtController.text,true,true,_map["မြို့နယ်"]!);
                 }
                 else{
-                  statusDialog("Please check Township");
+                  statusDialog("Please fill all field and check Township");
                 }
 
               },

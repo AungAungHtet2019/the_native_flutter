@@ -1,4 +1,4 @@
-package com.example.the_native_flutter
+package com.dsitd.zartimyay
 
 import io.flutter.embedding.android.FlutterActivity
 
