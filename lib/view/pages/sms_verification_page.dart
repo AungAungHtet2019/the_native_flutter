@@ -13,7 +13,7 @@ import 'package:the_native_flutter/view/pages/registeration_page.dart';
 class SmsVerificationPage extends StatefulWidget {
   // const SmsVerificationPage({Key? key}) : super(key: key);
 
-  String phoneNumber,randomnum,signature;
+  String phoneNumber, randomnum,signature;
   SmsVerificationPage(this.phoneNumber,this.randomnum,this.signature);
 
   @override
@@ -163,19 +163,14 @@ class _SmsVerificationPageState extends State<SmsVerificationPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
+                children:  [
                   Text("Verification"),
-                  Text(
-                    "We sent you a SMS Code",
+                  Text("We sent you a sms otp code to "+widget.phoneNumber,
                     style: TextStyle(
-                      fontSize: 20,
+                      // fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  // Text(
-                  //   "On number: +998993727053",
-                  //   style: TextStyle(fontWeight: FontWeight.w500),
-                  // )
                 ],
               ),
             ),

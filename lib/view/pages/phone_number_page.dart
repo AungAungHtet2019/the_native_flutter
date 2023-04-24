@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cipher2/cipher2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:the_native_flutter/view/pages/sms_verification_page.dart';
 import '../../model/user_model.dart';
 import '../../provider/login_provider.dart';
@@ -162,6 +163,40 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
   // }
 
 
+  void phoneNumberConfirmDialog(String phoneNumber) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: new Text("The Native "),
+          content: Padding(
+            padding: const EdgeInsets.only(top:15.0),
+            child: new Text("Is "+phoneNumber+" sure your phone number ?"),
+          ),
+          actions: <Widget>[
+            new TextButton (
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.pop(context);
+
+              },
+            ),
+            new TextButton (
+              child: new Text("Yes"),
+              onPressed: () {
+                Navigator.pop(context);
+                sendOTPSMSAPI(_phoneNumberController.text);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SmsVerificationPage(_phoneNumberController.text,randomnum,signature)));
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -201,44 +236,51 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
                 child: ElevatedButton(
                   onPressed: ()  async{
 
-                    // check data using text input value
-                    // open loading dialog while network call
-                    // close loading dialog
-                    Dialogs.showLoadingDialog(context, _keyLoader);
-                    try{
+                    if(_phoneNumberController.text == "")
+                      return ;
 
-                      // await Provider.of<UserProvider>(context,listen: false).checkUser(_phoneNumberController.text);
-                     String myresult =  await Provider.of<LoginProvider>(context,listen: false).LoginUser(_phoneNumberController.text);
-                     // print("Hey dog "+myresult);
+                    else{
 
-                      // print("hello c");
-                      // print(Provider.of<LoginProvider>(context,listen: false).loginModelData.refreshToken);
-                      // print("hello d");
+                      // check data using text input value
+                      // open loading dialog while network call
+                      // close loading dialog
+                      Dialogs.showLoadingDialog(context, _keyLoader);
+                      try{
 
-                      prefs.setString("accessToken",Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
-                      prefs.setString("refreshToken",Provider.of<LoginProvider>(context,listen: false).loginModelData.refreshToken);
+                        // await Provider.of<UserProvider>(context,listen: false).checkUser(_phoneNumberController.text);
+                        String myresult =  await Provider.of<LoginProvider>(context,listen: false).LoginUser(_phoneNumberController.text);
+                        // print("Hey dog "+myresult);
 
-                      print("This is acc token"+prefs.get("accessToken").toString());
+                        // print("hello c");
+                        // print(Provider.of<LoginProvider>(context,listen: false).loginModelData.refreshToken);
+                        // print("hello d");
 
-                      if(prefs.get("accessToken").toString() != ''){
-                        Navigator.pop(context);
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(phoneNo:_phoneNumberController.text)), (route) => false);
+                        prefs.setString("accessToken",Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+                        prefs.setString("refreshToken",Provider.of<LoginProvider>(context,listen: false).loginModelData.refreshToken);
+
+                        print("This is acc token"+prefs.get("accessToken").toString());
+
+                        if(prefs.get("accessToken").toString() != ''){
+                          Navigator.pop(context);
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(phoneNo:_phoneNumberController.text)), (route) => false);
+                        }
+                        else{
+                          Navigator.pop(context);
+                          phoneNumberConfirmDialog(_phoneNumberController.text);
+
+                        }
+
                       }
-                      else{
+                      catch(exp){
+                        print("exp");
+                        print(exp);
                         Navigator.pop(context);
-                        sendOTPSMSAPI(_phoneNumberController.text);
+                        // sendOTPSMSAPI(_phoneNumberController.text);
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>SmsVerificationPage(_phoneNumberController.text,randomnum,signature)));
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=> NewsPage()));
                       }
+                    }
 
-                    }
-                    catch(exp){
-                      print("exp");
-                      print(exp);
-                      Navigator.pop(context);
-                      // sendOTPSMSAPI(_phoneNumberController.text);
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SmsVerificationPage(_phoneNumberController.text,randomnum,signature)));
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)=> NewsPage()));
-                    }
                   },
                   child: Text("Get OTP".toUpperCase()),
                 ),

@@ -1,4 +1,4 @@
-package com.dsitd.zartimyay
+package com.zartimyay.zartimyay
 
 import io.flutter.embedding.android.FlutterActivity
 

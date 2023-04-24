@@ -242,6 +242,7 @@ class _ReportPageState extends State<ReportPage> {
                       isDense: true,
                       onChanged: (newValue) {
                         setState(() {
+                          print(currentSelectedValue);
                           currentSelectedValue = newValue;
                         });
                         print(currentSelectedValue);
@@ -405,7 +406,7 @@ class _ReportPageState extends State<ReportPage> {
                 ],
               ),
               onPressed: () {
-                if(_map["မြို့နယ်"] != false && _contentTxtController.text != "" && _summeryTxtController.text != " "){
+                if(_map["မြို့နယ်"] != false && currentSelectedValue != null && _contentTxtController.text != "" && _summeryTxtController.text != ""){
                   // print(_map);
                   Dialogs.showLoadingDialog(context, _keyLoader);
                   // _submit();
