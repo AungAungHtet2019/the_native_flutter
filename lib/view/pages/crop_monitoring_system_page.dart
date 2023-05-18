@@ -52,10 +52,10 @@ class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
                 ],
               ),
               child: ListTile(
-                title: Center(child: Text("Sugarcane",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+                title: Center(child: Text("ကြံ",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
-                    title: "Sugarcane",
+                    title: "ကြံ",
                     url: suagrcaneUrl,
                     // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                   )));
@@ -92,10 +92,10 @@ class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
                 ],
               ),
               child: ListTile(
-                title: Center(child: Text("",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+                title: Center(child: Text("ပဲ",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
-                    title: "Peanuts",
+                    title: "ပဲ",
                     url: peanutsUrl,
                     // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                   )));
@@ -135,10 +135,10 @@ class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
                 ],
               ),
               child: ListTile(
-                title: Center(child: Text("Rice",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+                title: Center(child: Text("ဆန်စပါး",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
-                    title: "Rice",
+                    title: "ဆန်စပါး",
                     url: riceUrl,
                     // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                   )));
