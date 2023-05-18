@@ -13,6 +13,13 @@ final String apiEndpointNews = 'https://nnews.myanmarewg-ct.org/wp-json/wp/v2/po
 // final String apiEndpointNews = 'http://dynamic.zartimyay.org/wp-json/wp/v2/posts?_embed';
 // final String apiEndpointNews = 'https://mminfo.myanmarewg-ct.org/wp-json/buddypress/v1/activity';
 
+final String suagrcaneUrl = "http://20.6.128.25/sugarcane.aspx";
+final String peanutsUrl = "http://20.6.128.25/peanuts.aspx";
+final String riceUrl = "http://20.6.128.25/rice.aspx";
+
+
+
+
 
 class URLS {
 
