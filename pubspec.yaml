@@ -100,6 +100,8 @@ dependencies:
 
   webview_flutter: ^4.2.0
 
+  flutter_inappwebview: ^5.0.3-nullsafety.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

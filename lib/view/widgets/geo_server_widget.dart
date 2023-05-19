@@ -8,8 +8,10 @@ import '../../components/custom_alert_dialogbox.dart';
 class GeoServerWidget extends StatefulWidget {
 
   String title;
+  String latLong;
+  String location;
   String url;
-  GeoServerWidget({Key? key,required this.title,required this.url}) : super(key: key);
+  GeoServerWidget({Key? key,required this.title,required this.latLong,required this.location,required this.url}) : super(key: key);
 
 
   @override
@@ -83,6 +85,8 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
               builder: (BuildContext context){
                 return CustomDialogBox(
                   title: "အကြံပြုချက်",
+                  latlong: widget.latLong,
+                  location: widget.location,
                   descriptions: "ပျိုးပင်မရှိသည့်မြေများတွင်စိုက်ပျိုးရေးများလုပ်ဆောင်သင့်ပါသည်။ဖွံ့ဖြိုးမှုကျဆင်းနေသောပျိုးပင်များအားဓာတ်မြေသြဇာအသုံးပြုခြင်း၊ပေါင်းပင်များရှင်းလင်းသင့်ပါသည်။ဖွံ့ဖြိုးမှုအသင့်အတင့်ရှိသောပျိုးပင်များကိုစိုက်ပျိုးရေးနည်းစနစ်များအတိုင်းဆက်လက်လုပ်ဆောင်သင့်ပါသည်။",
                   text: "အိုကေ",
                 );
@@ -91,7 +95,7 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
         },
         label: const Text('View Result'),
         // icon: const Icon(Icons.thumb_up),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.lightGreen,
       ),
     );
   }

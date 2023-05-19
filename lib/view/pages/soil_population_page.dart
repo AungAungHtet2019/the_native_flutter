@@ -57,6 +57,8 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                       title: "ကြံ",
+                      latLong: "19.66910973155886, 96.2860881454839",
+                      location: " အဝေရာဆည်အနီး ",
                       url: suagrcaneSoilUrl,
                       // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                     )));
@@ -97,6 +99,8 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                       title: "ပဲ",
+                      latLong: "19.9498493388524, 96.18230117882081",
+                      location: " ရဲတပ်ရင်း (၂၀) အနီး ",
                       url: peanutsSoilUrl,
                       // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                     )));
@@ -140,6 +144,8 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                       title: "ဆန်စပါး",
+                      latLong: "19.803387373037715, 96.26350603358078",
+                      location: " ရေဆင်းအနီး ",
                       url: riceSoilUrl,
                       // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                     )));
