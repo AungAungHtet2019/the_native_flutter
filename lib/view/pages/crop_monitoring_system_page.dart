@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/rest_api.dart';
 import '../widgets/weather_widget.dart';
@@ -11,6 +12,18 @@ class CropMonitoringSystemPage extends StatefulWidget {
 }
 
 class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
+
+  Future<void> openUrl(String url) async {
+    // const url = 'https://www.twitter.com';  //Twitter's URL
+    if(await canLaunch(url)){
+      await launch(
+          url,
+      );
+    }else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +67,12 @@ class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
               child: ListTile(
                 title: Center(child: Text("ကြံ",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
-                    title: "ကြံ",
-                    url: suagrcaneUrl,
-                    // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
-                  )));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
+                  //   title: "ကြံ",
+                  //   url: suagrcaneUrl,
+                  //   // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
+                  // )));
+                  openUrl(suagrcaneUrl);
                 },
               ),
             ),
@@ -94,11 +108,13 @@ class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
               child: ListTile(
                 title: Center(child: Text("ပဲ",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
-                    title: "ပဲ",
-                    url: peanutsUrl,
-                    // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
-                  )));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
+                  //   title: "ပဲ",
+                  //   url: peanutsUrl,
+                  //   // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
+                  // )));
+                  openUrl(peanutsUrl);
+
                 },
               ),
             ),
@@ -137,11 +153,13 @@ class _CropMonitoringSystemPageState extends State<CropMonitoringSystemPage> {
               child: ListTile(
                 title: Center(child: Text("ဆန်စပါး",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
-                    title: "ဆန်စပါး",
-                    url: riceUrl,
-                    // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
-                  )));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=> WeatherPage(
+                  //   title: "ဆန်စပါး",
+                  //   url: riceUrl,
+                  //   // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
+                  // )));
+                  openUrl(riceUrl);
+
                 },
               ),
             ),

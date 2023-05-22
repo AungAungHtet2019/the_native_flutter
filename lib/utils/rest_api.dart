@@ -23,10 +23,10 @@ final String riceUrl = "http://20.6.128.25/rice.aspx";
 // final String riceSoilUrl = "https://20.6.128.25:8443/geoserver/Rice_NDVI05May/wms?service=WMS&version=1.1.0&request=GetMap&layers=Rice_NDVI05May%3ARice_NDVI_07May2022&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1870&height=940&srs=EPSG%3A32646&styles=&format=application/openlayers";
 
 
-final String suagrcaneSoilUrl = "http://20.6.128.25/sugarcane.aspx";
-final String peanutsSoilUrl = "http://20.6.128.25/peanuts.aspx";
+final String suagrcaneSoilUrl = "https://cms.zartimyay.org/SugarCane.aspx";
+final String peanutsSoilUrl = "https://cms.zartimyay.org/Peanuts.aspx";
 // final String riceSoilUrl = "https://20.6.128.25:8443/geoserver/Rice_NDVI05May/wms?service=WMS&version=1.1.0&request=GetMap&layers=Rice_NDVI05May%3ARice_NDVI_07May2022&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=472&height=768&srs=EPSG%3A32646&styles=&format=application/openlayers";
-final String riceSoilUrl = "http://20.6.128.25/rice.aspx";
+final String riceSoilUrl = "https://cms.zartimyay.org/Rice.aspx";
 
 
 
