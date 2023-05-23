@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:simple_speed_dial/simple_speed_dial.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../components/custom_alert_dialogbox.dart';
+import '../../components/index_alert_dialogbox.dart';
 
 
 
@@ -22,6 +24,8 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
 
   var loadingPercentage = 0;
   late final WebViewController controller;
+
+
 
   @override
   void initState() {
@@ -60,6 +64,8 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
   }
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
@@ -78,24 +84,74 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
           // Text("Loading $loadingPercentage")
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Add your onPressed code here!
-          showDialog(context: context,
-              builder: (BuildContext context){
-                return CustomDialogBox(
-                  title: "အကြံပြုချက်",
-                  latlong: widget.latLong,
-                  location: widget.location,
-                  descriptions: "ပျိုးပင်မရှိသည့်မြေများတွင်စိုက်ပျိုးရေးများလုပ်ဆောင်သင့်ပါသည်။ဖ ွံ့ဖြိုးမှုကျဆင်းနေသောပျိုးပင်များအားဓာတ်မြေသြဇာအသုံးပြုခြင်း၊ပေါင်းပင်များရှင်းလင်းသင့်ပါသည်။ဖွံ့ဖြိုးမှုအသင့်အတင့်ရှိသောပျိုးပင်များကိုစိုက်ပျိုးရေးနည်းစနစ်များအတိုင်းဆက်လက်လုပ်ဆောင်သင့်ပါသည်။",
-                  text: "အိုကေ",
-                );
-              }
-          );
-        },
-        label: const Text('View Result'),
-        // icon: const Icon(Icons.thumb_up),
-        backgroundColor: Colors.lightGreen,
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //     showDialog(context: context,
+      //         builder: (BuildContext context){
+      //           return CustomDialogBox(
+      //             title: "အကြံပြုချက်",
+      //             latlong: widget.latLong,
+      //             location: widget.location,
+      //             descriptions: "ပျိုးပင်မရှိသည့်မြေများတွင်စိုက်ပျိုးရေးများလုပ်ဆောင်သင့်ပါသည်။ဖွံ့ဖြိုးမှုကျဆင်းနေသောပျိုးပင်များအားဓာတ်မြေသြဇာအသုံးပြုခြင်း၊ပေါင်းပင်များရှင်းလင်းသင့်ပါသည်။ဖွံ့ဖြိုးမှုအသင့်အတင့်ရှိသောပျိုးပင်များကိုစိုက်ပျိုးရေးနည်းစနစ်များအတိုင်းဆက်လက်လုပ်ဆောင်သင့်ပါသည်။",
+      //             text: "အိုကေ",
+      //           );
+      //         }
+      //     );
+      //   },
+      //   label: const Text('AI Result'),
+      //   // icon: const Icon(Icons.thumb_up),
+      //   backgroundColor: Colors.lightGreen,
+      // ),
+      floatingActionButton: SpeedDial(
+        child: Icon(Icons.email),
+        closedForegroundColor: Colors.orange,
+        openForegroundColor: Colors.white,
+        closedBackgroundColor: Colors.white,
+        openBackgroundColor: Colors.red,
+        // labelsStyle: /* Your label TextStyle goes here */,
+        labelsBackgroundColor: Colors.white,
+        // controller: /* Your custom animation controller goes here */,
+        speedDialChildren: <SpeedDialChild>[
+          SpeedDialChild(
+            child: Icon(Icons.task_rounded),
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.red,
+            label: 'AI Result',
+            onPressed: () {
+                  showDialog(context: context,
+                      builder: (BuildContext context){
+                        return CustomDialogBox(
+                          title: "အကြံပြုချက်",
+                          latlong: widget.latLong,
+                          location: widget.location,
+                          descriptions: "ပျိုးပင်မရှိသည့်မြေများတွင်စိုက်ပျိုးရေးများလုပ်ဆောင်သင့်ပါသည်။ဖွံ့ဖြိုးမှုကျဆင်းနေသောပျိုးပင်များအားဓာတ်မြေသြဇာအသုံးပြုခြင်း၊ပေါင်းပင်များရှင်းလင်းသင့်ပါသည်။ဖွံ့ဖြိုးမှုအသင့်အတင့်ရှိသောပျိုးပင်များကိုစိုက်ပျိုးရေးနည်းစနစ်များအတိုင်းဆက်လက်လုပ်ဆောင်သင့်ပါသည်။",
+                          text: "အိုကေ",
+                        );
+                      }
+                  );
+            },
+            closeSpeedDialOnPressed: false,
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.trending_up),
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.yellow,
+            label: "ရည်ညွှန်းချက်",
+            onPressed: () {
+              showDialog(context: context,
+                  builder: (BuildContext context){
+                    return IndexDialogBox(
+                      title: "ရည်ညွှန်းချက်",
+                      text: "အိုကေ",
+                    );
+                  }
+              );
+            },
+            closeSpeedDialOnPressed: false,
+          ),
+          //  Your other SpeedDialChildren go here.
+        ],
       ),
     );
   }

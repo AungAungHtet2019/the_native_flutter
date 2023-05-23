@@ -266,14 +266,14 @@ class _HomePageState extends State<HomePage> {
                       // ),
                       ListTile(
                         leading: const Icon(Icons.map),
-                        title: const Text(' Crop Monitoring System '),
+                        title: const Text('စိုက်ခင်းအခြေအနေကြည့်ရှုရန်',style: TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> CropMonitoringSystemPage()));
                         },
                       ),
                       ListTile(
                         leading: const Icon(Icons.cloud),
-                        title: const Text(' Soil Pollution '),
+                        title: const Text('စိုက်ခင်းဧရိယာသတ်မှတ်ရန်',style: TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> SoilPopulationPage(
                             // title: "Soil Pollution",

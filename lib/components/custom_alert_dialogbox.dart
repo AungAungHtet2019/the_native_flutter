@@ -43,11 +43,14 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(widget.title,style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
+              Center(child: Text(widget.title,style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600),)),
               SizedBox(height: 15,),
-              Text(widget.latlong,style: TextStyle(fontSize: 22),textAlign: TextAlign.start,),
-              Text(widget.location,style: TextStyle(fontSize: 22),textAlign: TextAlign.start,),
+              Text(widget.latlong,style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
+              Divider(),
+              Text(widget.location,style: TextStyle(fontSize: 22),textAlign: TextAlign.justify,),
+              Divider(),
               Text(widget.descriptions,style: TextStyle(fontSize: 22),textAlign: TextAlign.justify,),
               SizedBox(height: 22,),
               Align(

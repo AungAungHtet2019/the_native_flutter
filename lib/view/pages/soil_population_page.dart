@@ -17,7 +17,7 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.lightGreenAccent,
-          title: Text("Soil Population Monitoring System",style: TextStyle(color: Colors.black),),
+          title: Text("စိုက်ခင်းဧရိယာသတ်မှတ်ရန်",style: TextStyle(color: Colors.black),),
         ),
         body:ListView(
           children: [
@@ -53,10 +53,10 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
                   ],
                 ),
                 child: ListTile(
-                  title: Center(child: Text("ကြံ",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+                  title: Center(child: Text("ကြံစိုက်ခင်း",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
-                      title: "ကြံ",
+                      title: "ကြံစိုက်ခင်း",
                       latLong: "19.66910973155886, 96.2860881454839",
                       location: " အဝေရာဆည်အနီး ",
                       url: suagrcaneSoilUrl,
@@ -95,10 +95,10 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
                   ],
                 ),
                 child: ListTile(
-                  title: Center(child: Text("ပဲ",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+                  title: Center(child: Text("ပဲစိုက်ခင်း",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
-                      title: "ပဲ",
+                      title: "ပဲစိုက်ခင်း",
                       latLong: "19.9498493388524, 96.18230117882081",
                       location: " ရဲတပ်ရင်း (၂၀) အနီး ",
                       url: peanutsSoilUrl,
@@ -140,10 +140,10 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
                   ],
                 ),
                 child: ListTile(
-                  title: Center(child: Text("ဆန်စပါး",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+                  title: Center(child: Text("စပါးစိုက်ခင်း",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
-                      title: "ဆန်စပါး",
+                      title: "စပါးစိုက်ခင်း",
                       latLong: "19.803387373037715, 96.26350603358078",
                       location: " ရေဆင်းအနီး ",
                       url: riceSoilUrl,
