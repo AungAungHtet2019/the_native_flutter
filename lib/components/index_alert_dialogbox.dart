@@ -60,7 +60,7 @@ class _IndexDialogBoxState extends State<IndexDialogBox> {
                     children: [
 
                       Text("၀.၀၃၅ - ၀.၁၉၇",style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
-                      Text("ပျိုးပင်မရှိသည့်မြေ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
+                      Text("ပျိုးပင်မရှိသည့်မြေ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
                     ],
                   ),
                 ],
