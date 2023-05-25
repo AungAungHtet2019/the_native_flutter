@@ -6,17 +6,17 @@ import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DrawPolygonPage extends StatefulWidget {
+class DrewPolygonPage extends StatefulWidget {
 
   @override
-  _DrawPolygonPageState createState() => _DrawPolygonPageState();
+  _DrewPolygonPageState createState() => _DrewPolygonPageState();
 }
 
-class _DrawPolygonPageState extends State<DrawPolygonPage> {
+class _DrewPolygonPageState extends State<DrewPolygonPage> {
   static final Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(19.807637580711738, 96.26808359200848),
+    target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
 

@@ -104,6 +104,8 @@ dependencies:
 
   simple_speed_dial: ^0.1.7
 
+  google_maps_flutter: ^0.5.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
