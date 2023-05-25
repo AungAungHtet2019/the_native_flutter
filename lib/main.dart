@@ -40,6 +40,7 @@ void main(){
         debugShowCheckedModeBanner: false,
 
         theme: ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
             primaryColor: kPrimaryColor,
             scaffoldBackgroundColor: Colors.white,
             elevatedButtonTheme: ElevatedButtonThemeData(

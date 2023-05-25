@@ -18,6 +18,7 @@ import '../../provider/refresh_token_provider.dart';
 import '../../utils/global.dart';
 import '../widgets/weather_widget.dart';
 import 'crop_monitoring_system_page.dart';
+import 'draw_polygon_page.dart';
 import 'member_page.dart';
 import 'news_page.dart';
 
@@ -275,11 +276,7 @@ class _HomePageState extends State<HomePage> {
                         leading: const Icon(Icons.cloud),
                         title: const Text('စိုက်ခင်းဧရိယာသတ်မှတ်ရန်',style: TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> SoilPopulationPage(
-                            // title: "Soil Pollution",
-                            // url: 'https://www.meteoblue.com/en/weather/maps/widget/city-of-coppell_united-states_7173229?windAnimation=0&windAnimation=1&gust=0&gust=1&satellite=0&satellite=1&cloudsAndPrecipitation=0&cloudsAndPrecipitation=1&temperature=0&temperature=1&sunshine=0&sunshine=1&extremeForecastIndex=0&extremeForecastIndex=1&geoloc=fixed&tempunit=C&windunit=km%252Fh&lengthunit=metric&zoom=5&autowidth=auto#coords=5/32.96/-96.99&map=windAnimation~rainbow~auto~10%20m%20above%20gnd~none',
-                            // url: 'http://20.6.128.25:8080/geoserver/Mytesting/wms?service=WMS&version=1.1.0&request=GetMap&layers=Mytesting%3Aphh2o_30-60cm_Q0.5&bbox=-179.998%2C-55.9773%2C179.994%2C82.7193&width=1893&height=915&srs=EPSG%3A4326&styles=&format=application/openlayers#toggle',
-                          )));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
                         },
                       ),
                       ListTile(

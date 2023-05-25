@@ -17,7 +17,7 @@ class _SoilPopulationPageState extends State<SoilPopulationPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.lightGreenAccent,
-          title: Text("စိုက်ခင်းဧရိယာသတ်မှတ်ရန်",style: TextStyle(color: Colors.black),),
+          title: Text("စိုက်ခင်းအမျိုးအစားရွေးချယ်ခြင်း",style: TextStyle(color: Colors.black),),
         ),
         body:ListView(
           children: [

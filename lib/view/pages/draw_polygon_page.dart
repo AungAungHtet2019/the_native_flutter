@@ -5,6 +5,10 @@ import 'dart:math' as Math;
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:the_native_flutter/view/pages/soil_population_page.dart';
+
+import '../../utils/rest_api.dart';
+import '../widgets/geo_server_widget.dart';
 
 class DrewPolygonPage extends StatefulWidget {
 
@@ -13,10 +17,10 @@ class DrewPolygonPage extends StatefulWidget {
 }
 
 class _DrewPolygonPageState extends State<DrewPolygonPage> {
-  static final Completer<GoogleMapController> _controller = Completer();
+  Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(19.806978312132447, 96.27252819161612),
     zoom: 14.4746,
   );
 
@@ -26,11 +30,33 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
   bool _drawPolygonEnabled = false;
   List<LatLng> _userPolyLinesLatLngList = <LatLng>[];
   bool _clearDrawing = false;
-  late int _lastXCoordinate, _lastYCoordinate;
+  int _lastXCoordinate =0, _lastYCoordinate = 0;
 
+  @override
+  void dispose() async{
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightGreenAccent,
+        title: Text("စိုက်ခင်းဧရိယာသတ်မှတ်ရန်",style: TextStyle(color: Colors.black),),
+        actions: [
+          _clearDrawing && _drawPolygonEnabled == true ? IconButton(
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
+                  title: "စပါးစိုက်ခင်းအခြေအနေ",
+                  latLong: "19.803387373037715, 96.26350603358078",
+                  location: " ရေဆင်းအနီး ",
+                  url: riceSoilUrl,
+                  // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
+                )));
+              },
+              icon: Icon(Icons.send_time_extension_rounded,color: Colors.red,)): Container()
+        ],
+      ),
       body: GestureDetector(
         onPanUpdate: (_drawPolygonEnabled) ? _onPanUpdate : null,
         onPanEnd: (_drawPolygonEnabled) ? _onPanEnd : null,
@@ -40,7 +66,13 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
           polygons: _polygons,
           polylines: _polyLines,
           onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
+            print("GoogleMap->onMapCreated");
+            if(_controller.isCompleted){
+              print("_controller is already completed");
+            }
+            else{
+              _controller.complete(controller);
+            }
           },
         ),
       ),
@@ -58,6 +90,9 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
   }
 
   _onPanUpdate(DragUpdateDetails details) async {
+
+    print("_onPanUpdate ${details.delta.dx}");
+
     // To start draw new polygon every time.
     if (_clearDrawing) {
       _clearDrawing = false;
@@ -95,21 +130,39 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
       ScreenCoordinate screenCoordinate = ScreenCoordinate(x: xCoordinate, y: yCoordinate);
 
       final GoogleMapController controller = await _controller.future;
-      LatLng latLng = await controller.getLatLng(screenCoordinate);
+      LatLng latLng = LatLng(0, 0);
+      try{
+        print("converting screen coordinate to lat lng");
+        print(screenCoordinate);
+
+        latLng = await controller.getLatLng(screenCoordinate);
+      }
+      catch(exp, stackTrace){
+        print("getLatLng throw exp");
+        print(exp);
+        print(stackTrace);
+      }
+      if(latLng.longitude == 0 && latLng.latitude == 0){
+        print("can't get lat lng from map");
+        return;
+      }
 
       try {
         // Add new point to list.
         _userPolyLinesLatLngList.add(latLng);
 
         _polyLines.removeWhere((polyline) => polyline.polylineId.value == 'user_polyline');
-        _polyLines.add(
-          Polyline(
-            polylineId: PolylineId('user_polyline'),
-            points: _userPolyLinesLatLngList,
-            width: 2,
-            color: Colors.blue,
-          ),
-        );
+        if(_userPolyLinesLatLngList.isNotEmpty){
+          _polyLines.add(
+            Polyline(
+              polylineId: PolylineId('user_polyline'),
+              points: _userPolyLinesLatLngList,
+              width: 2,
+              color: Colors.blue,
+            ),
+          );
+
+        }
       } catch (e) {
         print(" error painting $e");
       }
@@ -124,22 +177,27 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
 
     if (_drawPolygonEnabled) {
       _polygons.removeWhere((polygon) => polygon.polygonId.value == 'user_polygon');
-      _polygons.add(
-        Polygon(
-          polygonId: PolygonId('user_polygon'),
-          points: _userPolyLinesLatLngList,
-          strokeWidth: 2,
-          strokeColor: Colors.blue,
-          fillColor: Colors.blue.withOpacity(0.4),
-        ),
-      );
+      if(_userPolyLinesLatLngList.isNotEmpty){
+
+        _polygons.add(
+          Polygon(
+            polygonId: PolygonId('user_polygon'),
+            points: _userPolyLinesLatLngList,
+            strokeWidth: 2,
+            strokeColor: Colors.blue,
+            fillColor: Colors.blue.withOpacity(0.4),
+          ),
+        );
+      }
       setState(() {
         _clearDrawing = true;
+
       });
     }
   }
 
   _clearPolygons() {
+    print("_clearPolygons");
     setState(() {
       _polyLines.clear();
       _polygons.clear();
