@@ -59,8 +59,8 @@ class _IndexDialogBoxState extends State<IndexDialogBox> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      Text("၀.၀၃၅ - ၀.၁၉၇",style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
-                      Text("ပျိုးပင်မရှိသည့်မြေ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
+                      Text("၀.၀၃၅ - ၀.၁၉၇",textAlign: TextAlign.start,),
+                      Text("ပျိုးပင်မရှိသည့်မြေ",textAlign: TextAlign.start,),
                     ],
                   ),
                 ],
@@ -77,8 +77,8 @@ class _IndexDialogBoxState extends State<IndexDialogBox> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("၀.၁၉၇ - ၀.၃၅၉",style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
-                      Text("ဖွံ့ဖြိုးမှုကျဆင်းသောပျိုးပင်များ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
+                      Text("၀.၁၉၇ - ၀.၃၅၉",textAlign: TextAlign.start,),
+                      Text("ဖွံ့ဖြိုးမှုကျဆင်းသောပျိုးပင်များ",textAlign: TextAlign.start,),
                     ],
                   ),
                 ],
@@ -95,8 +95,8 @@ class _IndexDialogBoxState extends State<IndexDialogBox> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("၀.၃၅၉ - ၀.၅၂၁",style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
-                      Text("ဖွံ့ဖြိုးမှုအသင့်အတင့်ရှိသောပျိုးပင်များ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
+                      Text("၀.၃၅၉ - ၀.၅၂၁",textAlign: TextAlign.start,),
+                      Text("ဖွံ့ဖြိုးမှုအသင့်အတင့်ရှိသောပျိုးပင်များ",textAlign: TextAlign.start,),
                     ],
                   ),
                 ],
@@ -113,8 +113,8 @@ class _IndexDialogBoxState extends State<IndexDialogBox> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("၀.၅၂၁ - ၀.၆၈၃",style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
-                      Text("ဖွံ့ဖြိုးမှုကောင်းသောပျိုးပင်များ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
+                      Text("၀.၅၂၁ - ၀.၆၈၃",textAlign: TextAlign.start,),
+                      Text("ဖွံ့ဖြိုးမှုကောင်းသောပျိုးပင်များ",textAlign: TextAlign.start,),
                     ],
                   ),
                 ],
@@ -131,8 +131,8 @@ class _IndexDialogBoxState extends State<IndexDialogBox> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("၀.၆၈၃ - ၀.၈၄၄ ",style: TextStyle(fontSize: 16),textAlign: TextAlign.start,),
-                      Text("ဖွံ့ဖြိုးမှုအကောင်းဆုံးပျိုးပင်များ",style: TextStyle(fontSize: 18),textAlign: TextAlign.start,),
+                      Text("၀.၆၈၃ - ၀.၈၄၄ ",textAlign: TextAlign.start,),
+                      Text("ဖွံ့ဖြိုးမှုအကောင်းဆုံးပျိုးပင်များ",textAlign: TextAlign.start,),
 
                     ],
                   ),
