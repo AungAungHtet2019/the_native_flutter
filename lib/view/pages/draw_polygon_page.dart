@@ -57,6 +57,7 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
               icon: Icon(Icons.send_time_extension_rounded,color: Colors.red,)): Container()
         ],
       ),
+
       body: GestureDetector(
         onPanUpdate: (_drawPolygonEnabled) ? _onPanUpdate : null,
         onPanEnd: (_drawPolygonEnabled) ? _onPanEnd : null,
@@ -76,6 +77,9 @@ class _DrewPolygonPageState extends State<DrewPolygonPage> {
           },
         ),
       ),
+
+
+
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleDrawing,
         tooltip: 'Drawing',

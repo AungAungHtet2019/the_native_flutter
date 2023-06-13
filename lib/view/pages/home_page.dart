@@ -19,6 +19,7 @@ import '../../utils/global.dart';
 import '../widgets/weather_widget.dart';
 import 'crop_monitoring_system_page.dart';
 import 'draw_polygon_page.dart';
+import 'draw_polygon_using_point_page.dart';
 import 'member_page.dart';
 import 'news_page.dart';
 
@@ -276,7 +277,9 @@ class _HomePageState extends State<HomePage> {
                         leading: const Icon(Icons.cloud),
                         title: const Text('စိုက်ခင်းဧရိယာသတ်မှတ်ရန်',style: TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DrawPolygonUsingPointPage()));
                         },
                       ),
                       ListTile(
