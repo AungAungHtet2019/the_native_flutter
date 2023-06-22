@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/rest_api.dart';
 import '../widgets/geo_server_widget.dart';
+import 'google_map/show_tile_overlay.dart';
 
 class DrawPolygonUsingPointPage extends StatefulWidget {
   const DrawPolygonUsingPointPage({Key? key}) : super(key: key);
@@ -45,6 +46,8 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
         actions: [
           _clearDrawing && _drawPolygonEnabled == true && _points.length > 2 ? IconButton(
               onPressed: (){
+
+                /*
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                   title: "စပါးစိုက်ခင်းအခြေအနေ",
                   latLong: "19.803387373037715, 96.26350603358078",
@@ -52,7 +55,11 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
                   url: riceSoilUrl,
                   // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                 )));
-              },
+
+                 */
+
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
+                },
               icon: Icon(Icons.send_time_extension_rounded,color: Colors.red,)): Container()
         ],
       ),
