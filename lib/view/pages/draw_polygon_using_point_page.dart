@@ -47,18 +47,26 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           _clearDrawing && _drawPolygonEnabled == true && _points.length > 2 ? IconButton(
               onPressed: (){
 
-                /*
+                print(_points);
+                print(_points[0]);
+                print(_points[3]);
+                print(_points[3].longitude);
+
+
+
+
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                   title: "စပါးစိုက်ခင်းအခြေအနေ",
                   latLong: "19.803387373037715, 96.26350603358078",
                   location: " ရေဆင်းအနီး ",
-                  url: riceSoilUrl,
+                  // url: riceSoilUrl,
+                  url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
                   // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
                 )));
 
-                 */
 
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
+
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
                 },
               icon: Icon(Icons.send_time_extension_rounded,color: Colors.red,)): Container()
         ],
