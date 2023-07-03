@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -51,6 +52,14 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
                 print(_points[0]);
                 print(_points[3]);
                 print(_points[3].longitude);
+
+                List myArrayList = [];
+                _points.forEach((element) {
+                  myArrayList.add([element.longitude.toString(),element.latitude.toString()]);
+                });
+                print("Hey");
+                print(myArrayList);
+                print(myArrayList[0][0]);
 
 
 
