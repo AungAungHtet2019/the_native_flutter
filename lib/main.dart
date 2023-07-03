@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_native_flutter/constants.dart';
+import 'package:the_native_flutter/provider/crop_monitioring_provider.dart';
 import 'package:the_native_flutter/provider/login_provider.dart';
 import 'package:the_native_flutter/provider/refresh_token_provider.dart';
 import 'package:the_native_flutter/provider/report_history_provider.dart';
@@ -35,6 +36,7 @@ void main(){
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => ReportHistoryProvider()),
           ChangeNotifierProvider(create: (_) => SuccessedReportHistoryProvider()),
+          ChangeNotifierProvider(create: (_) => CropMonitoringProvider()),
         ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

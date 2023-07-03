@@ -4,7 +4,9 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/crop_monitioring_provider.dart';
 import '../../utils/rest_api.dart';
 import '../widgets/geo_server_widget.dart';
 import 'google_map/show_tile_overlay.dart';
@@ -37,6 +39,12 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   bool _clearDrawing = false;
 
 
+  getResult(List latLongArrayList)async{
+    print("hello getResult");
+    bool result = await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList);
+    print(result);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +63,14 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
                 List myArrayList = [];
                 _points.forEach((element) {
-                  myArrayList.add([element.longitude.toString(),element.latitude.toString()]);
+                  myArrayList.add([element.longitude,element.latitude]);
                 });
+                myArrayList.add(myArrayList[0]);
                 print("Hey");
                 print(myArrayList);
                 print(myArrayList[0][0]);
 
-
+                getResult(myArrayList);
 
 
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
