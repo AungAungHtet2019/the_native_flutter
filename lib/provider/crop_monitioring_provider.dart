@@ -7,13 +7,18 @@ import '../utils/rest_api.dart';
 
 class CropMonitoringProvider extends ChangeNotifier{
 
+  bool status = false;
+  String viewId = "";
+  String taskId = "";
+
+  //Getter for taskId flag
+  String get taskID => taskId;
+
   Future<bool> requestSearchScence(List latLongList)async{
 
     print("Hey requestSearchScence");
     print(DateTime.now().subtract(Duration(days:1)).toString().split(" ")[0]);
-    bool status = false;
-    String viewId = "";
-    String taskId = "";
+
 
     Map body={
       "fields": [
@@ -24,8 +29,10 @@ class CropMonitoringProvider extends ChangeNotifier{
       "page": 1,
       "search": {
         "date": {
-          "from": DateTime.now().subtract(Duration(days:5)).toString().split(" ")[0],
-          "to": DateTime.now().subtract(Duration(days:4)).toString().split(" ")[0],
+          // "from": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
+          // "to": DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0],
+          "from": "2020-03-01",
+          "to": "2020-03-10",
         },
         "cloudCoverage": {
           "from": 0,
@@ -58,7 +65,7 @@ class CropMonitoringProvider extends ChangeNotifier{
       "type": "jpeg",
       "params": {
         "view_id": viewId,
-        "bm_type": "NDVI",
+        "bm_type": "B02,B03,B04",
         "geometry":{
           "type": "Polygon",
           "coordinates": [
@@ -72,7 +79,7 @@ class CropMonitoringProvider extends ChangeNotifier{
       }
     };
     var jsonbodyDownloadVisual = json.encode(downloadVisualMap);
-    await ApiServices.downloadVisual(jsonbodyDownloadVisual).then((value) {
+    await ApiServices.downloadVisual(jsonbodyDownloadVisual).then((value) async{
       print(value);
       Map<String, dynamic> dataResponse = jsonDecode(value);
       print("downloadVisual data is "+dataResponse.toString());
@@ -80,6 +87,21 @@ class CropMonitoringProvider extends ChangeNotifier{
       taskId = dataResponse['task_id'];
       if(taskId != ""){
         status = true;
+
+        Map latLngMap = {
+          "taskID":taskId,
+          "latLongList":latLongList
+        };
+        var jsonbodyLatLong = json.encode(latLngMap);
+        await ApiService.insertTaskID_LatLong(jsonbodyLatLong).then((value) {
+          if(value == "success"){
+            status =true;
+            taskId;
+            notifyListeners();
+          }
+
+        });
+
       }
       else{
         status = false;

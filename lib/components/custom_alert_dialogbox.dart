@@ -51,7 +51,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               Divider(),
               Text(widget.location,style: TextStyle(fontSize: 22),textAlign: TextAlign.justify,),
               Divider(),
-              Text(widget.descriptions,style: TextStyle(fontSize: 22),textAlign: TextAlign.justify,),
+              Text(widget.descriptions,style: TextStyle(fontSize: 16),textAlign: TextAlign.justify,),
               Align(
                 alignment: Alignment.bottomRight,
                 child: TextButton(

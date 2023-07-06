@@ -11,6 +11,7 @@ class URLs{
   static const String download_visual_url = "https://gate.eos.com/api/gdw/api?api_key="+api_key;
 
 
+
 }
 
 class ApiServices{
@@ -44,4 +45,6 @@ class ApiServices{
     return r.body;
 
   }
+
+
 }
