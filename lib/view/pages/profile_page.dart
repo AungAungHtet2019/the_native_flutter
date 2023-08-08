@@ -15,8 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_native_flutter/view/pages/reported_case/case_reply_page.dart';
+import 'package:the_native_flutter/view/pages/reported_case/report_detail_page.dart';
 
 import '../../provider/login_provider.dart';
+import '../../provider/report_history_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -431,7 +434,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
-              elevation: 7,
+              // elevation: 7,
                 child: Padding(
                   padding:EdgeInsets.all(12.0),
                   child: Row(
@@ -483,35 +486,167 @@ class _ProfilePageState extends State<ProfilePage> {
                 )
             ),
           ),
-          _list.isNotEmpty
-              ?ListView(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            children: Provider.of<UserProvider>(context,listen: true).categoryList.map((e) {
-              var index = Provider.of<UserProvider>(context,listen: true).categoryList.indexOf(e);
-              return CheckboxListTile(
-                title: Text(e.CategoryName),
-                // value: selected[index],
-                value:  Provider.of<UserProvider>(context,listen: true).likedCategoryList.contains(e.CategoryCode) ? true : selected[index],
-                onChanged: (val) async{
-                  Dialogs.showLoadingDialog(context, _keyLoader);//invoking login
-                  String result = await insertLikedCategory(e.CategoryCode);
+          _list.isNotEmpty ?Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: ListTile(
+                    title: ExpansionTile(
+                      title: Center(child: Text("Categories")),
+                      children: Provider.of<UserProvider>(context,listen: true).categoryList.map((e) {
+                        var index = Provider.of<UserProvider>(context,listen: true).categoryList.indexOf(e);
+                        return CheckboxListTile(
+                      title: Text(e.CategoryName),
+                      // value: selected[index],
+                      value:  Provider.of<UserProvider>(context,listen: true).likedCategoryList.contains(e.CategoryCode) ? true : selected[index],
+                      onChanged: (val) async{
+                        Dialogs.showLoadingDialog(context, _keyLoader);//invoking login
+                        String result = await insertLikedCategory(e.CategoryCode);
 
-                  selected[index] = val!;
-                  print("index is "+index.toString()+val.toString());
-                  val == false ? Provider.of<UserProvider>(context,listen: false).deleteLikedCategory(result):
-                  Provider.of<UserProvider>(context,listen: false).insertLikedCategory(result);
-                  Provider.of<UserProvider>(context,listen: false).getLikedCategory(encryptedUID);
-                  getData();
-                  Navigator.pop(context);
+                        selected[index] = val!;
+                        print("index is "+index.toString()+val.toString());
+                        val == false ? Provider.of<UserProvider>(context,listen: false).deleteLikedCategory(result):
+                        Provider.of<UserProvider>(context,listen: false).insertLikedCategory(result);
+                        Provider.of<UserProvider>(context,listen: false).getLikedCategory(encryptedUID);
+                        getData();
+                        Navigator.pop(context);
 
-                },
-              );
-            }).toList(),
-          ):Container()
+                      },
+                    );
+                }).toList(),
+              ),
+                  ),
+            ),
+          ):Container(),
 
+          /*
+          ListView.builder(
+              itemCount: Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel.length,
+              itemBuilder: (context,index){
+                return Card(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 40,
+                                          width: 40,
+                                          child: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
+                                            radius: 70.0,
+                                            backgroundImage: AssetImage('assets/images/profile-unknown.png'),
+                                            backgroundColor: Colors.white,
+                                          ):ClipRRect(
+                                            borderRadius: BorderRadius.circular(800),
+                                            child: CachedNetworkImage(
+                                              width: 40,
+                                              height: 40,
+                                              fit: BoxFit.cover,
+                                              imageUrl: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].DomainName+Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].UserProfilePicture,
+                                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                                  CircularProgressIndicator(value: downloadProgress.progress),
+                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child:Container(
+                                                child:Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children:[
+                                                      Text(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
+                                                      Row(
+                                                        children: [
+                                                          Text((Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].CreatedDate.replaceAll("T", " ")).split(".")[0]),
+                                                          Container(
+                                                            height: 15,
+                                                            width: 20,
+                                                            // child: CircleAvatar(
+                                                            //   backgroundImage: AssetImage('assets/icons/world.png'),
+                                                            //   backgroundColor: Colors.white,
+                                                            // ),
+                                                            child: Image.asset('assets/icons/world.png'),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ]
+                                                )
+                                            )
+
+                                        ),
+                                      ],
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Text(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].CaseSubject,style: TextStyle(fontWeight: FontWeight.bold),),
+                      ReportDetailPage(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index]
+                        // ,reportHistoryModel[index].CaseID
+                      ),
+                      Divider(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    height: 25,
+                                    width:25,
+                                    child: Image.asset("assets/icons/paper-plane.png")),
+                                Text("ပြန်ကြားစာ"
+                                  ,style: TextStyle(fontWeight: FontWeight.bold),),
+
+                                //ပြန်ကြားစာအရေအတွက်အား (အထက်ဌာနမှ ပြန်ကြားသည့်အရေအတွက်သာဖော်ပြန်ရန်) ကိုယ်မဟုတ်သည့်ပြန်ကြားစာအရေအတွက်ဖော်ပြထားခြင်းဖြစ်သည်။
+                               // Text(" "+Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].caseReplied.where((e) => e.PersonID != widget.userID).toList().length.toString()+" စောင်",style: TextStyle(fontWeight: FontWeight.bold),)
+
+                              ],
+                            ),
+                          ),
+                          onTap: (){
+                            /*
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CaseReplyListPage(
+                                widget.userID,
+                                widget.groupID,
+                                Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].CaseID,
+                                Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].CaseSubject,
+                                index)));
+                            // showDialogBox(Provider.of<ReportHistoryProvider>(context,listen: false).reportHistoryModel[index].CaseID,Provider.of<ReportHistoryProvider>(context,listen: false).reportHistoryModel[index].caseReplied);
+
+                             */
+                          },
+                        ),
+                      ),
+                      Divider(
+                        height: 10,
+                      )
+                    ],
+                  ),
+                );
+
+              })
+
+           */
         ],
       ),
     );
   }
 }
+

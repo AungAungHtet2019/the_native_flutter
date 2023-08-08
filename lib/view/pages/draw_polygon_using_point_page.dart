@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/crop_monitioring_provider.dart';
+import '../../provider/user_provider.dart';
 import '../../utils/rest_api.dart';
 import '../widgets/geo_server_widget.dart';
 import 'google_map/show_tile_overlay.dart';
@@ -48,10 +49,14 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
   getResult(List latLongArrayList)async{
     print("hello getResult");
-    mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList);
+    String userID = Provider.of<UserProvider>(context,listen: false).userModel.UserID;
+
+
+
+    mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID);
     print(mapStatus);
     if(mapStatus == true){
-      String taskID = await Provider.of<CropMonitoringProvider>(context,listen: false).taskId;
+      String viewId = await Provider.of<CropMonitoringProvider>(context,listen: false).viewId;
       setState(() {
         loadingStatus = false;
       });
@@ -59,13 +64,26 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           title: "စပါးစိုက်ခင်းအခြေအနေ",
           latLong: "19.803387373037715, 96.26350603358078",
           location: " ရေဆင်းအနီး ",
-          // url: riceSoilUrl,
           // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
-          url:"https://rrms.zartimyay.org/map?task="+taskID
-        // url: 'http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers',
+          url:"https://rrms.zartimyay.org/map?task="+viewId
       )));
+      myArrayList.clear();
 
     }
+
+    ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
+    /*
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
+        title: "စိုက်ခင်းအခြေအနေ",
+        latLong: "19.803387373037715, 96.26350603358078",
+        location: " ရေဆင်းအနီး ",
+        // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
+        url:"https://rrms.zartimyay.org/ground_overlay.html"
+    )));
+     */
+    ///
+
+
   }
 
   _getCurrentLocation() async {
@@ -157,6 +175,8 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
                 print(_points[3].longitude);
 
 
+
+
                 _points.forEach((element) {
                   myArrayList.add([element.longitude,element.latitude]);
                 });
@@ -165,6 +185,25 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
                 print(myArrayList);
                 print(myArrayList[0][0]);
 
+
+
+                ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
+                /*
+                myArrayList = [
+                  [-86.86718,41.317464],
+                  [-86.86718,41.331596],
+                  [-86.862631,41.331596],
+                  [-86.862631,41.317464],
+                  [-86.86718,41.317464]
+                ];
+                print("Hey");
+                print(myArrayList);
+                print(myArrayList[0][0]);
+
+
+                 */
+
+                ///
                 getResult(myArrayList);
 
 
@@ -177,7 +216,11 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
       body:loadingStatus == false ? GoogleMap(
         mapType:  MapType.satellite,
         initialCameraPosition:  CameraPosition(
-          target: _currentPosition ?? LatLng(19.806978312132447, 96.27252819161612),
+           target: _currentPosition ?? LatLng(19.806978312132447, 96.27252819161612),
+
+          ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
+          //target: _currentPosition ?? LatLng(41.331596, -86.862631),
+          ///
           zoom: 14.4746,
         ),
         onMapCreated: onMapCreated,
@@ -222,6 +265,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
         tooltip: 'Drawing',
         child: Icon((_drawPolygonEnabled) ? Icons.cancel : Icons.edit),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
 
     );
   }

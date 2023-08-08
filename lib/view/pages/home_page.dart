@@ -231,41 +231,7 @@ class _HomePageState extends State<HomePage> {
 
                         ), //UserAccountDrawerHeader
                       ), //DrawerHeader
-                      // ListTile(
-                      //   leading: const Icon(Icons.person),
-                      //   title: const Text(' My Profile '),
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
-                      // ListTile(
-                      //   leading: const Icon(Icons.book),
-                      //   title: const Text(' My Course '),
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
-                      // ListTile(
-                      //   leading: const Icon(Icons.workspace_premium),
-                      //   title: const Text(' Go Premium '),
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
-                      // ListTile(
-                      //   leading: const Icon(Icons.video_label),
-                      //   title: const Text(' Saved Videos '),
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
-                      // ListTile(
-                      //   leading: const Icon(Icons.edit),
-                      //   title: const Text(' Edit Profile '),
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      // ),
+                     /*
                       ListTile(
                         leading: const Icon(Icons.map),
                         title: const Text('စိုက်ခင်းအခြေအနေကြည့်ရှုရန်',style: TextStyle(fontWeight: FontWeight.bold),),
@@ -273,8 +239,10 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> CropMonitoringSystemPage()));
                         },
                       ),
+
+                      */
                       ListTile(
-                        leading: const Icon(Icons.cloud),
+                        leading: const Icon(Icons.map,color: Colors.blue,),
                         title: const Text('စိုက်ခင်းဧရိယာသတ်မှတ်ရန်',style: TextStyle(fontWeight: FontWeight.bold),),
                         onTap: () {
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
@@ -283,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                       ListTile(
-                        leading: const Icon(Icons.logout),
+                        leading: const Icon(Icons.logout,color: Colors.blue,),
                         title: const Text('LogOut'),
                         onTap: () {
                           QuitConfirmDialogBox();

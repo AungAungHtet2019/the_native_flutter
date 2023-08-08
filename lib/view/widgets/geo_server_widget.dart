@@ -61,8 +61,6 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
         // Uri.parse('http://20.6.128.25:8080/geoserver/CropTest/wms?service=WMS&version=1.1.0&request=GetMap&layers=CropTest%3Ageotiff_coverage&bbox=841560.0%2C2193620.0%2C843640.0%2C2197000.0&width=1893&height=915&srs=EPSG%3A32646&styles=&format=application/openlayers'),
         Uri.parse(widget.url),
         // Uri.parse("https://20.6.128.25/sugarcane.aspx"),
-
-
       );
 
 
@@ -158,6 +156,8 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
           //  Your other SpeedDialChildren go here.
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+
     );
   }
 }

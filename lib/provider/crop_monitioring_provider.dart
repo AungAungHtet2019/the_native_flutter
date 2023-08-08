@@ -14,7 +14,7 @@ class CropMonitoringProvider extends ChangeNotifier{
   //Getter for taskId flag
   String get taskID => taskId;
 
-  Future<bool> requestSearchScence(List latLongList)async{
+  Future<bool> requestSearchScence(List latLongList,String userId)async{
 
     print("Hey requestSearchScence");
     print(DateTime.now().subtract(Duration(days:1)).toString().split(" ")[0]);
@@ -31,8 +31,8 @@ class CropMonitoringProvider extends ChangeNotifier{
         "date": {
           // "from": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
           // "to": DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0],
-          "from": "2020-03-01",
-          "to": "2020-03-10",
+          "from": "2020-05-01",
+          "to": "2020-05-30",
         },
         "cloudCoverage": {
           "from": 0,
@@ -65,7 +65,7 @@ class CropMonitoringProvider extends ChangeNotifier{
       "type": "jpeg",
       "params": {
         "view_id": viewId,
-        "bm_type": "B02,B03,B04",
+        "bm_type": "NDVI",
         "geometry":{
           "type": "Polygon",
           "coordinates": [
@@ -89,7 +89,8 @@ class CropMonitoringProvider extends ChangeNotifier{
         status = true;
 
         Map latLngMap = {
-          "taskID":taskId,
+          "UserId":userId,
+          "taskID":viewId,
           "latLongList":latLongList
         };
         var jsonbodyLatLong = json.encode(latLngMap);
