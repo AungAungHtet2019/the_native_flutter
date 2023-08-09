@@ -156,7 +156,7 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
           //  Your other SpeedDialChildren go here.
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
     );
   }

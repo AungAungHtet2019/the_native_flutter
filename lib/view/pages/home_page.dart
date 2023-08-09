@@ -10,16 +10,16 @@ import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_native_flutter/view/pages/profile_page.dart';
-import 'package:the_native_flutter/view/pages/soil_population_page.dart';
+import 'package:the_native_flutter/view/pages/crop_monitoring/soil_population_page.dart';
 import 'package:the_native_flutter/view/pages/splash_screen_page.dart';
 
 import '../../provider/login_provider.dart';
 import '../../provider/refresh_token_provider.dart';
 import '../../utils/global.dart';
 import '../widgets/weather_widget.dart';
-import 'crop_monitoring_system_page.dart';
-import 'draw_polygon_page.dart';
-import 'draw_polygon_using_point_page.dart';
+import 'crop_monitoring/crop_monitoring_system_page.dart';
+import 'crop_monitoring/draw_polygon_page.dart';
+import 'crop_monitoring/draw_polygon_using_point_page.dart';
 import 'member_page.dart';
 import 'news_page.dart';
 

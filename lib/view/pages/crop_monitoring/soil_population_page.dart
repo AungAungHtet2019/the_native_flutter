@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_native_flutter/utils/rest_api.dart';
 
-import '../widgets/geo_server_widget.dart';
-import '../widgets/weather_widget.dart';
+import '../../widgets/geo_server_widget.dart';
+import '../../widgets/weather_widget.dart';
 
 class SoilPopulationPage extends StatefulWidget {
   const SoilPopulationPage({Key? key}) : super(key: key);

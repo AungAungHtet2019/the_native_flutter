@@ -25,6 +25,8 @@ class ApiServices{
 
     print("Status code requestSearchSceneForSentinel_2 is "+r.statusCode.toString());
     print("r.body is "+r.body.toString());
+    return r.body;
+    /*
     if(r.statusCode ==200){
       return r.body;
     }
@@ -34,6 +36,8 @@ class ApiServices{
     else {
       return "Error";
     }
+
+     */
   }
 
   static Future<String> downloadVisual(body)async{

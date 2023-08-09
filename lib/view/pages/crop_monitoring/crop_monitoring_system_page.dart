@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../utils/rest_api.dart';
-import '../widgets/geo_server_widget.dart';
-import '../widgets/weather_widget.dart';
+import '../../../utils/rest_api.dart';
+import '../../widgets/geo_server_widget.dart';
+import '../../widgets/weather_widget.dart';
 
 class CropMonitoringSystemPage extends StatefulWidget {
   const CropMonitoringSystemPage({Key? key}) : super(key: key);

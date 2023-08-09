@@ -2,16 +2,17 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/crop_monitioring_provider.dart';
-import '../../provider/user_provider.dart';
-import '../../utils/rest_api.dart';
-import '../widgets/geo_server_widget.dart';
-import 'google_map/show_tile_overlay.dart';
+import '../../../provider/crop_monitioring_provider.dart';
+import '../../../provider/user_provider.dart';
+import '../../../utils/rest_api.dart';
+import '../../widgets/geo_server_widget.dart';
+import '../google_map/show_tile_overlay.dart';
 
 class DrawPolygonUsingPointPage extends StatefulWidget {
   const DrawPolygonUsingPointPage({Key? key}) : super(key: key);
@@ -69,6 +70,12 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
       )));
       myArrayList.clear();
 
+    }
+    else{
+      setState(() {
+        loadingStatus = false;
+      });
+      cropMonitoringErrorDialogBox(Provider.of<CropMonitoringProvider>(context,listen: false).result);
     }
 
     ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
@@ -335,5 +342,43 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
       _polygons.clear();
       _points.clear();
     });
+  }
+
+  //cropMonitoringErrorDialogBox
+  void cropMonitoringErrorDialogBox(String result) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: new Text("The Native "),
+          content: Padding(
+            padding: const EdgeInsets.only(top:15.0),
+            child: new Text(result),
+          ),
+          actions: <Widget>[
+            // CupertinoDialogAction(
+            //   isDefaultAction: true,
+            //   child: Text("This phone number is already registered",style: TextStyle(color: Colors.red,fontSize: 12.0)),
+            // ),
+            new TextButton(
+              child: new Text("Ok"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
+                    title: "စိုက်ခင်းအခြေအနေ",
+                    latLong: "19.803387373037715, 96.26350603358078",
+                    location: " ရေဆင်းအနီး ",
+                    url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
+                )));
+                myArrayList.clear();
+
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

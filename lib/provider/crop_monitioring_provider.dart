@@ -10,6 +10,7 @@ class CropMonitoringProvider extends ChangeNotifier{
   bool status = false;
   String viewId = "";
   String taskId = "";
+  String result = "";
 
   //Getter for taskId flag
   String get taskID => taskId;
@@ -53,63 +54,82 @@ class CropMonitoringProvider extends ChangeNotifier{
 
     await ApiServices.requestSearchSceneForSentinel_2(jsonbody).then((success){
       print(success);
-      Map<String, dynamic> dataResponse = jsonDecode(success);
-      print("requestSearchSceneForSentinel_2 data is "+dataResponse.toString());
-      viewId = dataResponse['results'][0]['view_id'];
-      if(viewId != ""){
-        status = true;
+
+      try{
+        Map<String, dynamic> dataResponse = jsonDecode(success);
+        print("requestSearchSceneForSentinel_2 data is "+dataResponse.toString());
+        viewId = dataResponse['results'][0]['view_id'];
+        if(viewId != ""){
+          status = true;
+        }
+      }
+      catch(exp){
+        result = success;
+        notifyListeners();
+        return;
       }
     });
 
-    Map downloadVisualMap = {
-      "type": "jpeg",
-      "params": {
-        "view_id": viewId,
-        "bm_type": "NDVI",
-        "geometry":{
-          "type": "Polygon",
-          "coordinates": [
-            latLongList
-          ]
-        },
-        "px_size": 2,
-        "format":"jpeg",
-        "colormap": "2b0040e4100279573a41138c8a30c1f2",
-        "reference": "ref_datetime"
-      }
-    };
-    var jsonbodyDownloadVisual = json.encode(downloadVisualMap);
-    await ApiServices.downloadVisual(jsonbodyDownloadVisual).then((value) async{
-      print(value);
-      Map<String, dynamic> dataResponse = jsonDecode(value);
-      print("downloadVisual data is "+dataResponse.toString());
-      print(dataResponse['task_id']);
-      taskId = dataResponse['task_id'];
-      if(taskId != ""){
-        status = true;
+    if(viewId != ""){
+      Map downloadVisualMap = {
+        "type": "jpeg",
+        "params": {
+          "view_id": viewId,
+          "bm_type": "NDVI",
+          "geometry":{
+            "type": "Polygon",
+            "coordinates": [
+              latLongList
+            ]
+          },
+          "px_size": 2,
+          "format":"jpeg",
+          "colormap": "2b0040e4100279573a41138c8a30c1f2",
+          "reference": "ref_datetime"
+        }
+      };
+      var jsonbodyDownloadVisual = json.encode(downloadVisualMap);
+      await ApiServices.downloadVisual(jsonbodyDownloadVisual).then((value) async{
+        print(value);
+        try{
+          Map<String, dynamic> dataResponse = jsonDecode(value);
+          print("downloadVisual data is "+dataResponse.toString());
+          print(dataResponse['task_id']);
+          taskId = dataResponse['task_id'];
+          if(taskId != ""){
+            status = true;
 
-        Map latLngMap = {
-          "UserId":userId,
-          "taskID":viewId,
-          "latLongList":latLongList
-        };
-        var jsonbodyLatLong = json.encode(latLngMap);
-        await ApiService.insertTaskID_LatLong(jsonbodyLatLong).then((value) {
-          if(value == "success"){
-            status =true;
-            taskId;
-            notifyListeners();
+            Map latLngMap = {
+              "UserId":userId,
+              "taskID":viewId,
+              "latLongList":latLongList
+            };
+            var jsonbodyLatLong = json.encode(latLngMap);
+            await ApiService.insertTaskID_LatLong(jsonbodyLatLong).then((value) {
+              result = value;
+              if(value == "success"){
+                status =true;
+                taskId;
+                notifyListeners();
+              }
+
+            });
+
           }
+          else{
+            status = false;
+          }
+        }
+        catch(exp){
+          result = value;
+          notifyListeners();
+          return;
+        }
+      });
+    }
 
-        });
-
-      }
-      else{
-        status = false;
-      }
-    });
+    notifyListeners();
     return status;
   }
-
 
 }

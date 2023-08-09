@@ -5,10 +5,10 @@ import 'dart:math' as Math;
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:the_native_flutter/view/pages/soil_population_page.dart';
+import 'package:the_native_flutter/view/pages/crop_monitoring/soil_population_page.dart';
 
-import '../../utils/rest_api.dart';
-import '../widgets/geo_server_widget.dart';
+import '../../../utils/rest_api.dart';
+import '../../widgets/geo_server_widget.dart';
 
 class DrewPolygonPage extends StatefulWidget {
 

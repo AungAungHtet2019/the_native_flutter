@@ -8,10 +8,10 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/user_provider.dart';
-import '../../utils/dialogue.dart';
-import '../../utils/rest_api.dart';
-import '../widgets/files_widget.dart';
+import '../../../provider/user_provider.dart';
+import '../../../utils/dialogue.dart';
+import '../../../utils/rest_api.dart';
+import '../../widgets/files_widget.dart';
 
 class ReportPage extends StatefulWidget {
 
