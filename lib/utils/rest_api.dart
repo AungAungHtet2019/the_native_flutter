@@ -58,7 +58,7 @@ class URLS {
 
 
   static const String updateProfilePicture_URL =domain+'/api/User/updateProfilePicture';
-  static const String updateUserProfilePicture_URL =domain+'/api/User/user_profile_picture_upload';
+  static const String uploadUserProfilePicture_URL =domain+'/api/User/user_profile_picture_upload';
 
   static const String getCategory_URL =domain+'/api/User/get_category';
   static const String getLikedCategory_URL =domain+'/api/User/get_like_category';
@@ -241,12 +241,12 @@ class ApiService {
     }
   }
 
-  static Future<String> updateUserProfilePicture(body)async{
-    print("This is updateUserProfilePicture Method");
-    print("body of updateUserProfilePicture is "+body);
+  static Future<String> uploadUserProfilePicture(body)async{
+    print("This is uploadUserProfilePicture Method");
+    print("body of uploadUserProfilePicture is "+body);
 
-    http.Response r = await http.post(Uri.parse(URLS.updateUserProfilePicture_URL),headers: {"Content-Type": "application/json"},body: body);
-    print("Status code updateUserProfilePicture is "+r.statusCode.toString());
+    http.Response r = await http.post(Uri.parse(URLS.uploadUserProfilePicture_URL),headers: {"Content-Type": "application/json"},body: body);
+    print("Status code uploadUserProfilePicture is "+r.statusCode.toString());
     print("r.body is "+r.body.toString());
     if(r.statusCode ==200){
       return r.body.toString();

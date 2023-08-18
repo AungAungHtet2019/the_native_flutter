@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_speed_dial/simple_speed_dial.dart';
@@ -25,7 +27,9 @@ class GeoServerWidget extends StatefulWidget {
 class _GeoServerWidgetState extends State<GeoServerWidget> {
 
   var loadingPercentage = 0;
-  late final WebViewController controller;
+  // late final WebViewController controller;
+  final Completer<WebViewController> controller =
+  Completer<WebViewController>();
 
 
 
@@ -35,6 +39,7 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
     // TODO: implement initState
     super.initState();
 
+    /*
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
@@ -64,6 +69,8 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
       );
 
 
+     */
+
   }
   @override
   Widget build(BuildContext context) {
@@ -76,8 +83,13 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
       ),
       body: Stack(
         children: [
-          WebViewWidget(
-            controller: controller,
+          WebView(
+            // controller: controller,
+            initialUrl: 'https://flutter.dev',
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              controller.complete(webViewController);
+            },
           ),
           if (loadingPercentage < 100)
             LinearProgressIndicator(

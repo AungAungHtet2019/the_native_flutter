@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cipher2/cipher2.dart';
+// import 'package:cipher2/cipher2.dart';
 import 'package:provider/provider.dart';
 import 'package:the_native_flutter/utils/dialogue.dart';
 import 'package:the_native_flutter/utils/global.dart';
@@ -133,10 +133,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
 
     String finalPlainText = name+","+phoneNo+","+dob;
+
+    /*
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(finalPlainText, key, iv);
     print(" _myEncryptData _registration is "+aesEncryptedData);
     Map body={
       "Data":"$aesEncryptedData"
+    };
+
+     */
+
+    Map body={
+      "userName":"$name",
+      "phoneNO":"$phoneNo",
+      "DOB":"$dob"
     };
     var jsonbody = json.encode(body);
     await ApiService.InsertUser(jsonbody).then((success) {

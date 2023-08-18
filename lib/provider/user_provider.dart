@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cipher2/cipher2.dart';
+// import 'package:cipher2/cipher2.dart';
 import 'package:the_native_flutter/model/category_model.dart';
 import 'package:the_native_flutter/model/liked_category_model.dart';
 import 'package:the_native_flutter/model/user_model.dart';
@@ -53,11 +53,16 @@ class UserProvider extends ChangeNotifier{
 
     String result = "";
     print("Hey "+phoneNo+" "+token);
+    /*
     String finalPlainText = phoneNo;
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(finalPlainText, key, iv);
     print(" _myEncryptData is "+aesEncryptedData);
     Map body={
       "Data":"$aesEncryptedData"
+    };
+    */
+    Map body={
+      "phoneNO":"$phoneNo"
     };
     var jsonbody = json.encode(body);
     await ApiService.CheckUser(jsonbody,token).then((success) {

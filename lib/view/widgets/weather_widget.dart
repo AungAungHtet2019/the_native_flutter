@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -17,13 +19,16 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
 
   var loadingPercentage = 0;
-  late final WebViewController controller;
+  // late final WebViewController controller;
+  final Completer<WebViewController> controller =
+  Completer<WebViewController>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+    /*
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
@@ -53,6 +58,8 @@ class _WeatherPageState extends State<WeatherPage> {
 
 
       );
+
+     */
   }
   @override
   Widget build(BuildContext context) {
@@ -63,17 +70,23 @@ class _WeatherPageState extends State<WeatherPage> {
       ),
       body: Stack(
         children: [
-          WebViewWidget(
-            controller: controller,
+          WebView(
+            // controller: controller,
+            initialUrl: 'https://flutter.dev',
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              controller.complete(webViewController);
+            },
           ),
           if (loadingPercentage < 100)
             LinearProgressIndicator(
               value: loadingPercentage / 100.0,
             ),
 
-          Text("Loading $loadingPercentage")
+          // Text("Loading $loadingPercentage")
         ],
       ),
+
     );
   }
 }

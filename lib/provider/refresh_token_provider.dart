@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cipher2/cipher2.dart';
+// import 'package:cipher2/cipher2.dart';
 import 'package:flutter/material.dart';
 
 import '../model/login_model.dart';
@@ -24,11 +24,20 @@ class RefreshTokenProvider extends ChangeNotifier{
 
     String result = "";
     print("Hey "+accessTokn+" "+refreshToken);
+    /*
     String finalPlainText = accessTokn+","+refreshToken;
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(finalPlainText, key, iv);
     print(" _myEncryptData is "+aesEncryptedData);
     Map body={
       "Data":"$aesEncryptedData"
+    };
+
+
+     */
+
+    Map body={
+      "accessToken":"$accessTokn",
+      "refreshToken":"$refreshToken"
     };
     var jsonbody = json.encode(body);
     await ApiService.RefreshToken(jsonbody).then((success) {

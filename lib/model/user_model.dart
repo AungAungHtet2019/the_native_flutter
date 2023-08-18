@@ -1,3 +1,4 @@
+/*
 class UserModel {
   UserModel({
     required this.ID,
@@ -94,4 +95,104 @@ class UserModel {
     _data['Domain_Name'] = DomainName;
     return _data;
   }
+}
+*/
+
+
+
+import 'package:json_annotation/json_annotation.dart';
+part 'user_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+
+class UserModel {
+  UserModel({
+    required this.ID,
+    required this.UserID,
+    required this.UserName,
+    required this.PhoneNumber,
+    required this.DateOfBirth,
+    required this.LoginAllow,
+    required this.LockDisableBy,
+    required this.LockDisableDate,
+    required this.LockEnableBy,
+    required this.CreatedBy,
+    required this.CreatedDate,
+    required this.ModifiedBy,
+    required this.ModifiedDate,
+    required this.Active,
+    required this.ActiveDisableBy,
+    required this.ActiveDisableDate,
+    required this.ActiveEnableBy,
+    required this.ActiveEnableDate,
+    required this.ProfilePicture,
+    required this. UserProfilePicture,
+    required this. DomainName,
+  });
+  @JsonKey(name: 'ID', defaultValue: 0)
+  int ID;
+
+  @JsonKey(name: 'UserID', defaultValue: "UserID")
+  String UserID;
+
+  @JsonKey(name: 'UserName', defaultValue: "UserName")
+  String UserName;
+
+  @JsonKey(name: 'PhoneNumber', defaultValue: "PhoneNumber")
+  String PhoneNumber;
+
+  @JsonKey(name: 'DateOfBirth', defaultValue: "DateOfBirth")
+  String DateOfBirth;
+
+  @JsonKey(name: 'Login_Allow', defaultValue: false)
+  bool LoginAllow;
+
+  @JsonKey(name: 'LockDisableBy', defaultValue: "LockDisableBy")
+  String LockDisableBy;
+
+  @JsonKey(name: 'LockDisableDate', defaultValue: "LockDisableDate")
+  String LockDisableDate;
+
+  @JsonKey(name: 'LockEnableBy', defaultValue: "LockEnableBy")
+  String LockEnableBy;
+
+  @JsonKey(name: 'CreatedBy', defaultValue: "CreatedBy")
+  String CreatedBy;
+
+  @JsonKey(name: 'CreatedDate', defaultValue: "CreatedDate")
+  String CreatedDate;
+
+  @JsonKey(name: 'ModifiedBy', defaultValue: "ModifiedBy")
+  String ModifiedBy;
+
+  @JsonKey(name: 'ModifiedDate', defaultValue: "ModifiedDate")
+  String ModifiedDate;
+
+  @JsonKey(name: 'Active', defaultValue: false)
+  bool Active;
+
+  @JsonKey(name: 'ActiveDisableBy', defaultValue: "ActiveDisableBy")
+  String ActiveDisableBy;
+
+  @JsonKey(name: 'ActiveDisableDate', defaultValue: "ActiveDisableDate")
+  String ActiveDisableDate;
+
+  @JsonKey(name: 'ActiveEnableBy', defaultValue: "ActiveEnableBy")
+  String ActiveEnableBy;
+
+  @JsonKey(name: 'ActiveEnableDate', defaultValue: "ActiveEnableDate")
+  String ActiveEnableDate;
+
+  @JsonKey(name: 'ProfilePicture', defaultValue: "ProfilePicture")
+  String ProfilePicture;
+
+  @JsonKey(name: 'UserProfilePicture', defaultValue: "UserProfilePicture")
+  String UserProfilePicture;
+
+  @JsonKey(name: 'Domain_Name', defaultValue: "Domain_Name")
+  String DomainName;
+
+  factory UserModel.fromJson(Map<String,dynamic> data) => _$UserModelFromJson(data);
+
+  Map<String,dynamic> toJson() => _$UserModelToJson(this);
 }

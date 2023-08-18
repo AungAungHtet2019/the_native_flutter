@@ -5,7 +5,7 @@ import 'dart:typed_data';
 
 import 'package:cached_memory_image/cached_memory_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cipher2/cipher2.dart';
+// import 'package:cipher2/cipher2.dart';
 import 'package:the_native_flutter/provider/user_provider.dart';
 import 'package:the_native_flutter/utils/dialogue.dart';
 import 'package:the_native_flutter/utils/global.dart';
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
       'base64': base64proFile_pic,
     };
     var jsonbody = json.encode(body);
-    await ApiService.updateUserProfilePicture(jsonbody).then((success) {
+    await ApiService.uploadUserProfilePicture(jsonbody).then((success) {
       print("++++++++++++++++++++++++"+success.toString());
       print("***********************");
       if(success.toString() =="Ok"){
@@ -98,6 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
 
+  /*
   uploadProfilePicture(File proFile_pic)async{
     String base64proFile_pic = base64Encode(proFile_pic.readAsBytesSync());
 
@@ -136,6 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  */
   void _needTofillAllDataDialog() {
     // flutter defined function
     showDialog(
@@ -303,11 +305,18 @@ class _ProfilePageState extends State<ProfilePage> {
     String plainData = uId+","+cID;
     print("plainData for insertLikedCategory "+plainData);
 
+    /*
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(plainData, key, iv);
     print("insertLikedCategory aesEncryptedData is "+aesEncryptedData);
 
     Map body={
       "Data":"$aesEncryptedData"
+    };
+    */
+
+    Map body={
+      "userID":"$uId",
+      "categoryID":"$cID"
     };
 
     var jsonbody = json.encode(body);
@@ -321,11 +330,17 @@ class _ProfilePageState extends State<ProfilePage> {
     String plainData = uId;
     print("plainData for encryptUID "+plainData);
 
+    /*
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(plainData, key, iv);
     print("encryptUID aesEncryptedData is "+aesEncryptedData);
 
     Map body={
       "Data":"$aesEncryptedData"
+    };
+    */
+
+    Map body={
+      "userID":"$uId"
     };
 
     var jsonbody = json.encode(body);

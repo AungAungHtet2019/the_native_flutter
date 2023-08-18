@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cipher2/cipher2.dart';
+// import 'package:cipher2/cipher2.dart';
 import 'package:flutter/material.dart';
 
 import '../model/login_model.dart';
@@ -35,10 +35,17 @@ class LoginProvider extends ChangeNotifier{
     String result = "";
     print("Hey "+phoneNo);
     String finalPlainText = phoneNo;
+    /*
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(finalPlainText, key, iv);
     print(" _myEncryptData is "+aesEncryptedData);
     Map body={
       "Data":"$aesEncryptedData"
+    };
+
+     */
+
+    Map body={
+      "phoneNO":"$phoneNo"
     };
     var jsonbody = json.encode(body);
     await ApiService.LoginUser(jsonbody).then((success) {

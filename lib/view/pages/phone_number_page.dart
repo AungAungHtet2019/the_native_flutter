@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:cipher2/cipher2.dart';
+// import 'package:cipher2/cipher2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:the_native_flutter/view/pages/sms_verification_page.dart';
 import '../../model/user_model.dart';
@@ -99,11 +99,20 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
     String plainData = phoneNumber+","+randomnum+","+signature;
     print("plainData for sendOTPSMSAPI "+plainData);
 
+    /*
     String aesEncryptedData = await Cipher2.encryptAesCbc128Padding7(plainData, key, iv);
     print(" sendOTPSMSAPI is "+aesEncryptedData);
 
     Map body={
       "Data":"$aesEncryptedData"
+    };
+
+     */
+
+    Map body={
+      "phoneNo":"$phoneNumber",
+      "randomNo":"$randomnum",
+      "signature":"$signature"
     };
 
     var jsonbody = json.encode(body);

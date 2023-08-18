@@ -28,10 +28,13 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
               data: """
                 """+widget.contentText+"""
                 """,
+              /*
               padding: EdgeInsets.all(8.0),
               onLinkTap: (url) {
                 print("Opening $url...");
               },
+
+               */
               // customRender: (node, children) {
               //   // if (node is dom.Element) {
               //   //   switch (node.localName) {
