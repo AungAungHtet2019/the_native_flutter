@@ -144,6 +144,51 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //Delete account or not confirm dialog box
+  void DeleteAccountConfirmDialogBox() {
+    Navigator.of(context).pop();//to close loading dialog
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: new Text("The Native "),
+          content: Padding(
+            padding: const EdgeInsets.only(top:15.0),
+            child: new Text("Will you delete your account?"),
+          ),
+          actions: <Widget>[
+            // CupertinoDialogAction(
+            //   isDefaultAction: true,
+            //   child: Text("This phone number is already registered",style: TextStyle(color: Colors.red,fontSize: 12.0)),
+            // ),
+            new TextButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.pop(context);
+
+              },
+            ),
+            new TextButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                Navigator.pop(context);
+                _clearSPforLogout();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) => SplashScreen()),
+                        (Route<dynamic> route) => false
+                );
+
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -248,6 +293,14 @@ class _HomePageState extends State<HomePage> {
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
 
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> DrawPolygonUsingPointPage()));
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.logout,color: Colors.blue,),
+                        title: const Text('Delete Account'),
+                        onTap: () {
+                          DeleteAccountConfirmDialogBox();
+
                         },
                       ),
                       ListTile(

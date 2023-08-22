@@ -29,9 +29,9 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Description</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Will you allow this app to always know your location?</string>
+	<string>This app requires access to your current location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Do you allow this app to know your current location?</string>
+	<string>This app requires access to your current location.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -55,5 +55,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>com.apple.security.files.user-selected.read-only</key>
+     <true/>
+     <key>nsphotolibraryusagedescription</key>
+     <string>this app needs to access your photo galery.</string>
+     <key>NSCameraUsageDescription</key>
+     <string>this app needs to access your camera.</string>
 </dict>
 </plist>
