@@ -33,7 +33,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Turning on location services allows us to show you when pals are nearby.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Turning on location services allows us to show you when pals are nearbyy.</string>
+	<string>This app needs access to your photo gallery to take pictures for your profile.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -59,8 +59,8 @@
 	<key>com.apple.security.files.user-selected.read-only</key>
      <true/>
      <key>nsphotolibraryusagedescription</key>
-     <string>Accessing photo gallery provide app to set your profile picture.</string>
+     <string>This app needs access to your photo gallery to take pictures for your profile.</string>
      <key>NSCameraUsageDescription</key>
-     <string>Accessing camera provide app to set your profile picture.</string>
+     <string>This app needs access to your camera to take pictures for your profile.</string>
 </dict>
 </plist>
