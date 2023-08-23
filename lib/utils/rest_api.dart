@@ -64,7 +64,7 @@ class URLS {
   static const String getLikedCategory_URL =domain+'/api/User/get_like_category';
   static const String add_my_category_URL =domain+'/api/User/add_my_category';
   static const String delete_my_category_URL =domain+'/api/User/delete_my_category';
-  static const String send_SMS_OTP_URL =domain+'/api/User/send_otp_code';
+  static const String send_SMS_OTP_URL =domain+' ';
 
   static const String report_form_URL =domain+'/api/User/report_form';
   static const String milti_file_uploat_URL =domain+'/api/User/multi_file_upload';

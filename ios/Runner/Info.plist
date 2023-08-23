@@ -29,11 +29,11 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Description</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires access to your current location.</string>
+	<string>Turning on location services allows us to show you when pals are nearby.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app requires access to your current location.</string>
+	<string>Turning on location services allows us to show you when pals are nearby.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library.</string>
+	<string>Turning on location services allows us to show you when pals are nearbyy.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -59,8 +59,8 @@
 	<key>com.apple.security.files.user-selected.read-only</key>
      <true/>
      <key>nsphotolibraryusagedescription</key>
-     <string>this app needs to access your photo galery.</string>
+     <string>Accessing photo gallery provide app to set your profile picture.</string>
      <key>NSCameraUsageDescription</key>
-     <string>this app needs to access your camera.</string>
+     <string>Accessing camera provide app to set your profile picture.</string>
 </dict>
 </plist>
