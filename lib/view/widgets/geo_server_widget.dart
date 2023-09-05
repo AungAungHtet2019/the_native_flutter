@@ -85,7 +85,7 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
         children: [
           WebView(
             // controller: controller,
-            initialUrl: 'https://flutter.dev',
+            initialUrl: widget.url,
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
               controller.complete(webViewController);
@@ -168,7 +168,7 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
           //  Your other SpeedDialChildren go here.
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
     );
   }

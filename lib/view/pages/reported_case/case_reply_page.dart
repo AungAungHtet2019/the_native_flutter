@@ -72,6 +72,7 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
         _submit(value);
         Provider.of<ReportHistoryProvider>(context,listen: false).getReportHistory(widget.groupId);
 
+
       }
       else{
         // Navigator.pop(context);

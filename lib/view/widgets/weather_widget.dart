@@ -72,7 +72,7 @@ class _WeatherPageState extends State<WeatherPage> {
         children: [
           WebView(
             // controller: controller,
-            initialUrl: 'https://flutter.dev',
+            initialUrl: widget.url,
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
               controller.complete(webViewController);

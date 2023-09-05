@@ -69,11 +69,15 @@ class URLS {
   static const String report_form_URL =domain+'/api/User/report_form';
   static const String milti_file_uploat_URL =domain+'/api/User/multi_file_upload';
   static const String get_report_history_URL =domain+'/api/User/get_report_history';
+  static const String get_report_history_Pagination_URL =domain+'/api/Report/get_report_history_pagination';
+
   // static const String get_case_file_list_URL =domain+'/api/User/search_case_file_list';
   static const String create_Reply_URL =domain+'/api/User/create_reply';
   static const String reply_file_uploat_URL =domain+'/api/User/reply_file_upload';
   static const String close_case_file_URL =domain+'/api/User/close_case_file';
   static const String get_successed_report_history_URL =domain+'/api/User/get_successed_report_history';
+  static const String get_successed_report_history_Pagination_URL =domain+'/api/Report/get_successed_report_history_pagination';
+
 
   static const String insertLatLong_url = domain+"/api/Map/set_latlong";
 
@@ -381,6 +385,21 @@ class ApiService {
     }
   }
 
+  static Future<String> getReportHistoryPagination(body)async{
+    print("This is getReportHistoryPagination Method");
+    print("body of getReportHistoryPagination is "+body);
+
+    http.Response r = await http.post(Uri.parse(URLS.get_report_history_Pagination_URL),headers: {"Content-Type": "application/json"},body: body);
+    print("Status code getReportHistoryPagination is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    if(r.statusCode ==200){
+      return r.body.toString();
+    }
+    else{
+      return "Error";
+    }
+  }
+
   // static Future<String> getCaseFileList(body)async{
   //   print("This is getCaseFileList Method");
   //   print("body of getCaseFileList is "+body);
@@ -447,6 +466,21 @@ class ApiService {
 
     http.Response r = await http.post(Uri.parse(URLS.get_successed_report_history_URL),headers: {"Content-Type": "application/json"},body: body);
     print("Status code getSuccessedReportHistory is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    if(r.statusCode ==200){
+      return r.body.toString();
+    }
+    else{
+      return "Error";
+    }
+  }
+
+  static Future<String> getSuccessedReportHistoryPagination(body)async{
+    print("This is getSuccessedReportHistoryPagination Method");
+    print("body of getSuccessedReportHistoryPagination is "+body);
+
+    http.Response r = await http.post(Uri.parse(URLS.get_successed_report_history_Pagination_URL),headers: {"Content-Type": "application/json"},body: body);
+    print("Status code getSuccessedReportHistoryPagination is "+r.statusCode.toString());
     print("r.body is "+r.body.toString());
     if(r.statusCode ==200){
       return r.body.toString();

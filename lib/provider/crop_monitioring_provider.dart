@@ -30,10 +30,10 @@ class CropMonitoringProvider extends ChangeNotifier{
       "page": 1,
       "search": {
         "date": {
-          // "from": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
-          // "to": DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0],
-          "from": "2020-05-01",
-          "to": "2020-05-30",
+          "from": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
+          "to": DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0],
+          // "from": "2020-05-01",
+          // "to": "2020-05-30",
         },
         "cloudCoverage": {
           "from": 0,

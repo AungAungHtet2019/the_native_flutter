@@ -10,8 +10,6 @@ class URLs{
   static const String request_search_scene_for_sentinel_2_url = "https://gate.eos.com/api/lms/search/v2/sentinel2?api_key="+api_key;
   static const String download_visual_url = "https://gate.eos.com/api/gdw/api?api_key="+api_key;
 
-
-
 }
 
 class ApiServices{
