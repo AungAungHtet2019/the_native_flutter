@@ -36,7 +36,9 @@ class URLS {
   // static const String domain = "http://192.168.4.91:82";
   // static const String domain = "http://dsitdteam-001-site1.atempurl.com";
   // static const String domain = "http://kothiha-001-site2.atempurl.com";
-  static const String domain = "http://api.zartimyay.org";
+  // static const String domain = "http://api.zartimyay.org";
+  static const String domain = "https://api.zartimyay.org";
+
 
 
   // static const String ktkkdomain = "http://kothiha-001-site1.atempurl.com";
@@ -143,7 +145,7 @@ class ApiService {
       return r.statusCode.toString();
     }
     else{
-      return r.statusCode.toString();
+      return r.body.toString();
     }
   }
 
