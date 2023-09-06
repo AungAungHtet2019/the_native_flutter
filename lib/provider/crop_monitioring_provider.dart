@@ -101,7 +101,8 @@ class CropMonitoringProvider extends ChangeNotifier{
 
             Map latLngMap = {
               "UserId":userId,
-              "taskID":viewId,
+              "taskID":taskId,
+              "viewID":viewId,
               "latLongList":latLongList
             };
             var jsonbodyLatLong = json.encode(latLngMap);

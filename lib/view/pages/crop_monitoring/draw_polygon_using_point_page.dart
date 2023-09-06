@@ -57,7 +57,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
     mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID);
     print(mapStatus);
     if(mapStatus == true){
-      String viewId = await Provider.of<CropMonitoringProvider>(context,listen: false).viewId;
+      String taskId = await Provider.of<CropMonitoringProvider>(context,listen: false).taskId;
       setState(() {
         loadingStatus = false;
       });
@@ -66,7 +66,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           latLong: "19.803387373037715, 96.26350603358078",
           location: " ရေဆင်းအနီး ",
           // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
-          url:"https://rrms.zartimyay.org/map?task="+viewId
+          url:"https://rrms.zartimyay.org/map?task="+taskId
       )));
       myArrayList.clear();
 
