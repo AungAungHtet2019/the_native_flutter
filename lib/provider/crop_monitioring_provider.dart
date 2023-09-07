@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../model/eos_image_history_model.dart';
 import '../utils/eos_api.dart';
 import '../utils/rest_api.dart';
 
@@ -14,6 +15,9 @@ class CropMonitoringProvider extends ChangeNotifier{
 
   //Getter for taskId flag
   String get taskID => taskId;
+
+  List<EosImageHistoryModel> eosImageHistoryList = [];
+
 
   Future<bool> requestSearchScence(List latLongList,String userId)async{
 
@@ -52,7 +56,7 @@ class CropMonitoringProvider extends ChangeNotifier{
     };
     var jsonbody = json.encode(body);
 
-    await ApiServices.requestSearchSceneForSentinel_2(jsonbody).then((success){
+    await EosApiServices.requestSearchSceneForSentinel_2(jsonbody).then((success){
       print(success);
 
       try{
@@ -89,7 +93,7 @@ class CropMonitoringProvider extends ChangeNotifier{
         }
       };
       var jsonbodyDownloadVisual = json.encode(downloadVisualMap);
-      await ApiServices.downloadVisual(jsonbodyDownloadVisual).then((value) async{
+      await EosApiServices.downloadVisual(jsonbodyDownloadVisual).then((value) async{
         print(value);
         try{
           Map<String, dynamic> dataResponse = jsonDecode(value);
@@ -132,5 +136,42 @@ class CropMonitoringProvider extends ChangeNotifier{
     notifyListeners();
     return status;
   }
+
+  Future<bool> getEosAnalysedImageHistory(String userId)async{
+    bool status = false;
+
+    Map body= {
+      "Data":userId,
+    };
+    var jsonbody = jsonEncode(body);
+    try{
+      EosApiServices.getEosAnalysedImageHistory(jsonbody).then((value) {
+
+        print("++++++++++++++++++++++++"+value.toString());
+        print("***********************");
+        List<dynamic> datalist = jsonDecode(value);
+
+        for(int i = 0 ; i< datalist.length; i++){
+          try{
+            eosImageHistoryList.add(EosImageHistoryModel.fromJson(datalist[i]));
+          }
+          catch(exp){
+            print(exp);
+            status = false;
+          }
+        }
+        status = true;
+        notifyListeners();
+      });
+    }
+    catch(exp){
+      print(exp);
+      status = false;
+    }
+
+
+    return status;
+  }
+
 
 }

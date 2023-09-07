@@ -20,6 +20,7 @@ import '../widgets/weather_widget.dart';
 import 'crop_monitoring/crop_monitoring_system_page.dart';
 import 'crop_monitoring/draw_polygon_page.dart';
 import 'crop_monitoring/draw_polygon_using_point_page.dart';
+import 'crop_monitoring/eos_anylysis_image_history_page.dart';
 import 'member_page.dart';
 import 'news_page.dart';
 
@@ -289,10 +290,30 @@ class _HomePageState extends State<HomePage> {
                       ListTile(
                         leading: const Icon(Icons.map,color: Colors.blue,),
                         title: const Text('စိုက်ခင်းဧရိယာသတ်မှတ်ရန်',style: TextStyle(fontWeight: FontWeight.bold),),
-                        onTap: () {
+                        onTap: ()async {
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DrawPolygonUsingPointPage()));
+                          SharedPreferences sp = await SharedPreferences.getInstance();
+                          String regPhoneNo = sp.getString("regPhoneNo")?? "";
+                          String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+
+                          if(result == "0k"){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> DrawPolygonUsingPointPage()));
+                          }
+
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.data_exploration,color: Colors.blue,),
+                        title: const Text('စိုက်ခင်းဧရိယာပြန်လည်ကြည့်ရှုရန်',style: TextStyle(fontWeight: FontWeight.bold),),
+                        onTap: () async{
+                          SharedPreferences sp = await SharedPreferences.getInstance();
+                          String regPhoneNo = sp.getString("regPhoneNo")?? "";
+                          String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+
+                          if(result == "0k"){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> EosAnalysisImageHistoryPage()));
+                          }
                         },
                       ),
                       ListTile(
