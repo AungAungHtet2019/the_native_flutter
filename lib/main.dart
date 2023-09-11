@@ -43,6 +43,7 @@ void main(){
         debugShowCheckedModeBanner: false,
 
         theme: ThemeData(
+            fontFamily: 'Pyidaungsu',
             visualDensity: VisualDensity.adaptivePlatformDensity,
             primaryColor: kPrimaryColor,
             scaffoldBackgroundColor: Colors.white,

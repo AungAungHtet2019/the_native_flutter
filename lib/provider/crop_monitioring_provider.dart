@@ -150,7 +150,7 @@ class CropMonitoringProvider extends ChangeNotifier{
         print("++++++++++++++++++++++++"+value.toString());
         print("***********************");
         List<dynamic> datalist = jsonDecode(value);
-
+        eosImageHistoryList.clear();
         for(int i = 0 ; i< datalist.length; i++){
           try{
             eosImageHistoryList.add(EosImageHistoryModel.fromJson(datalist[i]));

@@ -316,6 +316,7 @@ class _MemberPageState extends State<MemberPage> {
                 },
               ),
             ),
+            /*
             Card(
               elevation: 8.0,
               margin:
@@ -332,6 +333,8 @@ class _MemberPageState extends State<MemberPage> {
                 },
               ),
             )
+
+             */
 
           ],
         ),

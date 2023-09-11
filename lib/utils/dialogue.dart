@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -10,7 +11,7 @@ class Dialogs {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return new WillPopScope(
-              onWillPop: () async => true,
+              onWillPop: () async => false,
               child: SimpleDialog(
                   key: key,
                   //backgroundColor: Colors.black54,
@@ -28,4 +29,35 @@ class Dialogs {
                   ]));
         });
   }
+
+  static Future<void> myDialog(BuildContext context,String title) {
+    // flutter defined function
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: new Text("Zartimyay "),
+          content: Padding(
+            padding: const EdgeInsets.only(top:15.0),
+            child: new Text(title),
+          ),
+          actions: <Widget>[
+            // CupertinoDialogAction(
+            //   isDefaultAction: true,
+            //   child: Text("This phone number is already registered",style: TextStyle(color: Colors.red,fontSize: 12.0)),
+            // ),
+            new TextButton (
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
 }

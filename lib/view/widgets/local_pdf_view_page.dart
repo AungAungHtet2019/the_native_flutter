@@ -44,7 +44,7 @@ class _LocalPdfViewPageState extends State<LocalPdfViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.pdfName,style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightGreenAccent,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.navigate_before,color: Colors.black),

@@ -17,3 +17,4 @@ var myTextStyleRedalertDialogBoxFontSize = TextStyle(color: Colors.black,fontSiz
 var myTextStyleRedBoldalertDialogBoxFontSize = TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold);
 
 const String domain = "https://api.zartimyay.org";
+const String versionName = "Version v0.02";

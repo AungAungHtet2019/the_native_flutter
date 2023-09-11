@@ -44,9 +44,10 @@ class _EosAnalysisImageHistoryPageState extends State<EosAnalysisImageHistoryPag
       )
           :ListView(
         children:Provider.of<CropMonitoringProvider>(context,listen: true).eosImageHistoryList.map((e) {
+          final index = Provider.of<CropMonitoringProvider>(context,listen: true).eosImageHistoryList.indexOf(e);
           return Card(
             child: ListTile(
-              leading: Text(e.),
+              leading: Text((index+1).toString()),
               title: Text(e.taskId),
               subtitle: Text(e.createAt.replaceAll("T"," ").split(".").first),
               onTap: (){
