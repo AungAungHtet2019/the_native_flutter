@@ -214,7 +214,7 @@ class _SmsVerificationPageState extends State<SmsVerificationPage>
           children: [
             SizedBox(
               height: 56,
-              width: 100,
+              width: 150,
               child: ElevatedButton(
                 onPressed: () async {
                   //?  use this code to get sms signature for your app
@@ -231,7 +231,7 @@ class _SmsVerificationPageState extends State<SmsVerificationPage>
             ),
             SizedBox(
               height: 56,
-              width: 100,
+              width: 150,
               child: ElevatedButton(
                 onPressed:  () {
                   //Confirm and Navigate to Home Page

@@ -32,7 +32,6 @@ class UserProvider extends ChangeNotifier{
       ProfilePicture: "ProfilePicture",
       UserProfilePicture: "UserProfilePicture",
       DomainName: "DomainName"
-
   );
 
   List<CategoryModel> categoryList = [] ; //CategoryModel(Active: '', AutoID: '', CategoryName: '', CreatedBy: '', CategoryCode: '', CreatedDate: '') as List<CategoryModel>;
@@ -88,6 +87,36 @@ class UserProvider extends ChangeNotifier{
       }
     });
     return result;
+  }
+
+  Future<bool> logout()async{
+    bool status = false;
+    userModel = UserModel(
+        ID: 0,
+        UserID: "UserID",
+        UserName: "UserName",
+        PhoneNumber: "PhoneNumber",
+        DateOfBirth: "DateOfBirth",
+        LoginAllow: false,
+        LockDisableBy: "LockDisableBy",
+        LockDisableDate: "LockDisableDate",
+        LockEnableBy: "LockEnableBy",
+        CreatedBy: "CreatedBy",
+        CreatedDate: "CreatedDate",
+        ModifiedBy: "ModifiedBy",
+        ModifiedDate: "ModifiedDate",
+        Active: false,
+        ActiveDisableBy: "ActiveDisableBy",
+        ActiveDisableDate: "ActiveDisableDate",
+        ActiveEnableBy: "ActiveEnableBy",
+        ActiveEnableDate: "ActiveEnableDate",
+        ProfilePicture: "ProfilePicture",
+        UserProfilePicture: "UserProfilePicture",
+        DomainName: "DomainName"
+    );
+    notifyListeners();
+
+    return status;
   }
 
   Future<void> getCategory()async{

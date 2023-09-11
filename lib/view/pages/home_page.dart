@@ -101,6 +101,7 @@ class _HomePageState extends State<HomePage> {
     //Storing
     sp.setBool("is_register_avl", false);
     sp.setString("regPhoneNo","");
+    Provider.of<UserProvider>(context,listen: false).logout();
   }
 
   //Log out or not confirm dialog box
