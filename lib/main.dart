@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_native_flutter/provider/user_provider.dart';
 import 'package:the_native_flutter/view/pages/splash_screen_page.dart';
+import 'package:the_native_flutter/view/pages/test_page.dart';
 
 
 
@@ -37,11 +38,13 @@ void main(){
           ChangeNotifierProvider(create: (_) => ReportHistoryProvider()),
           ChangeNotifierProvider(create: (_) => SuccessedReportHistoryProvider()),
           ChangeNotifierProvider(create: (_) => CropMonitoringProvider()),
+
         ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
 
         theme: ThemeData(
+            fontFamily: 'Pyidaungsu',
             visualDensity: VisualDensity.adaptivePlatformDensity,
             primaryColor: kPrimaryColor,
             scaffoldBackgroundColor: Colors.white,
@@ -69,7 +72,8 @@ void main(){
             )),
 
         // home: UploadScreen(),
-        home: SplashScreen(),
+        // home: SplashScreen(),
+        home: TestPage(),
         // home:ChatPage(),
         // home: NewsPage(),
         // home: SmsVerificationPage("","",""),

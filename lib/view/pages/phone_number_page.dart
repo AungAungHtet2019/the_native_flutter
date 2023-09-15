@@ -271,7 +271,9 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
 
                         if(prefs.get("accessToken").toString() != ''){
                           Navigator.pop(context);
+                          await Provider.of<UserProvider>(context,listen: false).checkUser(_phoneNumberController.text,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(phoneNo:_phoneNumberController.text)), (route) => false);
+
                         }
                         else{
                           Navigator.pop(context);

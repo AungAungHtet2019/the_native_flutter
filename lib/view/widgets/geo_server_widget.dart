@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_speed_dial/simple_speed_dial.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -83,12 +84,26 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
       ),
       body: Stack(
         children: [
+          /*
           WebView(
             // controller: controller,
             initialUrl: widget.url,
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
               controller.complete(webViewController);
+            },
+          ),
+
+           */
+
+
+          InAppWebView(
+            initialUrlRequest: URLRequest(
+                url: Uri.parse(widget.url)
+            ),
+            onReceivedServerTrustAuthRequest: (controller, challenge) async {
+              print(challenge);
+              return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
             },
           ),
           if (loadingPercentage < 100)

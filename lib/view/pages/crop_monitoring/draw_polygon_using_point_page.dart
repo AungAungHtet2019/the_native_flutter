@@ -7,9 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../provider/crop_monitioring_provider.dart';
+import '../../../provider/login_provider.dart';
 import '../../../provider/user_provider.dart';
+import '../../../utils/dialogue.dart';
 import '../../../utils/rest_api.dart';
 import '../../widgets/geo_server_widget.dart';
 import '../google_map/show_tile_overlay.dart';
@@ -23,6 +26,7 @@ class DrawPolygonUsingPointPage extends StatefulWidget {
 
 class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   final Completer<GoogleMapController> _controller = Completer();
 
   //Initial Location on the map
@@ -48,6 +52,8 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   bool loadingStatus = false;
 
 
+
+
   getResult(List latLongArrayList)async{
     print("hello getResult");
     String userID = Provider.of<UserProvider>(context,listen: false).userModel.UserID;
@@ -62,7 +68,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
         loadingStatus = false;
       });
       Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
-          title: "စပါးစိုက်ခင်းအခြေအနေ",
+          title: "စိုက်ခင်းအခြေအနေ",
           latLong: "19.803387373037715, 96.26350603358078",
           location: " ရေဆင်းအနီး ",
           // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
@@ -155,11 +161,11 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   }
 
 
+
   @override
   void initState() {
     // TODO: implement initState
     _getCurrentLocationFuture = _getCurrentLocation();
-
     super.initState();
   }
 
@@ -171,31 +177,42 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
         title: Text("စိုက်ခင်းဧရိယာသတ်မှတ်ရန်",style: TextStyle(color: Colors.black),),
         actions: [
           _clearDrawing && _drawPolygonEnabled == true && _points.length > 2 ? IconButton(
-              onPressed: (){
+              onPressed: ()async{
 
-                setState(() {
-                  loadingStatus = true;
-                });
-                print(_points);
-                print(_points[0]);
-                print(_points[3]);
-                print(_points[3].longitude);
+                Dialogs.showLoadingDialog(context, _keyLoader);
+                SharedPreferences sp = await SharedPreferences.getInstance();
+                String regPhoneNo = sp.getString("regPhoneNo")?? "";
+
+                String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+
+                Navigator.of(context).pop();
+                if(result == "0k"){
+
+                  ///EOS မှာ map analysis လုပ်ထားတာရှိမရှိစစ်တာ
+                  if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <5){
+                    setState(() {
+                      loadingStatus = true;
+                    });
+                    print(_points);
+                    print(_points[0]);
+                    print(_points[3]);
+                    print(_points[3].longitude);
 
 
 
 
-                _points.forEach((element) {
-                  myArrayList.add([element.longitude,element.latitude]);
-                });
-                myArrayList.add(myArrayList[0]);
-                print("Hey");
-                print(myArrayList);
-                print(myArrayList[0][0]);
+                    _points.forEach((element) {
+                      myArrayList.add([element.longitude,element.latitude]);
+                    });
+                    myArrayList.add(myArrayList[0]);
+                    print("Hey");
+                    print(myArrayList);
+                    print(myArrayList[0][0]);
 
 
 
-                ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
-                /*
+                    ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
+                    /*
                 myArrayList = [
                   [-86.86718,41.317464],
                   [-86.86718,41.331596],
@@ -210,11 +227,22 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
                  */
 
-                ///
-                getResult(myArrayList);
+                    ///
+                    getResult(myArrayList);
 
 
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
+                  }
+                  else{
+                    Dialogs.myDialog(context,"စိုက်ခင်းဧရိယာသတ်မှတ်ခြင်းအကြိမ်အရေအတွက်ကျော်လွန်နေပါသည်။");
+                  }
+                }else{
+                  Dialogs.myDialog(context,"အသုံးပြုသူအားအတည်ပြု၍မရပါ။");
+                }
+
+
+
+
                 },
               icon: Icon(Icons.send_time_extension_rounded,color: Colors.red,)): Container()
         ],
@@ -366,12 +394,15 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
               child: new Text("Ok"),
               onPressed: () {
                 Navigator.pop(context);
+                /*
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                     title: "စိုက်ခင်းအခြေအနေ",
                     latLong: "19.803387373037715, 96.26350603358078",
                     location: " ရေဆင်းအနီး ",
                     url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
                 )));
+
+                 */
                 myArrayList.clear();
 
               },

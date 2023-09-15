@@ -21,6 +21,28 @@ class _AboutPageState extends State<AboutPage> {
     await launch(launchUri.toString());
   }
 
+  _sendingMails() async {
+    String email = Uri.encodeComponent("contact@zartimyay.org");
+    String subject = Uri.encodeComponent("Hello Zartimyay");
+    String body = Uri.encodeComponent("Hi! I'm your client");
+    print(subject); //output: Hello%20Flutter
+    Uri mail = Uri.parse("mailto:$email?subject=$subject&body=$body");
+    if (await launchUrl(mail)) {
+      //email app opened
+    }else{
+      //email app is not opened
+    }
+  }
+
+  void _launchWebUrl(String url) async {
+    Uri mapUrl = Uri.parse(url);
+    if (await launchUrl(mapUrl)) {
+      await launchUrl(mapUrl);
+    } else {
+      throw "Couldn't launch Map";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +82,7 @@ class _AboutPageState extends State<AboutPage> {
               child: ListTile(
                 title: Center(child: Text("Mission",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Mission',url: 'pdf/Mission.pdf',)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Mission',url: 'pdf/M.pdf',)));
                 },
               ),
             ),
@@ -96,7 +118,7 @@ class _AboutPageState extends State<AboutPage> {
               child: ListTile(
                 title: Center(child: Text("Vision",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Vision',url: 'pdf/Vision.pdf',)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Vision',url: 'pdf/V.pdf',)));
                 },
               ),
             ),
@@ -135,7 +157,7 @@ class _AboutPageState extends State<AboutPage> {
               child: ListTile(
                 title: Center(child: Text("Pilot Project",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Pilot Project',url: 'pdf/Pilot_Project.pdf',)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Pilot Project',url: 'pdf/V.pdf',)));
                 },
               ),
             ),
@@ -180,6 +202,7 @@ class _AboutPageState extends State<AboutPage> {
                     leading: Icon(Icons.email,color: Colors.green,),
                     title: Text("contact@zartimyay.org"),
                     onTap: (){
+                      _sendingMails();
                     },
                   ),
                 ],
@@ -200,6 +223,7 @@ class _AboutPageState extends State<AboutPage> {
                     leading: Icon(Icons.wb_cloudy,color: Colors.green,),
                     title: Text("https://zartimyay.org"),
                     onTap: (){
+                      _launchWebUrl("https://zartimyay.org");
                     },
                   ),
                 ],

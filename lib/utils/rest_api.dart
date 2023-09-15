@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import 'global.dart';
+
 
 String token =  "wgpEdUEp3eb8mkzBOljXP71OenzlIeEm8NW2hDtV5FC9-sPyVb8cUYyWos6DXprW";
 
@@ -37,7 +39,7 @@ class URLS {
   // static const String domain = "http://dsitdteam-001-site1.atempurl.com";
   // static const String domain = "http://kothiha-001-site2.atempurl.com";
   // static const String domain = "http://api.zartimyay.org";
-  static const String domain = "https://api.zartimyay.org";
+
 
 
 

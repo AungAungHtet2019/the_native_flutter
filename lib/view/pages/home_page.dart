@@ -13,13 +13,16 @@ import 'package:the_native_flutter/view/pages/profile_page.dart';
 import 'package:the_native_flutter/view/pages/crop_monitoring/soil_population_page.dart';
 import 'package:the_native_flutter/view/pages/splash_screen_page.dart';
 
+import '../../provider/crop_monitioring_provider.dart';
 import '../../provider/login_provider.dart';
 import '../../provider/refresh_token_provider.dart';
+import '../../utils/dialogue.dart';
 import '../../utils/global.dart';
 import '../widgets/weather_widget.dart';
 import 'crop_monitoring/crop_monitoring_system_page.dart';
 import 'crop_monitoring/draw_polygon_page.dart';
 import 'crop_monitoring/draw_polygon_using_point_page.dart';
+import 'crop_monitoring/eos_anylysis_image_history_page.dart';
 import 'member_page.dart';
 import 'news_page.dart';
 
@@ -33,6 +36,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   var _currentIndex = 0;
 
   final ScrollController scrollcontroller = new ScrollController();
@@ -97,6 +101,7 @@ class _HomePageState extends State<HomePage> {
     //Storing
     sp.setBool("is_register_avl", false);
     sp.setString("regPhoneNo","");
+    Provider.of<UserProvider>(context,listen: false).logout();
   }
 
   //Log out or not confirm dialog box
@@ -189,6 +194,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  getEosImageHistory()async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String regPhoneNo = sp.getString("regPhoneNo")?? "";
+    String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+    String userId  = Provider.of<UserProvider>(context,listen: false).userModel.UserID;
+    bool status = await Provider.of<CropMonitoringProvider>(context,listen: false).getEosAnalysedImageHistory(userId);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -204,6 +217,7 @@ class _HomePageState extends State<HomePage> {
 
     _saveRegisterUserStatus();
 
+    getEosImageHistory();
     super.initState();
   }
 
@@ -253,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(fontSize: 18),
                           ),
                           accountEmail: Text(""),
-                          currentAccountPictureSize: Size.square(50),
+                          currentAccountPictureSize: Size.square(40),
                           // currentAccountPicture: CircleAvatar(
                           //   backgroundColor: Color.fromARGB(255, 165, 255, 137),
                           //   child: Text(
@@ -289,14 +303,46 @@ class _HomePageState extends State<HomePage> {
                       ListTile(
                         leading: const Icon(Icons.map,color: Colors.blue,),
                         title: const Text('စိုက်ခင်းဧရိယာသတ်မှတ်ရန်',style: TextStyle(fontWeight: FontWeight.bold),),
-                        onTap: () {
+                        onTap: ()async {
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=> DrewPolygonPage()));
 
+
+                          /*
+                          Dialogs.showLoadingDialog(context, _keyLoader);
+                          SharedPreferences sp = await SharedPreferences.getInstance();
+                          String regPhoneNo = sp.getString("regPhoneNo")?? "";
+
+                          String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+
+                          Navigator.of(context).pop();
+                          if(result == "0k"){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> DrawPolygonUsingPointPage()));
+                          }
+
+                           */
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> DrawPolygonUsingPointPage()));
+
                         },
                       ),
                       ListTile(
-                        leading: const Icon(Icons.logout,color: Colors.blue,),
+                        leading: const Icon(Icons.data_exploration,color: Colors.blue,),
+                        title: const Text('စိုက်ခင်းဧရိယာပြန်လည်ကြည့်ရှုရန်',style: TextStyle(fontWeight: FontWeight.bold),),
+                        onTap: () async{
+
+                          Dialogs.showLoadingDialog(context, _keyLoader);
+
+                          SharedPreferences sp = await SharedPreferences.getInstance();
+                          String regPhoneNo = sp.getString("regPhoneNo")?? "";
+                          String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+                          Navigator.of(context).pop();
+
+                          if(result == "0k"){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> EosAnalysisImageHistoryPage()));
+                          }
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.delete,color: Colors.red,),
                         title: const Text('Delete Account'),
                         onTap: () {
                           DeleteAccountConfirmDialogBox();
@@ -317,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Text("Version v0.01",style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(versionName,style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
               ],
             )
