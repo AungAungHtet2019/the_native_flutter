@@ -52,6 +52,8 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   bool loadingStatus = false;
 
 
+
+
   getResult(List latLongArrayList)async{
     print("hello getResult");
     String userID = Provider.of<UserProvider>(context,listen: false).userModel.UserID;
@@ -66,7 +68,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
         loadingStatus = false;
       });
       Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
-          title: "စပါးစိုက်ခင်းအခြေအနေ",
+          title: "စိုက်ခင်းအခြေအနေ",
           latLong: "19.803387373037715, 96.26350603358078",
           location: " ရေဆင်းအနီး ",
           // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
@@ -164,7 +166,6 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   void initState() {
     // TODO: implement initState
     _getCurrentLocationFuture = _getCurrentLocation();
-
     super.initState();
   }
 
@@ -393,12 +394,15 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
               child: new Text("Ok"),
               onPressed: () {
                 Navigator.pop(context);
+                /*
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                     title: "စိုက်ခင်းအခြေအနေ",
                     latLong: "19.803387373037715, 96.26350603358078",
                     location: " ရေဆင်းအနီး ",
                     url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
                 )));
+
+                 */
                 myArrayList.clear();
 
               },

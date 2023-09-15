@@ -11,6 +11,12 @@ import 'global.dart';
 class URLs{
   static const String request_search_scene_for_sentinel_2_url = "https://gate.eos.com/api/lms/search/v2/sentinel2?api_key="+api_key;
   static const String download_visual_url = "https://gate.eos.com/api/gdw/api?api_key="+api_key;
+  static const String download_image_url = "https://gate.eos.com/api/gdw/api/";
+
+  static const String create_multi_temporal_statistics_url = "https://gate.eos.com/api/gdw/api?api_key="+api_key;
+  static const String get_multi_temporal_statistics_url = "https://gate.eos.com/api/gdw/api/";
+
+
 
   static const String getEosAnalysisImageList_url = domain+"/api/Map/get_user_analysis_map_history";
 
@@ -51,6 +57,34 @@ class EosApiServices{
     return r.body;
 
   }
+
+  static Future<String> downloadImage(taskId)async{
+    print(taskId);
+    http.Response r = await http.get(Uri.parse(URLs.download_image_url+taskId+"?api_key="+api_key));
+    print("Status code downloadImage is "+r.statusCode.toString());
+    print("downloadImage r.body is "+r.body.toString());
+    return r.body;
+  }
+
+  static Future<String> createMultiTemporalStatistics(body)async{
+
+    print("createMultiTemporalStatistics");
+    print(body);
+    http.Response r = await http.post(Uri.parse(URLs.create_multi_temporal_statistics_url),headers: {"Content-Type": "application/json"},body: body);
+
+    print("Status code createMultiTemporalStatistics is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    return r.body;
+  }
+
+  static Future<String> getMultiTemporalStatistics(taskId)async{
+    print(taskId);
+    http.Response r = await http.get(Uri.parse(URLs.get_multi_temporal_statistics_url+taskId+"?api_key="+api_key));
+    print("Status code getMultiTemporalStatistics is "+r.statusCode.toString());
+    print("getMultiTemporalStatistics r.body is "+r.body.toString());
+    return r.body;
+  }
+
 
   static Future<String> getEosAnalysedImageHistory(body)async{
     print("This is getEosAnalysedImageHistory Method");

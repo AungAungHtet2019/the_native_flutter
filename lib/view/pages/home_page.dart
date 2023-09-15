@@ -267,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(fontSize: 18),
                           ),
                           accountEmail: Text(""),
-                          currentAccountPictureSize: Size.square(50),
+                          currentAccountPictureSize: Size.square(40),
                           // currentAccountPicture: CircleAvatar(
                           //   backgroundColor: Color.fromARGB(255, 165, 255, 137),
                           //   child: Text(

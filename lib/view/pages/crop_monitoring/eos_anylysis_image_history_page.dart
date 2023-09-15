@@ -48,8 +48,9 @@ class _EosAnalysisImageHistoryPageState extends State<EosAnalysisImageHistoryPag
           return Card(
             child: ListTile(
               leading: Text((index+1).toString()),
-              title: Text(e.taskId),
-              subtitle: Text(e.createAt.replaceAll("T"," ").split(".").first),
+              title: Text(e.createAt.replaceAll("T"," ").split(".").first+" ရက်နေ့စိုက်ခင်းအခြေအနေ"),
+              subtitle: Text(e.taskId),
+
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                     title: "စိုက်ခင်းအခြေအနေ",

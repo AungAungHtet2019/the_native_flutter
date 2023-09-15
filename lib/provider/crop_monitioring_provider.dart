@@ -13,6 +13,8 @@ class CropMonitoringProvider extends ChangeNotifier{
   String taskId = "";
   String result = "";
 
+  String multiTemporaalStatisticsResult = "";
+
   //Getter for taskId flag
   String get taskID => taskId;
 
@@ -34,8 +36,8 @@ class CropMonitoringProvider extends ChangeNotifier{
       "page": 1,
       "search": {
         "date": {
-          "from": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
-          "to": DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0],
+          "from": DateTime.now().subtract(Duration(days:25)).toString().split(" ")[0],
+          "to": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
           // "from": "2020-05-01",
           // "to": "2020-05-30",
         },
@@ -86,8 +88,8 @@ class CropMonitoringProvider extends ChangeNotifier{
               latLongList
             ]
           },
-          "px_size": 2,
-          "format":"jpeg",
+          "px_size": 5,
+          "format":"png",
           "colormap": "2b0040e4100279573a41138c8a30c1f2",
           "reference": "ref_datetime"
         }
@@ -103,22 +105,36 @@ class CropMonitoringProvider extends ChangeNotifier{
           if(taskId != ""){
             status = true;
 
-            Map latLngMap = {
-              "UserId":userId,
-              "taskID":taskId,
-              "viewID":viewId,
-              "latLongList":latLongList
-            };
-            var jsonbodyLatLong = json.encode(latLngMap);
-            await ApiService.insertTaskID_LatLong(jsonbodyLatLong).then((value) {
-              result = value;
-              if(value == "success"){
-                status =true;
-                taskId;
-                notifyListeners();
-              }
+            await countDownTimer();
+            if(timerCount == 0){
+            {
+              await EosApiServices.downloadImage(taskId).then((value) {
+                print("downloadImage is ");
+                print(value);
+              });
 
-            });
+              Map latLngMap = {
+                "UserId":userId,
+                "taskID":taskId,
+                "viewID":viewId,
+                "latLongList":latLongList
+              };
+              var jsonbodyLatLong = json.encode(latLngMap);
+              await ApiService.insertTaskID_LatLong(jsonbodyLatLong).then((value) {
+                result = value;
+                if(value == "success"){
+                  status =true;
+                  taskId;
+                  notifyListeners();
+                }
+                else{
+                  status = false;
+                  taskId;
+                  notifyListeners();
+                }
+
+              });
+            }}
 
           }
           else{
@@ -134,6 +150,90 @@ class CropMonitoringProvider extends ChangeNotifier{
     }
 
     notifyListeners();
+    return status;
+  }
+
+
+  ///timer function start
+  int timerCount = 25;
+  countDownTimer() async {
+
+    for (int x = 25; x > 0; x--) {
+      await Future.delayed(Duration(seconds: 1)).then((_) {
+        timerCount -= 1;
+        print(timerCount);
+      });
+    }
+  }
+  ///timer function end
+
+  Future<bool> createMultiTemporalStatistics(List latLongList)async{
+    bool status = false;
+
+    String statistics_task_id= "";
+
+    Map body = {
+      "type":"mt_stats",
+      "params": {
+        "bm_type":["NDVI", "MSI", "EVI"],
+        "date_start":DateTime.now().subtract(Duration(days:125)).toString().split(" ")[0],
+        "date_end":DateTime.now().subtract(Duration(days:115)).toString().split(" ")[0],
+        "geometry":
+        {
+          "coordinates":[
+            latLongList
+          ],
+          "type":"Polygon"
+        },
+        "reference":"ref_20200924-00-20",
+        "sensors":["sentinel2"]
+
+      }
+    };
+
+    var jsonbody = json.encode(body);
+    await EosApiServices.createMultiTemporalStatistics(jsonbody).then((value) async{
+      print(value);
+      try{
+        Map<String, dynamic> dataResponse = jsonDecode(value);
+        print("createMultiTemporalStatistics data is "+dataResponse.toString());
+        print(dataResponse['task_id']);
+        statistics_task_id = dataResponse['task_id'];
+
+        if(statistics_task_id != ""){
+          await countDownTimer();
+          if(timerCount == 0){
+            await EosApiServices.getMultiTemporalStatistics(statistics_task_id).then((value) {
+              print("getMultiTemporalStatistics is ");
+              print(value);
+
+              try{
+                Map<String,dynamic> getDataResponse = jsonDecode(value);
+                List<dynamic> dlist = getDataResponse['result'];
+                print(dlist);
+                if(dlist != []){
+                  multiTemporaalStatisticsResult = dlist.toString();
+                  notifyListeners();
+                }
+                else{
+                  multiTemporaalStatisticsResult = getDataResponse['error'];
+                  notifyListeners();
+                }
+              }
+              catch(exp){
+                print(exp);
+              }
+
+            });
+          }
+
+        }
+      }
+      catch(exp){
+        print(exp);
+      }
+    });
+
     return status;
   }
 

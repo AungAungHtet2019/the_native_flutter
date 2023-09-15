@@ -117,6 +117,7 @@ dependencies:
   #  geolocator: ^8.2.0
   geocoding: ^2.0.4
 
+  flutter_inappwebview: ^5.0.5+3
 
 
 dev_dependencies:
