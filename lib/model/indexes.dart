@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../components/evi.dart';
+import 'evi.dart';
 import 'msi.dart';
 import 'ndvi.dart';
 

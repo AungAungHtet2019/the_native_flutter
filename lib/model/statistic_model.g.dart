@@ -11,7 +11,7 @@ StatisticModel _$StatisticModelFromJson(Map<String, dynamic> json) =>
       sceneId: json['scene_id'] as String? ?? 'scene_id',
       viewId: json['view_id'] as String? ?? 'view_id',
       date: json['date'] as String? ?? 'date',
-      cloud: json['cloud'] as int? ?? 0,
+      cloud: (json['cloud'] as num?)?.toDouble() ?? 0.0,
       notes: json['notes'] as List<dynamic>? ?? [],
       indexes: json['indexes'] == null
           ? null

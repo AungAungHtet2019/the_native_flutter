@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:the_native_flutter/model/statistic_model.dart';
 
 import '../model/eos_image_history_model.dart';
 import '../utils/eos_api.dart';
@@ -13,7 +14,9 @@ class CropMonitoringProvider extends ChangeNotifier{
   String taskId = "";
   String result = "";
 
+  String multiTemporaalStatisticsError = "";
   String multiTemporaalStatisticsResult = "";
+  List<StatisticModel> statisticModelList = [];
 
   //Getter for taskId flag
   String get taskID => taskId;
@@ -212,11 +215,21 @@ class CropMonitoringProvider extends ChangeNotifier{
                 List<dynamic> dlist = getDataResponse['result'];
                 print(dlist);
                 if(dlist != []){
-                  multiTemporaalStatisticsResult = dlist.toString();
+                  for(int i = 0; i < dlist.length; i++){
+                    try{
+                      statisticModelList.add(StatisticModel.fromJson(dlist[i]));
+                    }
+                    catch(exp){
+                      print(exp);
+                    }
+                  }
                   notifyListeners();
+                  print("statisticModelList.length is ");
+                  print(statisticModelList.length);
+
                 }
                 else{
-                  multiTemporaalStatisticsResult = getDataResponse['error'];
+                  multiTemporaalStatisticsError = getDataResponse['error'];
                   notifyListeners();
                 }
               }

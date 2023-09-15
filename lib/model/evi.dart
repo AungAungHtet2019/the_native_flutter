@@ -20,34 +20,34 @@ class EVI {
     required this.p90,
   });
 
-  @JsonKey(name: 'min', defaultValue: 0)
+  @JsonKey(name: 'min', defaultValue: 0.0)
   double min;
 
-  @JsonKey(name: 'max', defaultValue: 0)
+  @JsonKey(name: 'max', defaultValue: 0.0)
   double max;
 
-  @JsonKey(name: 'average', defaultValue: 0)
+  @JsonKey(name: 'average', defaultValue: 0.0)
   double average;
 
-  @JsonKey(name: 'std', defaultValue: 0)
+  @JsonKey(name: 'std', defaultValue: 0.0)
   double std;
 
-  @JsonKey(name: 'variance', defaultValue: 0)
+  @JsonKey(name: 'variance', defaultValue: 0.0)
   double variance;
 
-  @JsonKey(name: 'q1', defaultValue: 0)
+  @JsonKey(name: 'q1', defaultValue: 0.0)
   double q1;
 
-  @JsonKey(name: 'q3', defaultValue: 0)
+  @JsonKey(name: 'q3', defaultValue: 0.0)
   double q3;
 
-  @JsonKey(name: 'median', defaultValue: 0)
+  @JsonKey(name: 'median', defaultValue: 0.0)
   double median;
 
-  @JsonKey(name: 'p10', defaultValue: 0)
+  @JsonKey(name: 'p10', defaultValue: 0.0)
   double p10;
 
-  @JsonKey(name: 'p90', defaultValue: 0)
+  @JsonKey(name: 'p90', defaultValue: 0.0)
   double p90;
 
   factory EVI.fromJson(Map<String,dynamic> data) => _$EVIFromJson(data);

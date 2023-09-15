@@ -24,8 +24,8 @@ class StatisticModel {
   @JsonKey(name: 'date', defaultValue: "date")
   String date;
 
-  @JsonKey(name: 'cloud', defaultValue: 0)
-  int cloud;
+  @JsonKey(name: 'cloud', defaultValue: 0.0)
+  double cloud;
 
   @JsonKey(name: 'notes', defaultValue: [])
   List<dynamic> notes;
