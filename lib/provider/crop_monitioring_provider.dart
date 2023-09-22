@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:the_native_flutter/model/lat_lng_model.dart';
 import 'package:the_native_flutter/model/statistic_model.dart';
 
+import '../model/crop_monitoring_index_model.dart';
 import '../model/eos_image_history_model.dart';
 import '../utils/eos_api.dart';
 import '../utils/rest_api.dart';
@@ -17,6 +19,8 @@ class CropMonitoringProvider extends ChangeNotifier{
   String multiTemporaalStatisticsError = "";
   String multiTemporaalStatisticsResult = "";
   List<StatisticModel> statisticModelList = [];
+  List<LatLngModel> latLngList =  [];
+  List<CropMonitoringIndexModel> cropMonitoringIndexList = [];
 
   //Getter for taskId flag
   String get taskID => taskId;
@@ -24,7 +28,7 @@ class CropMonitoringProvider extends ChangeNotifier{
   List<EosImageHistoryModel> eosImageHistoryList = [];
 
 
-  Future<bool> requestSearchScence(List latLongList,String userId)async{
+  Future<bool> requestSearchScence(List latLongList,String userId,String startDate,String endDate)async{
 
     print("Hey requestSearchScence");
     print(DateTime.now().subtract(Duration(days:1)).toString().split(" ")[0]);
@@ -39,10 +43,12 @@ class CropMonitoringProvider extends ChangeNotifier{
       "page": 1,
       "search": {
         "date": {
-          "from": DateTime.now().subtract(Duration(days:25)).toString().split(" ")[0],
-          "to": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
+          // "from": DateTime.now().subtract(Duration(days:25)).toString().split(" ")[0],
+          // "to": DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
           // "from": "2020-05-01",
           // "to": "2020-05-30",
+          "from": startDate,
+          "to": endDate,
         },
         "cloudCoverage": {
           "from": 0,
@@ -158,9 +164,9 @@ class CropMonitoringProvider extends ChangeNotifier{
 
 
   ///timer function start
-  int timerCount = 25;
+  int timerCount = 0;
   countDownTimer() async {
-
+    timerCount = 25;
     for (int x = 25; x > 0; x--) {
       await Future.delayed(Duration(seconds: 1)).then((_) {
         timerCount -= 1;
@@ -170,7 +176,7 @@ class CropMonitoringProvider extends ChangeNotifier{
   }
   ///timer function end
 
-  Future<bool> createMultiTemporalStatistics(List latLongList)async{
+  Future<bool> createMultiTemporalStatistics(List latLongList,String startDat,String endDate)async{
     bool status = false;
 
     String statistics_task_id= "";
@@ -179,8 +185,10 @@ class CropMonitoringProvider extends ChangeNotifier{
       "type":"mt_stats",
       "params": {
         "bm_type":["NDVI", "MSI", "EVI"],
-        "date_start":DateTime.now().subtract(Duration(days:125)).toString().split(" ")[0],
-        "date_end":DateTime.now().subtract(Duration(days:115)).toString().split(" ")[0],
+        // "date_start":DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
+        // "date_end":DateTime.now().subtract(Duration(days:1)).toString().split(" ")[0],
+        "date_start":startDat,
+        "date_end":endDate,
         "geometry":
         {
           "coordinates":[
@@ -210,11 +218,17 @@ class CropMonitoringProvider extends ChangeNotifier{
               print("getMultiTemporalStatistics is ");
               print(value);
 
+              multiTemporaalStatisticsError = "";
+              Map<String,dynamic> getDataResponse = jsonDecode(value);
+              // print(getDataResponse['errors'][0]['error']);
               try{
-                Map<String,dynamic> getDataResponse = jsonDecode(value);
+
                 List<dynamic> dlist = getDataResponse['result'];
-                print(dlist);
-                if(dlist != []){
+
+                statisticModelList.clear();
+
+                print(dlist.toString());
+                if(dlist.length != 0){
                   for(int i = 0; i < dlist.length; i++){
                     try{
                       statisticModelList.add(StatisticModel.fromJson(dlist[i]));
@@ -229,12 +243,14 @@ class CropMonitoringProvider extends ChangeNotifier{
 
                 }
                 else{
-                  multiTemporaalStatisticsError = getDataResponse['error'];
+                  multiTemporaalStatisticsError = getDataResponse['errors'][0]['error'];
                   notifyListeners();
                 }
               }
               catch(exp){
                 print(exp);
+                multiTemporaalStatisticsError = getDataResponse['errors'][0]['error'];
+                notifyListeners();
               }
 
             });
@@ -285,6 +301,81 @@ class CropMonitoringProvider extends ChangeNotifier{
 
     return status;
   }
+
+  Future<bool> getMapPolygonPoints(String taskId) async{
+    bool status = false;
+    Map body= {
+      "UserId":"",
+      "TaskId":taskId,
+      "viewID":"",
+      "LatLongList":[[0]]
+    };
+    var jsonbody = jsonEncode(body);
+    try{
+      await EosApiServices.getMapPolygonPoints(jsonbody).then((value) {
+
+        print("++++++++++++++++++++++++"+value.toString());
+        print("***********************");
+        Map<String,dynamic> dataResponse = jsonDecode(value);
+
+        List<dynamic> datalist = dataResponse['data'];
+        latLngList.clear();
+        for(int i = 0 ; i< datalist.length; i++){
+          try{
+            latLngList.add(LatLngModel.fromJson(datalist[i]));
+          }
+          catch(exp){
+            print(exp);
+            status = false;
+          }
+        }
+        status = true;
+        latLngList;
+        notifyListeners();
+      });
+    }
+    catch(exp){
+      print(exp);
+      status = false;
+    }
+
+    return status;
+  }
+
+  Future<bool> getCropMonitoringIndex() async{
+    bool status = false;
+
+    try{
+      await EosApiServices.getCropMonitoringIndex().then((value) {
+
+        print("++++++++++++++++++++++++"+value.toString());
+        print("***********************");
+        Map<String,dynamic> dataResponse = jsonDecode(value);
+
+        List<dynamic> datalist = dataResponse['data'];
+        cropMonitoringIndexList.clear();
+        for(int i = 0 ; i< datalist.length; i++){
+          try{
+            cropMonitoringIndexList.add(CropMonitoringIndexModel.fromJson(datalist[i]));
+          }
+          catch(exp){
+            print(exp);
+            status = false;
+          }
+        }
+        status = true;
+        cropMonitoringIndexList;
+        notifyListeners();
+      });
+    }
+    catch(exp){
+      print(exp);
+      status = false;
+    }
+
+    return status;
+  }
+
 
 
 }

@@ -19,6 +19,9 @@ class URLs{
 
 
   static const String getEosAnalysisImageList_url = domain+"/api/Map/get_user_analysis_map_history";
+  static const String getMapPolygonPoints_url = domain+"/api/Map/get_polygon_points";
+  static const String getCropMonitoringIndex_url = domain+"/api/Map/get_crop_monitoring_index";
+
 
 }
 
@@ -93,14 +96,31 @@ class EosApiServices{
     http.Response r = await http.post(Uri.parse(URLs.getEosAnalysisImageList_url),headers: {"Content-Type": "application/json"},body: body);
     print("Status code getEosAnalysedImageHistory is "+r.statusCode.toString());
     print("r.body is "+r.body.toString());
-    if(r.statusCode ==200){
-      return r.body.toString();
-    }
-    else{
-      return r.body.toString();
-    }
+    return r.body.toString();
 
   }
+
+  static Future<String> getMapPolygonPoints(body)async{
+    print("This is getMapPolygonPoints Method");
+    print("body of getMapPolygonPoints is "+body);
+
+    http.Response r = await http.post(Uri.parse(URLs.getMapPolygonPoints_url),headers: {"Content-Type": "application/json"},body: body);
+    print("Status code getMapPolygonPoints is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    return r.body.toString();
+
+  }
+
+  static Future<String> getCropMonitoringIndex()async{
+    print("This is getCropMonitoringIndex Method");
+
+    http.Response r = await http.get(Uri.parse(URLs.getCropMonitoringIndex_url),headers: {"Content-Type": "application/json"});
+    print("Status code getCropMonitoringIndex is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    return r.body.toString();
+
+  }
+
 
 
 

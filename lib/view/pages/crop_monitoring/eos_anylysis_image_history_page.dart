@@ -37,9 +37,9 @@ class _EosAnalysisImageHistoryPageState extends State<EosAnalysisImageHistoryPag
     return Scaffold(
       appBar: AppBar(
         title: Text("စိုက်ခင်းဧရိယာမှတ်တမ်း",),
-        backgroundColor: Colors.lightGreenAccent,
+        backgroundColor: Colors.lightGreen,
       ),
-      body: Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length == [] ? Center(
+      body: Provider.of<CropMonitoringProvider>(context,listen: true).eosImageHistoryList.length == 0 ? Center(
         child: Text("No record"),
       )
           :ListView(
@@ -52,12 +52,15 @@ class _EosAnalysisImageHistoryPageState extends State<EosAnalysisImageHistoryPag
               subtitle: Text(e.taskId),
 
               onTap: (){
+                print("e.taskId");
+                print(e.taskId);
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> GeoServerWidget(
                     title: "စိုက်ခင်းအခြေအနေ",
                     latLong: "19.803387373037715, 96.26350603358078",
                     location: " ရေဆင်းအနီး ",
                     // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
-                    url:"https://rrms.zartimyay.org/map?task="+e.taskId
+                    url:"https://rrms.zartimyay.org/map?task="+e.taskId,
+                  taskId: e.taskId,
                 )));
 
               },

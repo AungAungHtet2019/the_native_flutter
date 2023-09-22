@@ -72,8 +72,8 @@ void main(){
             )),
 
         // home: UploadScreen(),
-        // home: SplashScreen(),
-        home: TestPage(),
+        home: SplashScreen(),
+        // home: TestPage(),
         // home:ChatPage(),
         // home: NewsPage(),
         // home: SmsVerificationPage("","",""),

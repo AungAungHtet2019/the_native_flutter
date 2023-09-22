@@ -200,6 +200,7 @@ class _HomePageState extends State<HomePage> {
     String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
     String userId  = Provider.of<UserProvider>(context,listen: false).userModel.UserID;
     bool status = await Provider.of<CropMonitoringProvider>(context,listen: false).getEosAnalysedImageHistory(userId);
+    bool crop_monitoring_index_status = await Provider.of<CropMonitoringProvider>(context,listen: false).getCropMonitoringIndex();
   }
 
   @override
@@ -333,12 +334,18 @@ class _HomePageState extends State<HomePage> {
 
                           SharedPreferences sp = await SharedPreferences.getInstance();
                           String regPhoneNo = sp.getString("regPhoneNo")?? "";
-                          String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+                          //String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
                           Navigator.of(context).pop();
+
+                          /*
 
                           if(result == "0k"){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> EosAnalysisImageHistoryPage()));
                           }
+
+                           */
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> EosAnalysisImageHistoryPage()));
                         },
                       ),
                       ListTile(

@@ -62,5 +62,11 @@
      <string>This app needs access to your photo gallery to take pictures for your profile.</string>
      <key>NSCameraUsageDescription</key>
      <string>This app needs access to your camera to take pictures for your profile.</string>
+
+     <key>NSAppTransportSecurity</key>
+     <dict>
+         <key>NSAllowsArbitraryLoads</key>
+         <true/>
+     </dict>
 </dict>
 </plist>

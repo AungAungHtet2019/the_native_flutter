@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_native_flutter/view/pages/phone_number_page.dart';
 
+import '../../provider/crop_monitioring_provider.dart';
+import '../../provider/login_provider.dart';
+import '../../provider/user_provider.dart';
 import '../../utils/global.dart';
 import 'home_page.dart';
 
@@ -31,6 +35,15 @@ class _SplashScreenState extends State<SplashScreen> {
     print("is_register_avl is "+register_status.toString()+regPhoneNo);
   }
 
+  getEosImageHistory()async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String regPhoneNo = sp.getString("regPhoneNo")?? "";
+    String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+    String userId  = Provider.of<UserProvider>(context,listen: false).userModel.UserID;
+    bool status = await Provider.of<CropMonitoringProvider>(context,listen: false).getEosAnalysedImageHistory(userId);
+    bool crop_monitoring_index_status = await Provider.of<CropMonitoringProvider>(context,listen: false).getCropMonitoringIndex();
+  }
+
   @override
   void initState() {
 
@@ -39,7 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
         Duration(seconds: 3),
-            () {
+            () async{
+          await getEosImageHistory();
               if(register_status == true){
 
                 Navigator.of(context).pushReplacement(MaterialPageRoute(

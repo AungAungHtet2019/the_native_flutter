@@ -51,6 +51,9 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   bool mapStatus = false;
   bool loadingStatus = false;
 
+  TextEditingController startDateInputController = TextEditingController();
+  TextEditingController endDateInputController = TextEditingController();
+
 
 
 
@@ -60,7 +63,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
 
 
-    mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID);
+    mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID,startDateInputController.text,endDateInputController.text);
     print(mapStatus);
     if(mapStatus == true){
       String taskId = await Provider.of<CropMonitoringProvider>(context,listen: false).taskId;
@@ -72,7 +75,8 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           latLong: "19.803387373037715, 96.26350603358078",
           location: " ရေဆင်းအနီး ",
           // url: "https://aungaunghtet2019.github.io/eos_crop_monitoring/"
-          url:"https://rrms.zartimyay.org/map?task="+taskId
+          url:"https://rrms.zartimyay.org/map?task="+taskId,
+        taskId: taskId,
       )));
       myArrayList.clear();
 
@@ -161,6 +165,56 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
   }
 
 
+  Future<void> eos()async{
+    ///EOS မှာ map analysis လုပ်ထားတာရှိမရှိစစ်တာ
+    if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <5){
+      setState(() {
+        loadingStatus = true;
+      });
+      print(_points);
+      print(_points[0]);
+      print(_points[3]);
+      print(_points[3].longitude);
+
+
+
+
+      _points.forEach((element) {
+        myArrayList.add([element.longitude,element.latitude]);
+      });
+      myArrayList.add(myArrayList[0]);
+      print("Hey");
+      print(myArrayList);
+      print(myArrayList[0][0]);
+
+
+
+      ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
+      /*
+                myArrayList = [
+                  [-86.86718,41.317464],
+                  [-86.86718,41.331596],
+                  [-86.862631,41.331596],
+                  [-86.862631,41.317464],
+                  [-86.86718,41.317464]
+                ];
+                print("Hey");
+                print(myArrayList);
+                print(myArrayList[0][0]);
+
+
+                 */
+
+      ///
+      getResult(myArrayList);
+
+
+      // Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
+    }
+    else{
+      Dialogs.myDialog(context,"စိုက်ခင်းဧရိယာသတ်မှတ်ခြင်းအကြိမ်အရေအတွက်ကျော်လွန်နေပါသည်။");
+    }
+  }
 
   @override
   void initState() {
@@ -176,43 +230,73 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
         backgroundColor: Colors.lightGreenAccent,
         title: Text("စိုက်ခင်းဧရိယာသတ်မှတ်ရန်",style: TextStyle(color: Colors.black),),
         actions: [
-          _clearDrawing && _drawPolygonEnabled == true && _points.length > 2 ? IconButton(
+          _clearDrawing && _drawPolygonEnabled == true && _points.length > 3 ? IconButton(
               onPressed: ()async{
 
-                Dialogs.showLoadingDialog(context, _keyLoader);
-                SharedPreferences sp = await SharedPreferences.getInstance();
-                String regPhoneNo = sp.getString("regPhoneNo")?? "";
+                await showDialog(
+                  context: context,
+                  builder: (context) => new StatefulBuilder(builder: (context, setState){
+                    return new AlertDialog(
+                      title: Text(
+                        'Start Date နှင့် End Date ရွေးချယ်ပါ',
+                        // textAlign: TextAlign.center,
+                      ),
+                      titleTextStyle: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context,rootNavigator: true).pop();
+                            startDateInputController.clear();
+                            endDateInputController.clear();
+                          },
+                          child: Text('Cancel'.toUpperCase()),
+                        ),
+                        startDateInputController.text.length >0 && endDateInputController.text.length >0 ? TextButton(
+                          onPressed: () async{
 
-                String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
+                            Navigator.of(context,rootNavigator: true).pop();
 
-                Navigator.of(context).pop();
-                if(result == "0k"){
+                            /*
+                            Dialogs.showLoadingDialog(context, _keyLoader);
+                            SharedPreferences sp = await SharedPreferences.getInstance();
+                            String regPhoneNo = sp.getString("regPhoneNo")?? "";
 
-                  ///EOS မှာ map analysis လုပ်ထားတာရှိမရှိစစ်တာ
-                  if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <5){
-                    setState(() {
-                      loadingStatus = true;
-                    });
-                    print(_points);
-                    print(_points[0]);
-                    print(_points[3]);
-                    print(_points[3].longitude);
+                            String result = await Provider.of<UserProvider>(context,listen: false).checkUser(regPhoneNo,Provider.of<LoginProvider>(context,listen: false).loginModelData.token);
 
+                            Navigator.of(context).pop();
+                            if(result == "0k"){
 
-
-
-                    _points.forEach((element) {
-                      myArrayList.add([element.longitude,element.latitude]);
-                    });
-                    myArrayList.add(myArrayList[0]);
-                    print("Hey");
-                    print(myArrayList);
-                    print(myArrayList[0][0]);
+                              ///EOS မှာ map analysis လုပ်ထားတာရှိမရှိစစ်တာ
+                              if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <5){
+                                setState(() {
+                                  loadingStatus = true;
+                                });
+                                print(_points);
+                                print(_points[0]);
+                                print(_points[3]);
+                                print(_points[3].longitude);
 
 
 
-                    ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
-                    /*
+
+                                _points.forEach((element) {
+                                  myArrayList.add([element.longitude,element.latitude]);
+                                });
+                                myArrayList.add(myArrayList[0]);
+                                print("Hey");
+                                print(myArrayList);
+                                print(myArrayList[0][0]);
+
+
+
+                                ///ဒုဌာနမှူးအတွက်ပြင်ထားတာ
+                                /*
                 myArrayList = [
                   [-86.86718,41.317464],
                   [-86.86718,41.331596],
@@ -227,18 +311,93 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
                  */
 
-                    ///
-                    getResult(myArrayList);
+                                ///
+                                getResult(myArrayList);
 
 
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
-                  }
-                  else{
-                    Dialogs.myDialog(context,"စိုက်ခင်းဧရိယာသတ်မှတ်ခြင်းအကြိမ်အရေအတွက်ကျော်လွန်နေပါသည်။");
-                  }
-                }else{
-                  Dialogs.myDialog(context,"အသုံးပြုသူအားအတည်ပြု၍မရပါ။");
-                }
+                                // Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowTileOverlayPage()));
+                              }
+                              else{
+                                Dialogs.myDialog(context,"စိုက်ခင်းဧရိယာသတ်မှတ်ခြင်းအကြိမ်အရေအတွက်ကျော်လွန်နေပါသည်။");
+                              }
+                            }else{
+                              Dialogs.myDialog(context,"အသုံးပြုသူအားအတည်ပြု၍မရပါ။");
+                            }
+
+                             */
+
+
+
+                            await eos();
+                            startDateInputController.clear();
+                            endDateInputController.clear();
+
+                          },
+                          child: Text('OK'.toUpperCase()),
+                        ):Container(),
+                      ],
+                      content: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: startDateInputController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  labelText: 'Start Date',
+                                ),
+                                textInputAction: TextInputAction.next,
+                                onTap: ()async{
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime(2050));
+
+                                  if (pickedDate != null) {
+
+                                    setState(() {
+                                      startDateInputController.text =pickedDate.toString().split(" ").first;
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: endDateInputController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  labelText: 'End Date',
+                                ),
+                                textInputAction: TextInputAction.done,
+                                onTap: ()async{
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime(2050));
+
+                                  if (pickedDate != null) {
+                                    setState(() {
+                                      endDateInputController.text = pickedDate.toString().split(" ").first;
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                );
+
+
 
 
 
@@ -383,7 +542,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           title: new Text("The Native "),
           content: Padding(
             padding: const EdgeInsets.only(top:15.0),
-            child: new Text(result),
+            child: new Text(result+". Please try again"),
           ),
           actions: <Widget>[
             // CupertinoDialogAction(
