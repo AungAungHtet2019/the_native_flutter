@@ -6,13 +6,13 @@ import 'package:http/http.dart' as http;
 
 import 'global.dart';
 
-
 String token =  "wgpEdUEp3eb8mkzBOljXP71OenzlIeEm8NW2hDtV5FC9-sPyVb8cUYyWos6DXprW";
 
 // final String apiEndpointNews = 'https://nnews.myanmarewg-ct.org/wp-json/wp/v2/posts?_embed';//https://mminfo.myanmarewg-ct.org/wp-json/wp/v2/posts?_embed
 // final String apiEndpointNews = 'https://mminfo.myanmarewg-ct.org/wp-json/wp/v2/posts?_embed';//https://mminfo.myanmarewg-ct.org/wp-json/wp/v2/posts?_embed
-final String apiEndpointNews = 'https://nnews.myanmarewg-ct.org/wp-json/wp/v2/posts?_embed';
-// final String apiEndpointNews = 'http://dynamic.zartimyay.org/wp-json/wp/v2/posts?_embed';
+// final String apiEndpointNews = 'https://nnews.myanmarewg-ct.org/wp-json/wp/v2/posts?_embed';
+final String apiEndpointNews = 'http://dynamic.zartimyay.org/wp-json/wp/v2/posts?_embed';
+// final String apiEndpointNews = 'https://www.gandawin.net//wp-json/wp/v2/posts?_embed';
 // final String apiEndpointNews = 'https://mminfo.myanmarewg-ct.org/wp-json/buddypress/v1/activity';
 
 final String suagrcaneUrl = "http://20.6.128.25/sugarcane.aspx";

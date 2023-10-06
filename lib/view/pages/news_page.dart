@@ -29,6 +29,7 @@ class _NewsPageState extends State<NewsPage> {
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
    List<WpContent> newsModelList = [];
+   bool getNewsStatus = true;
    int pageIndex = 1;
 
   _getData(int myPageIndex) async {
@@ -39,16 +40,28 @@ class _NewsPageState extends State<NewsPage> {
     print('Response body: ${response.body}');
 
 
-    List<dynamic> dataList =
-    jsonDecode(response.body); // list of wp-content
 
-    for (int i = 0; i < dataList.length; i++) {
-      if (newsModelList == null) {
-        newsModelList = [];
+
+    try{
+
+      List<dynamic> dataList =
+      jsonDecode(response.body); // list of wp-content
+      for (int i = 0; i < dataList.length; i++) {
+        if (newsModelList == null) {
+          newsModelList = [];
+        }
+        setState(() {
+          newsModelList.add(WpContent.fromJson(dataList[i]));
+        });
       }
+    }
+    catch(exp){
       setState(() {
-        newsModelList.add(WpContent.fromJson(dataList[i]));
+        getNewsStatus = false;
+
       });
+      print("Hello");
+      print(exp);
     }
 
   }
@@ -97,7 +110,7 @@ class _NewsPageState extends State<NewsPage> {
 
 
     return Scaffold(
-      body: newsModelList.length == 0 ? ListView.builder(
+      body: newsModelList.length == 0 && getNewsStatus == true ? ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
@@ -123,6 +136,8 @@ class _NewsPageState extends State<NewsPage> {
             ],
           );
         },
+      ): newsModelList.length == 0 && getNewsStatus == false ? Center(
+        child: Text("No data"),
       ) :
       SmartRefresher(
         enablePullDown: true,
