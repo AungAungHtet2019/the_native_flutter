@@ -79,12 +79,16 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ],
               ),
+              /*
               child: ListTile(
                 title: Center(child: Text("Mission",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Mission',url: 'pdf/M.pdf',)));
                 },
               ),
+
+               */
+              child: LocalPdfViewPage(pdfName: 'Mission',url: 'assets/pdf/M.pdf',),
             ),
           ),
           Padding(
@@ -115,12 +119,16 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ],
               ),
+              /*
               child: ListTile(
                 title: Center(child: Text("Vision",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Vision',url: 'pdf/V.pdf',)));
                 },
               ),
+
+               */
+              child: LocalPdfViewPage(pdfName: 'Vision',url: 'assets/pdf/V.pdf',),
             ),
           ),
           Padding(
@@ -154,12 +162,18 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ],
               ),
+              /*
               child: ListTile(
                 title: Center(child: Text("Pilot Project",style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>LocalPdfViewPage(pdfName: 'Pilot Project',url: 'pdf/V.pdf',)));
                 },
               ),
+
+               */
+
+              child: LocalPdfViewPage(pdfName: 'Pilot Project',url: 'assets/pdf/V.pdf',),
+
             ),
           ),
           Padding(

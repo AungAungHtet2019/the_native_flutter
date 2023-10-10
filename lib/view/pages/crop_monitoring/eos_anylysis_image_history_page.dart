@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_native_flutter/provider/crop_monitioring_provider.dart';
 import 'package:the_native_flutter/provider/user_provider.dart';
+import 'package:the_native_flutter/utils/global.dart';
 
 import '../../../model/eos_image_history_model.dart';
 import '../../widgets/geo_server_widget.dart';
@@ -46,10 +48,22 @@ class _EosAnalysisImageHistoryPageState extends State<EosAnalysisImageHistoryPag
         children:Provider.of<CropMonitoringProvider>(context,listen: true).eosImageHistoryList.map((e) {
           final index = Provider.of<CropMonitoringProvider>(context,listen: true).eosImageHistoryList.indexOf(e);
           return Card(
+            color: Colors.grey,
             child: ListTile(
-              leading: Text((index+1).toString()),
-              title: Text(e.createAt.replaceAll("T"," ").split(".").first+" ရက်နေ့စိုက်ခင်းအခြေအနေ"),
-              subtitle: Text(e.taskId),
+              leading: Text((index+1).toString(),style: TextStyle(color: Colors.white),),
+              title: Text(e.createAt.replaceAll("T"," ").split(".").first+" ရက်နေ့စိုက်ခင်းအခြေအနေ",style: TextStyle(color: Colors.white),),
+              subtitle: Text(e.taskId,style: TextStyle(color: Colors.white),),
+              trailing: Container(
+                child: CachedNetworkImage(
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  imageUrl: domain+"/mobile/eos/"+e.imgUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
 
               onTap: (){
                 print("e.taskId");

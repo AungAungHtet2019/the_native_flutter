@@ -1,3 +1,5 @@
+
+/*
 import 'package:flutter/material.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 
@@ -104,3 +106,81 @@ class _LocalPdfViewPageState extends State<LocalPdfViewPage> {
     );
   }
 }
+
+ */
+
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:the_native_flutter/view/widgets/pdf_view_widget.dart';
+
+import '../../utils/dialogue.dart';
+
+class LocalPdfViewPage extends StatefulWidget {
+  String pdfName,url;
+
+  LocalPdfViewPage({required this.pdfName,required this.url});
+
+  @override
+  State<LocalPdfViewPage> createState() => _LocalPdfViewPageState();
+}
+
+class _LocalPdfViewPageState extends State<LocalPdfViewPage> {
+
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  String remotePDFpath = "";
+
+  Future<File> fromAsset(String asset, String filename) async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    Completer<File> completer = Completer();
+
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      File file = File("${dir.path}/$filename");
+      var data = await rootBundle.load(asset);
+      var bytes = data.buffer.asUint8List();
+      await file.writeAsBytes(bytes, flush: true);
+      completer.complete(file);
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+
+    return completer.future;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Center(child: Text(widget.pdfName,style: TextStyle(color:Colors.black,fontSize: 16,fontWeight: FontWeight.bold),)),
+      onTap: ()async{
+
+        // show loading indicator
+        Dialogs.showLoadingDialog(context, _keyLoader);
+
+        await fromAsset(widget.url,widget.pdfName).then((f) {
+          setState(() {
+            remotePDFpath = f.path;
+          });
+        });
+
+        // hide loading indicator
+        Navigator.pop(context);
+
+        if (remotePDFpath.isNotEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PDFScreen(name: widget.pdfName,path: remotePDFpath),
+            ),
+          );
+        }
+
+      },
+    );
+  }
+}
+
+

@@ -6,6 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../model/report_history_model.dart';
+import '../../widgets/pdf_widget.dart';
 import '../../widgets/photo_view_widget.dart';
 
 
@@ -228,13 +229,7 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
-                                    child:widget.reportHistoryModel.caseFile[index].CaseFileExtension == '.pdf' ? InkWell(
-                                        onTap: (){
-                                          // _launchUrl(Uri.parse(widget.reportHistoryModel.caseFile[index].DomainName+widget.reportHistoryModel.caseFile[index].CaseFilePath,));
-                                          _launchUrl(Uri.parse(widget.reportHistoryModel.caseFile[index].DomainName+widget.reportHistoryModel.caseFile[index].CaseFilePath));
-                                        },
-                                        child: Image.asset('assets/icons/pdf_icon.png')
-                                    ):
+                                    child:widget.reportHistoryModel.caseFile[index].CaseFileExtension == 'pdf' ? PdfWidget(fileUrl: widget.reportHistoryModel.caseFile[index].DomainName+widget.reportHistoryModel.caseFile[index].CaseFilePath):
                                     InkWell(
                                       child: CachedNetworkImage(
                                         imageUrl: widget.reportHistoryModel.caseFile[index].DomainName+widget.reportHistoryModel.caseFile[index].CaseFilePath,

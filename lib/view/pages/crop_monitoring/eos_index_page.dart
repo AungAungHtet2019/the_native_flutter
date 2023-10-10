@@ -673,8 +673,6 @@ class _EosIndexPageState extends State<EosIndexPage> {
 
                  */
 
-
-
                 /*
                 Divider(),
                 Text("EVI"),
@@ -707,7 +705,6 @@ class _EosIndexPageState extends State<EosIndexPage> {
 
 
                  */
-
 
               ],
             ),

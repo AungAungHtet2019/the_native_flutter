@@ -14,6 +14,7 @@ import '../../../provider/report_history_provider.dart';
 import '../../../utils/dialogue.dart';
 import '../../../utils/rest_api.dart';
 import '../../widgets/files_widget.dart';
+import '../../widgets/pdf_widget.dart';
 import '../../widgets/photo_view_case_replied_file_widget.dart';
 import '../../widgets/photo_view_widget.dart';
 import '../../widgets/reply_file_widget.dart';
@@ -428,12 +429,7 @@ class _CaseReplyListPageState extends State<CaseReplyListPage> {
                                                           ),
                                                           child: ClipRRect(
                                                             borderRadius: BorderRadius.all(Radius.circular(12)),
-                                                            child:e.caseRepliedFile[index].CaseRepliedFileExtension == '.pdf' ? InkWell(
-                                                                onTap: (){
-                                                                  _launchUrl(Uri.parse(e.caseRepliedFile[index].DomainName+e.caseRepliedFile[index].CaseRepliedFilePath));
-                                                                },
-                                                                child: Image.asset('assets/icons/pdf_icon.png')
-                                                            ):
+                                                            child:e.caseRepliedFile[index].CaseRepliedFileExtension == '.pdf' ? PdfWidget(fileUrl: e.caseRepliedFile[index].DomainName+e.caseRepliedFile[index].CaseRepliedFilePath):
                                                             // Image.network(caseFileList[index].CaseFilePath),
                                                             InkWell(
                                                               child: CachedNetworkImage(
