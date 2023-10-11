@@ -38,6 +38,10 @@ class _NewsPageState extends State<NewsPage> {
 
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+    print("Response header ");
+    print(response.headers);
+    print("Total page ");
+    print(response.headers["x-wp-totalpages"]);
 
 
 
@@ -200,7 +204,9 @@ class _NewsPageState extends State<NewsPage> {
     );
   }
 
-  myWidget(String profileUrl,String profileName,String title,String photoUrl,String contentText){
+  myWidget(String profileUrl,String profileName,String title,
+      String photoUrl,
+      String contentText){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -268,17 +274,17 @@ class _NewsPageState extends State<NewsPage> {
         // ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
-          // child: Text(
-          //   // 'Was great meeting up with Anna Ferguson and Dave Bishop at the breakfast talk!',
-          //   this.title,
-          //   style: GoogleFonts.lato(
-          //       color: Colors.grey[600],
-          //       fontSize: 15,
-          //       letterSpacing: 1,
-          //       fontWeight: FontWeight.normal),
-          //   textAlign: TextAlign.justify,
-          // ),
-          child: new DescriptionTextWidget(text: title),
+          child: Text(
+            // 'Was great meeting up with Anna Ferguson and Dave Bishop at the breakfast talk!',
+            title,
+            style: GoogleFonts.lato(
+                color: Colors.grey[600],
+                fontSize: 15,
+                letterSpacing: 1,
+                fontWeight: FontWeight.normal),
+            textAlign: TextAlign.justify,
+          ),
+          // child: new DescriptionTextWidget(text: title),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
@@ -298,6 +304,7 @@ class _NewsPageState extends State<NewsPage> {
         //             this.photoUrl),
         //       )),
         // ),
+
         Padding(
           padding: const EdgeInsets.only(left: 18.0, right: 18, top: 15),
           child: Material(
@@ -327,6 +334,7 @@ class _NewsPageState extends State<NewsPage> {
                 ),
               )),
         ),
+
         // Padding(
         //   padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20),
         //   // child: Text(

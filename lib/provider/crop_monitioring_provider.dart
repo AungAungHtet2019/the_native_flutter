@@ -184,7 +184,9 @@ class CropMonitoringProvider extends ChangeNotifier{
     Map body = {
       "type":"mt_stats",
       "params": {
-        "bm_type":["NDVI", "MSI", "EVI"],
+        // "bm_type":["NDVI", "MSI", "EVI"],
+        "bm_type":["NDVI", "NDRE", "MSAVI","RECI","NDMI"],
+
         // "date_start":DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
         // "date_end":DateTime.now().subtract(Duration(days:1)).toString().split(" ")[0],
         "date_start":startDat,
