@@ -64,6 +64,7 @@ class _EosIndexPageState extends State<EosIndexPage> {
                   children: Provider.of<CropMonitoringProvider>(context,listen: false).cropMonitoringIndexList.map((f) {
                     return Column(
                       children: [
+                        /*
                         e.indexes!.ndvi!.q1 <= f.maxValue && e.indexes!.ndvi!.q1 >= f.minValue && f.type == "NDVI" ? Row(
                           children: [
                             Container(
@@ -244,8 +245,26 @@ class _EosIndexPageState extends State<EosIndexPage> {
                             ),
                           ],
                         ) :SizedBox(),
-                      ],
+                         */
+                        e.indexes!.ndvi!.average <= f.maxValue && e.indexes!.ndvi!.average >= f.minValue && f.type == "NDVI" ? Row(
+                          children: [
+                            Container(
+                              color: Color(int.parse(f.indexColor)),
+                              width: 10,
+                              height: 10,
+                            ),
+                            SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
+                                Text(e.indexes!.ndvi!.average.toString(),textAlign: TextAlign.start,),
+                                Text(f.mmDescription,textAlign: TextAlign.start,),
+                              ],
+                            ),
+                          ],
+                        ) :SizedBox(),
+                      ],
                     );
                   }).toList(),
                 ),
@@ -254,7 +273,7 @@ class _EosIndexPageState extends State<EosIndexPage> {
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("သီးနှံအထွက်နှုန်း(EVI)",style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text("သီးနှံပင်ရောဂါကျရောက်မှုအခြေအနေ(NDRE)",style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
                 ListView(
                   shrinkWrap: true,
@@ -262,6 +281,7 @@ class _EosIndexPageState extends State<EosIndexPage> {
                   children: Provider.of<CropMonitoringProvider>(context,listen: false).cropMonitoringIndexList.map((f) {
                     return Column(
                       children: [
+                        /*
                         e.indexes!.evi!.q1 <= f.maxValue && e.indexes!.evi!.q1 >= f.minValue && f.type == "NDRE" ? Row(
                           children: [
                             Container(
@@ -406,24 +426,6 @@ class _EosIndexPageState extends State<EosIndexPage> {
                             ),
                           ],
                         ) :SizedBox(),
-                        e.indexes!.evi!.average <= f.maxValue && e.indexes!.evi!.average >= f.minValue && f.type == "NDRE" ? Row(
-                          children: [
-                            Container(
-                              color: Color(int.parse(f.indexColor)),
-                              width: 10,
-                              height: 10,
-                            ),
-                            SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-
-                                Text(e.indexes!.evi!.average.toString(),textAlign: TextAlign.start,),
-                                Text(f.mmDescription,textAlign: TextAlign.start,),
-                              ],
-                            ),
-                          ],
-                        ) :SizedBox(),
                         e.indexes!.evi!.variance <= f.maxValue && e.indexes!.evi!.variance >= f.minValue && f.type == "NDRE" ? Row(
                           children: [
                             Container(
@@ -442,8 +444,27 @@ class _EosIndexPageState extends State<EosIndexPage> {
                             ),
                           ],
                         ) :SizedBox(),
-                      ],
 
+                         */
+                        e.indexes!.ndre!.average <= f.maxValue && e.indexes!.ndre!.average >= f.minValue && f.type == "NDRE" ? Row(
+                          children: [
+                            Container(
+                              color: Color(int.parse(f.indexColor)),
+                              width: 10,
+                              height: 10,
+                            ),
+                            SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                Text(e.indexes!.ndre!.average.toString(),textAlign: TextAlign.start,),
+                                Text(f.mmDescription,textAlign: TextAlign.start,),
+                              ],
+                            ),
+                          ],
+                        ) :SizedBox(),
+                      ],
                     );
                   }).toList(),
                 ),
@@ -452,7 +473,7 @@ class _EosIndexPageState extends State<EosIndexPage> {
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("သီးနှံကြီးထွားမှုနှင့်မြေသြဇာလိုအပ်ချက်(MSI)",style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text("သီးနှံကြီးထွားမှုနှင့်မြေသြဇာလိုအပ်ချက်(MSAVI)",style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
                 ListView(
                   shrinkWrap: true,
@@ -460,6 +481,7 @@ class _EosIndexPageState extends State<EosIndexPage> {
                   children: Provider.of<CropMonitoringProvider>(context,listen: false).cropMonitoringIndexList.map((f) {
                     return Column(
                       children: [
+                        /*
                         e.indexes!.msi!.q1 <= f.maxValue && e.indexes!.msi!.q1 >= f.minValue && f.type == "MSAVI" ? Row(
                           children: [
                             Container(
@@ -604,24 +626,6 @@ class _EosIndexPageState extends State<EosIndexPage> {
                             ),
                           ],
                         ) :SizedBox(),
-                        e.indexes!.msi!.average <= f.maxValue && e.indexes!.msi!.average >= f.minValue && f.type == "MSAVI" ? Row(
-                          children: [
-                            Container(
-                              color: Color(int.parse(f.indexColor)),
-                              width: 10,
-                              height: 10,
-                            ),
-                            SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-
-                                Text(e.indexes!.msi!.average.toString(),textAlign: TextAlign.start,),
-                                myTextWidget(f.mmDescription),
-                              ],
-                            ),
-                          ],
-                        ) :SizedBox(),
                         e.indexes!.msi!.variance <= f.maxValue && e.indexes!.msi!.variance >= f.minValue && f.type == "MSAVI" ? Row(
                           children: [
                             Container(
@@ -640,11 +644,102 @@ class _EosIndexPageState extends State<EosIndexPage> {
                             ),
                           ],
                         ) :SizedBox(),
+                        */
+                        e.indexes!.msi!.average <= f.maxValue && e.indexes!.msi!.average >= f.minValue && f.type == "MSAVI" ? Row(
+                          children: [
+                            Container(
+                              color: Color(int.parse(f.indexColor)),
+                              width: 10,
+                              height: 10,
+                            ),
+                            SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                Text(e.indexes!.msi!.average.toString(),textAlign: TextAlign.start,),
+                                myTextWidget(f.mmDescription),
+                              ],
+                            ),
+                          ],
+                        ) :SizedBox(),
                       ],
 
                     );
                   }).toList(),
                 ),
+
+                Divider(),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Chlorophill နှင့် နိုက်ထရိုဂျင်ရရှိမှု(RECI)",style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  children: Provider.of<CropMonitoringProvider>(context,listen: false).cropMonitoringIndexList.map((f) {
+                    return Column(
+                      children: [
+                        e.indexes!.evi!.average <= f.maxValue && e.indexes!.evi!.average >= f.minValue && f.type == "RECI" ? Row(
+                          children: [
+                            Container(
+                              color: Color(int.parse(f.indexColor)),
+                              width: 10,
+                              height: 10,
+                            ),
+                            SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                Text(e.indexes!.evi!.average.toString(),textAlign: TextAlign.start,),
+                                myTextWidget(f.mmDescription),
+                              ],
+                            ),
+                          ],
+                        ) :SizedBox(),
+                      ],
+
+                    );
+                  }).toList(),
+                ),
+
+                Divider(),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("မြေဆီလွှာရေလိုအပ်ချက်နှင့်နေရောင်ခြည်ရရှိမှု(NDMI)",style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  children: Provider.of<CropMonitoringProvider>(context,listen: false).cropMonitoringIndexList.map((f) {
+                    return Column(
+                      children: [
+                        e.indexes!.ndsi!.average <= f.maxValue && e.indexes!.ndsi!.average >= f.minValue && f.type == "NDMI" ? Row(
+                          children: [
+                            Container(
+                              color: Color(int.parse(f.indexColor)),
+                              width: 10,
+                              height: 10,
+                            ),
+                            SizedBox(width: 10,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                Text(e.indexes!.ndsi!.average.toString(),textAlign: TextAlign.start,),
+                                myTextWidget(f.mmDescription),
+                              ],
+                            ),
+                          ],
+                        ) :SizedBox(),
+                      ],
+                    );
+                  }).toList(),
+                ),
+
                 /*
                 ListView(
                   shrinkWrap: true,

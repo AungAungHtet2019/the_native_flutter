@@ -185,12 +185,14 @@ class CropMonitoringProvider extends ChangeNotifier{
       "type":"mt_stats",
       "params": {
         // "bm_type":["NDVI", "MSI", "EVI"],
-        "bm_type":["NDVI", "NDRE", "MSAVI","RECI","NDMI"],
+        // "bm_type":["NDVI", "NDRE", "MSAVI","RECI","NDMI"],
+        "bm_type":["NDVI","MSI","EVI","NDRE","SAVI","NDSI"],
+
 
         // "date_start":DateTime.now().subtract(Duration(days:15)).toString().split(" ")[0],
         // "date_end":DateTime.now().subtract(Duration(days:1)).toString().split(" ")[0],
-        "date_start":startDat,
-        "date_end":endDate,
+        "date_start":startDat != "" ? startDat :DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0],
+        "date_end":endDate != "" ? endDate :DateTime.now().subtract(Duration(days:2)).toString().split(" ")[0],
         "geometry":
         {
           "coordinates":[
