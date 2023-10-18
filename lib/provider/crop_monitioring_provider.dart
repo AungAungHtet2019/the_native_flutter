@@ -207,6 +207,7 @@ class CropMonitoringProvider extends ChangeNotifier{
     };
 
     var jsonbody = json.encode(body);
+    statisticModelList.clear();
     await EosApiServices.createMultiTemporalStatistics(jsonbody).then((value) async{
       print(value);
       try{

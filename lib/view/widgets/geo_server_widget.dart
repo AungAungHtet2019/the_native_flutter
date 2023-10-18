@@ -12,6 +12,8 @@ import '../../provider/crop_monitioring_provider.dart';
 import '../pages/crop_monitoring/eos_index_page.dart';
 import 'dart:math' as math;
 
+import 'my_draggable_sheet_widget.dart';
+
 
 
 class GeoServerWidget extends StatefulWidget {
@@ -199,8 +201,10 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
 
           loading_status == true ? Center(
             child: CircularProgressIndicator(),
-          ): Container()
+          ): Container(),
           // Text("Loading $loadingPercentage")
+
+          MyDraggableSheet(taskId: widget.taskId,)
         ],
       ),
       /*
@@ -464,6 +468,7 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
       ),
 
        */
+      /*
       floatingActionButton: ExpandableFab(
         distance: 112,
         children: [
@@ -629,6 +634,8 @@ class _GeoServerWidgetState extends State<GeoServerWidget> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+
+       */
 
     );
   }

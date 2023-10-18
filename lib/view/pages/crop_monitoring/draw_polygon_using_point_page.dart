@@ -63,7 +63,11 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
 
 
-    mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID,startDateInputController.text,endDateInputController.text);
+    // mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID,startDateInputController.text,endDateInputController.text);
+    String startDate = DateTime.now().subtract(Duration(days:10)).toString().split(" ")[0];
+    String endDate = DateTime.now().subtract(Duration(days:2)).toString().split(" ")[0];
+    mapStatus= await Provider.of<CropMonitoringProvider>(context,listen: false).requestSearchScence(latLongArrayList,userID,startDate,endDate);
+
     print(mapStatus);
     if(mapStatus == true){
       String taskId = await Provider.of<CropMonitoringProvider>(context,listen: false).taskId;
@@ -167,7 +171,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
   Future<void> eos()async{
     ///EOS မှာ map analysis လုပ်ထားတာရှိမရှိစစ်တာ
-    if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <5){
+    if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <15){
       setState(() {
         loadingStatus = true;
       });
@@ -233,6 +237,8 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           _clearDrawing && _drawPolygonEnabled == true && _points.length > 3 ? IconButton(
               onPressed: ()async{
 
+
+                /*
                 await showDialog(
                   context: context,
                   builder: (context) => new StatefulBuilder(builder: (context, setState){
@@ -397,9 +403,11 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
                   }),
                 );
 
+                 */
 
 
 
+                await eos();
 
 
                 },
@@ -542,7 +550,9 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
           title: new Text("The Native "),
           content: Padding(
             padding: const EdgeInsets.only(top:15.0),
-            child: new Text(result+". Please try again"),
+            // child: new Text(result+". Please try again"),
+            child: new Text("လုပ်ဆောင်မှုမအောင်ပါသဖြင့်နောက်တစ်ကြိမ်ထပ်မံကြိုးစားပါ။"),
+
           ),
           actions: <Widget>[
             // CupertinoDialogAction(
