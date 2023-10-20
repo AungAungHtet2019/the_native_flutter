@@ -106,6 +106,16 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
       builder: (BuildContext context,ScrollController scrollController){
         return Container(
           color: Colors.grey[100],
+
+          /*
+          child: ListView.separated(
+              itemBuilder: (context, index) => _dailyCard(),
+              separatorBuilder: (context, index) => Divider(),
+              itemCount: 10
+          ),
+
+           */
+
           child: Provider.of<CropMonitoringProvider>(context,listen: false).statisticModelList != [] && resultLength > 0 && loading_status == false ?
           ListView(
             controller: scrollController,
@@ -344,13 +354,15 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                     height: 10,
                                   ),
                                   SizedBox(width: 10,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
 
-                                      Text(e.indexes!.ndvi!.average.toString(),textAlign: TextAlign.start,),
-                                      Text(f.mmDescription,textAlign: TextAlign.start,),
-                                    ],
+                                        Text(e.indexes!.ndvi!.average.toString(),textAlign: TextAlign.start,),
+                                        Text(f.mmDescription,textAlign: TextAlign.start,),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ) :SizedBox(),
@@ -544,13 +556,15 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                     height: 10,
                                   ),
                                   SizedBox(width: 10,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
 
-                                      Text(e.indexes!.ndre!.average.toString(),textAlign: TextAlign.start,),
-                                      Text(f.mmDescription,textAlign: TextAlign.start,),
-                                    ],
+                                        Text(e.indexes!.ndre!.average.toString(),textAlign: TextAlign.start,),
+                                        Text(f.mmDescription,textAlign: TextAlign.start,),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ) :SizedBox(),
@@ -743,13 +757,18 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                     height: 10,
                                   ),
                                   SizedBox(width: 10,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
 
-                                      Text(e.indexes!.msi!.average.toString(),textAlign: TextAlign.start,),
-                                      myTextWidget(f.mmDescription),
-                                    ],
+                                        Text(e.indexes!.msi!.average.toString(),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        //Text("test")
+                                        myTextWidget(f.mmDescription),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ) :SizedBox(),
@@ -779,13 +798,15 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                     height: 10,
                                   ),
                                   SizedBox(width: 10,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
 
-                                      Text(e.indexes!.evi!.average.toString(),textAlign: TextAlign.start,),
-                                      myTextWidget(f.mmDescription),
-                                    ],
+                                        Text(e.indexes!.evi!.average.toString(),textAlign: TextAlign.start,),
+                                        myTextWidget(f.mmDescription),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ) :SizedBox(),
@@ -815,13 +836,16 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                     height: 10,
                                   ),
                                   SizedBox(width: 10,),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
 
-                                      Text(e.indexes!.ndsi!.average.toString(),textAlign: TextAlign.start,),
-                                      myTextWidget(f.mmDescription),
-                                    ],
+                                        Text(e.indexes!.ndsi!.average.toString(),textAlign: TextAlign.start,),
+
+                                        myTextWidget(f.mmDescription),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ) :SizedBox(),
@@ -931,12 +955,47 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
               );
             },
           ),
+
         );
       },
     );
   }
 
+  Widget _dailyCard(){
+    return Column(
+      children: [
+        _testCard(),
+        _testCard(),
+        _testCard(),
+        _testCard(),
+        _testCard(),
+      ],
+    );
+  }
+  Widget _testCard(){
+    return Column(
+      children: [
+        Text("title"),
+        Row(
+          children: [
+            Container(color: Colors.green, width: 50, height: 50,),
+            
+            Expanded(
+              child: Column(
+                children: [
+                  Text("sub title , this is very long text sub title , this is very long text sub title , this is very long text sub title , this is very long text "),
+                  Text("value")
+                ],
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
   Widget myTextWidget(String myText){
+    /*
     return RichText(
       text: TextSpan(children: [
         TextSpan(
@@ -945,6 +1004,9 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
         ),
       ]),
     );
+
+     */
+    return Text(myText);
   }
 
 }
