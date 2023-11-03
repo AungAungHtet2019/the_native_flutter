@@ -14,6 +14,7 @@ class MyDraggableSheet extends StatefulWidget {
 
 class _MyDraggableSheetState extends State<MyDraggableSheet> {
 
+  int decimalSplitLength = 3;
   bool loading_status = false;
   int resultLength = 0;
 
@@ -359,7 +360,7 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
-                                        Text(e.indexes!.ndvi!.average.toString(),textAlign: TextAlign.start,),
+                                        Text(e.indexes!.ndvi!.average.toStringAsFixed(decimalSplitLength),textAlign: TextAlign.start,),
                                         Text(f.mmDescription,textAlign: TextAlign.start,),
                                       ],
                                     ),
@@ -561,7 +562,7 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
-                                        Text(e.indexes!.ndre!.average.toString(),textAlign: TextAlign.start,),
+                                        Text(e.indexes!.ndre!.average.toStringAsFixed(decimalSplitLength),textAlign: TextAlign.start,),
                                         Text(f.mmDescription,textAlign: TextAlign.start,),
                                       ],
                                     ),
@@ -762,7 +763,7 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
-                                        Text(e.indexes!.msi!.average.toString(),
+                                        Text(e.indexes!.msi!.average.toStringAsFixed(decimalSplitLength),
                                           textAlign: TextAlign.start,
                                         ),
                                         //Text("test")
@@ -803,7 +804,7 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
-                                        Text(e.indexes!.evi!.average.toString(),textAlign: TextAlign.start,),
+                                        Text(e.indexes!.evi!.average.toStringAsFixed(decimalSplitLength),textAlign: TextAlign.start,),
                                         myTextWidget(f.mmDescription),
                                       ],
                                     ),
@@ -841,7 +842,7 @@ class _MyDraggableSheetState extends State<MyDraggableSheet> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
-                                        Text(e.indexes!.ndsi!.average.toString(),textAlign: TextAlign.start,),
+                                        Text(e.indexes!.ndsi!.average.toStringAsFixed(decimalSplitLength),textAlign: TextAlign.start,),
 
                                         myTextWidget(f.mmDescription),
                                       ],
