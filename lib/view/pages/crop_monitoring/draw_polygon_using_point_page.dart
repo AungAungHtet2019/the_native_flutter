@@ -171,7 +171,7 @@ class _DrawPolygonUsingPointPageState extends State<DrawPolygonUsingPointPage> {
 
   Future<void> eos()async{
     ///EOS မှာ map analysis လုပ်ထားတာရှိမရှိစစ်တာ
-    if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <5){
+    if(Provider.of<CropMonitoringProvider>(context,listen: false).eosImageHistoryList.length <15){
       setState(() {
         loadingStatus = true;
       });

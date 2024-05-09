@@ -9,6 +9,8 @@ class ReportHistoryProvider extends ChangeNotifier{
 
 
   List<ReportHistory> reportHistoryModel = [];
+  List<ReportHistory> reportHistoryByUserList = [];
+
   bool dataReturnStatus = false;
 
   int? current_page;
@@ -102,6 +104,37 @@ class ReportHistoryProvider extends ChangeNotifier{
       rethrow;
     }
   }
+
+  void getReportHistoryByUser(String personId)async{
+
+    Map body={
+      'data':personId,
+    };
+    var jsonbody = json.encode(body);
+    try{
+      await ApiService.getReportHistoryByUser(jsonbody).then((success) {
+        print("++++++++++++++++++++++++"+success.toString());
+        print("***********************");
+        List<dynamic> list = json.decode(success);
+        print("getReportHistoryByUser data is ** "+list.toString());
+        reportHistoryByUserList.clear();
+        for(int i = 0; i < list.length; i++){
+          try{
+            reportHistoryByUserList.add(ReportHistory.fromJson(list[i]));
+          }
+          catch(ex){
+            rethrow;
+          }
+        }
+        notifyListeners();
+        changedataReturnStatus();
+      });
+    }
+    catch(ex){
+      rethrow;
+    }
+  }
+
 
 
   List<ReportHistory> get ReportHistoryModel => reportHistoryModel;

@@ -76,6 +76,8 @@ class URLS {
   static const String milti_file_uploat_URL =domain+'/api/User/multi_file_upload';
   static const String get_report_history_URL =domain+'/api/User/get_report_history';
   static const String get_report_history_Pagination_URL =domain+'/api/Report/get_report_history_pagination';
+  static const String get_report_history_by_user_URL =domain+'/api/User/get_report_history_by_user';
+
 
   // static const String get_case_file_list_URL =domain+'/api/User/search_case_file_list';
   static const String create_Reply_URL =domain+'/api/User/create_reply';
@@ -405,6 +407,22 @@ class ApiService {
       return "Error";
     }
   }
+
+  static Future<String> getReportHistoryByUser(body)async{
+    print("This is getReportHistoryByUser Method");
+    print("body of getReportHistoryByUser is "+body);
+
+    http.Response r = await http.post(Uri.parse(URLS.get_report_history_by_user_URL),headers: {"Content-Type": "application/json"},body: body);
+    print("Status code getReportHistoryByUser is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    if(r.statusCode ==200){
+      return r.body.toString();
+    }
+    else{
+      return "Error";
+    }
+  }
+
 
   // static Future<String> getCaseFileList(body)async{
   //   print("This is getCaseFileList Method");
