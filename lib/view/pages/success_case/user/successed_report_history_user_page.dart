@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../provider/report_history_provider.dart';
-import '../case_reply_page.dart';
-import '../report_detail_page.dart';
+import '../../../../provider/successed_report_history_provider.dart';
+import '../../reported_case/report_detail_page.dart';
 
-class ReportHistoryByUserPage extends StatefulWidget {
+class SuccessedReportHistoryByUserPage extends StatefulWidget {
   String userName;
   String personId;
   String groupId;
 
-  ReportHistoryByUserPage({super.key,required this.userName, required this.personId,required this.groupId});
+  SuccessedReportHistoryByUserPage({super.key,required this.userName, required this.personId,required this.groupId});
 
   @override
-  State<ReportHistoryByUserPage> createState() => _ReportHistoryByUserPageState();
+  State<SuccessedReportHistoryByUserPage> createState() => _SuccessedReportHistoryByUserPageState();
 }
 
-class _ReportHistoryByUserPageState extends State<ReportHistoryByUserPage> {
+class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistoryByUserPage> {
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _ReportHistoryByUserPageState extends State<ReportHistoryByUserPage> {
 
   void _init(){
     Future.delayed(Duration.zero, (){
-      selectReportHistoryByUser(personId: widget.personId, groupId: widget.groupId);
+      selectSuccessedReportHistoryByUser(personId: widget.personId, groupId: widget.groupId);
     });
   }
 
@@ -178,12 +178,6 @@ class _ReportHistoryByUserPageState extends State<ReportHistoryByUserPage> {
                       ),
                     ),
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CaseReplyListPage(
-                          widget.personId,
-                          widget.groupId,
-                          Provider.of<ReportHistoryProvider>(context,listen: false).reportHistoryByUserList[index].CaseID,
-                          Provider.of<ReportHistoryProvider>(context,listen: false).reportHistoryByUserList[index].CaseSubject,
-                          index)));
                       // showDialogBox(Provider.of<ReportHistoryProvider>(context,listen: false).reportHistoryModel[index].CaseID,Provider.of<ReportHistoryProvider>(context,listen: false).reportHistoryModel[index].caseReplied);
                     },
                   ),
@@ -198,8 +192,8 @@ class _ReportHistoryByUserPageState extends State<ReportHistoryByUserPage> {
         });
   }
 
-  void selectReportHistoryByUser({required String personId, required String groupId}) async{
-    bool status = await Provider.of<ReportHistoryProvider>(context,listen: false).getReportHistoryByUser(personId: personId, groupId: groupId);
+  void selectSuccessedReportHistoryByUser({required String personId, required String groupId}) async{
+    bool status = await Provider.of<SuccessedReportHistoryProvider>(context,listen: false).getSuccessedReporReportHistoryByUser(personId: personId, groupId: groupId);
   }
 
 

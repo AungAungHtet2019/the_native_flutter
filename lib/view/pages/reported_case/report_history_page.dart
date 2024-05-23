@@ -9,13 +9,13 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:the_native_flutter/view/pages/reported_case/report_detail_page.dart';
 
-import '../../../model/case_replied_model.dart';
 import '../../../model/report_history_model.dart';
 import '../../../provider/report_history_provider.dart';
 import '../../../provider/user_provider.dart';
 import '../../../utils/dialogue.dart';
 import '../../../utils/rest_api.dart';
 import 'case_reply_page.dart';
+import 'user/report_history_by_user_page.dart';
 
 class ReportHistoryPage extends StatefulWidget {
 
@@ -436,55 +436,68 @@ class _ReportHistoryPageState extends State<ReportHistoryPage> {
                               padding: const EdgeInsets.all(18.0),
                               child: Column(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        height: 40,
-                                        width: 40,
-                                        child: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
-                                          radius: 70.0,
-                                          backgroundImage: AssetImage('assets/images/profile-unknown.png'),
-                                          backgroundColor: Colors.white,
-                                        ):ClipRRect(
-                                          borderRadius: BorderRadius.circular(800),
-                                          child: CachedNetworkImage(
-                                            width: 40,
-                                            height: 40,
-                                            fit: BoxFit.cover,
-                                            imageUrl: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].DomainName+Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].UserProfilePicture,
-                                            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                                CircularProgressIndicator(value: downloadProgress.progress),
-                                            errorWidget: (context, url, error) => Icon(Icons.error),
+                                  InkWell(
+                                    onTap: (){
+
+
+
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportHistoryByUserPage(
+                                        userName: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].PersonName,
+                                        personId: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].PersonID,
+                                        groupId: widget.groupID,)));
+
+
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 40,
+                                          width: 40,
+                                          child: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
+                                            radius: 70.0,
+                                            backgroundImage: AssetImage('assets/images/profile-unknown.png'),
+                                            backgroundColor: Colors.white,
+                                          ):ClipRRect(
+                                            borderRadius: BorderRadius.circular(800),
+                                            child: CachedNetworkImage(
+                                              width: 40,
+                                              height: 40,
+                                              fit: BoxFit.cover,
+                                              imageUrl: Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].DomainName+Provider.of<ReportHistoryProvider>(context,listen: false).ReportHistoryModel[index].UserProfilePicture,
+                                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                                  CircularProgressIndicator(value: downloadProgress.progress),
+                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:Container(
-                                              child:Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children:[
-                                                    Text(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
-                                                    Row(
-                                                      children: [
-                                                        Text((Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].CreatedDate.replaceAll("T", " ")).split(".")[0]),
-                                                        Container(
-                                                          height: 15,
-                                                          width: 20,
-                                                          // child: CircleAvatar(
-                                                          //   backgroundImage: AssetImage('assets/icons/world.png'),
-                                                          //   backgroundColor: Colors.white,
-                                                          // ),
-                                                          child: Image.asset('assets/icons/world.png'),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ]
-                                              )
-                                          )
+                                        Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child:Container(
+                                                child:Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children:[
+                                                      Text(Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
+                                                      Row(
+                                                        children: [
+                                                          Text((Provider.of<ReportHistoryProvider>(context,listen: true).ReportHistoryModel[index].CreatedDate.replaceAll("T", " ")).split(".")[0]),
+                                                          Container(
+                                                            height: 15,
+                                                            width: 20,
+                                                            // child: CircleAvatar(
+                                                            //   backgroundImage: AssetImage('assets/icons/world.png'),
+                                                            //   backgroundColor: Colors.white,
+                                                            // ),
+                                                            child: Image.asset('assets/icons/world.png'),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ]
+                                                )
+                                            )
 
-                                      ),
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
 
                                 ],
@@ -588,4 +601,5 @@ class _ReportHistoryPageState extends State<ReportHistoryPage> {
     }
     return Future.value(false);
   }
+
 }

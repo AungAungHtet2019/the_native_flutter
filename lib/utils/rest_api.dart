@@ -76,8 +76,7 @@ class URLS {
   static const String milti_file_uploat_URL =domain+'/api/User/multi_file_upload';
   static const String get_report_history_URL =domain+'/api/User/get_report_history';
   static const String get_report_history_Pagination_URL =domain+'/api/Report/get_report_history_pagination';
-  static const String get_report_history_by_user_URL =domain+'/api/User/get_report_history_by_user';
-
+  static const String get_report_history_by_user_URL =domain+'/api/Report/get_report_history_by_user';
 
   // static const String get_case_file_list_URL =domain+'/api/User/search_case_file_list';
   static const String create_Reply_URL =domain+'/api/User/create_reply';
@@ -85,6 +84,8 @@ class URLS {
   static const String close_case_file_URL =domain+'/api/User/close_case_file';
   static const String get_successed_report_history_URL =domain+'/api/User/get_successed_report_history';
   static const String get_successed_report_history_Pagination_URL =domain+'/api/Report/get_successed_report_history_pagination';
+  static const String get_successed_report_history_by_user_URL =domain+'/api/User/get_successed_report_history_by_user';
+
 
 
   static const String insertLatLong_url = domain+"/api/Map/set_latlong";
@@ -513,6 +514,22 @@ class ApiService {
       return "Error";
     }
   }
+
+  static Future<String> getSuccessedReportHistoryByUser(body)async{
+    print("This is getSuccessedReportHistoryByUser Method");
+    print("body of getSuccessedReportHistoryByUSer is "+body);
+
+    http.Response r = await http.post(Uri.parse(URLS.get_successed_report_history_by_user_URL),headers: {"Content-Type": "application/json"},body: body);
+    print("Status code getSuccessedReportHistoryByUser is "+r.statusCode.toString());
+    print("r.body is "+r.body.toString());
+    if(r.statusCode ==200){
+      return r.body.toString();
+    }
+    else{
+      return "Error";
+    }
+  }
+
 
   static Future<String> insertTaskID_LatLong(body)async{
     print(body);

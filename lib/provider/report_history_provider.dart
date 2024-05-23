@@ -12,6 +12,8 @@ class ReportHistoryProvider extends ChangeNotifier{
   List<ReportHistory> reportHistoryByUserList = [];
 
   bool dataReturnStatus = false;
+  bool getReportHistoryByUserStatus = false;
+
 
   int? current_page;
   int? total_count;
@@ -105,10 +107,18 @@ class ReportHistoryProvider extends ChangeNotifier{
     }
   }
 
-  void getReportHistoryByUser(String personId)async{
+  Future<bool> getReportHistoryByUser({required String personId, required String groupId})async {
+
+    reportHistoryByUserList.clear();
+    getReportHistoryByUserStatus = false;
+    notifyListeners();
+
+    bool status = true;
 
     Map body={
-      'data':personId,
+      'userID':personId,
+      'GroupId':groupId,
+
     };
     var jsonbody = json.encode(body);
     try{
@@ -117,22 +127,34 @@ class ReportHistoryProvider extends ChangeNotifier{
         print("***********************");
         List<dynamic> list = json.decode(success);
         print("getReportHistoryByUser data is ** "+list.toString());
-        reportHistoryByUserList.clear();
+        // reportHistoryByUserList.clear();
         for(int i = 0; i < list.length; i++){
           try{
             reportHistoryByUserList.add(ReportHistory.fromJson(list[i]));
           }
           catch(ex){
-            rethrow;
+            // rethrow;
+            status = false;
+            getReportHistoryByUserStatus = false;
+            notifyListeners();
+            return status;
           }
         }
+        status = true;
+        getReportHistoryByUserStatus = true;
         notifyListeners();
         changedataReturnStatus();
+        return status;
       });
     }
     catch(ex){
-      rethrow;
+      // rethrow;
+      status = false;
+      getReportHistoryByUserStatus = false;
+      notifyListeners();
+      return status;
     }
+    return status;
   }
 
 

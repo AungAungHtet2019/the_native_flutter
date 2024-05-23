@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:the_native_flutter/view/pages/success_case/successed_case_reply_page.dart';
 import '../../../provider/successed_report_history_provider.dart';
 import '../reported_case/report_detail_page.dart';
+import 'user/successed_report_history_user_page.dart';
 
 class SuccessedReportHistoryPage extends StatefulWidget {
 
@@ -145,57 +146,65 @@ class _SuccessedReportHistoryPageState extends State<SuccessedReportHistoryPage>
                                 padding: const EdgeInsets.all(18.0),
                                 child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 40,
-                                          width: 40,
-                                          child: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
-                                            radius: 70.0,
-                                            backgroundImage: AssetImage('assets/images/profile-unknown.png'),
-                                            backgroundColor: Colors.white,
-                                          ):ClipRRect(
-                                            borderRadius: BorderRadius.circular(800),
-                                            child: CachedNetworkImage(
-                                              width: 40,
-                                              height: 40,
-                                              fit: BoxFit.cover,
-                                              imageUrl: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].DomainName+Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].UserProfilePicture,
-                                              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                                  CircularProgressIndicator(value: downloadProgress.progress),
-                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SuccessedReportHistoryByUserPage(
+                                          userName: Provider.of<SuccessedReportHistoryProvider>(context,listen: false).SuccessedReportHistoryModel[index].PersonName,
+                                          personId: Provider.of<SuccessedReportHistoryProvider>(context,listen: false).SuccessedReportHistoryModel[index].PersonID,
+                                          groupId: widget.groupID,)));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            child: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
+                                              radius: 70.0,
+                                              backgroundImage: AssetImage('assets/images/profile-unknown.png'),
+                                              backgroundColor: Colors.white,
+                                            ):ClipRRect(
+                                              borderRadius: BorderRadius.circular(800),
+                                              child: CachedNetworkImage(
+                                                width: 40,
+                                                height: 40,
+                                                fit: BoxFit.cover,
+                                                imageUrl: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].DomainName+Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].UserProfilePicture,
+                                                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                                    CircularProgressIndicator(value: downloadProgress.progress),
+                                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            // child: Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].PersonName),
-                                            child:Container(
-                                                child:Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children:[
-                                                      Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
-                                                      Row(
-                                                        children: [
-                                                          Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].CreatedDate.split("T")[0]),
-                                                          Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].PublicStatus == true ? Container(
-                                                            height: 15,
-                                                            width: 20,
-                                                            child: Image.asset('assets/icons/world.png'),
-                                                          ):
-                                                          Container(
-                                                            height: 15,
-                                                            width: 20,
-                                                            child: Image.asset('assets/icons/lock_open.png'),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ]
-                                                )
-                                            )
+                                          Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              // child: Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].PersonName),
+                                              child:Container(
+                                                  child:Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children:[
+                                                        Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
+                                                        Row(
+                                                          children: [
+                                                            Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].CreatedDate.split("T")[0]),
+                                                            Provider.of<SuccessedReportHistoryProvider>(context,listen: true).SuccessedReportHistoryModel[index].PublicStatus == true ? Container(
+                                                              height: 15,
+                                                              width: 20,
+                                                              child: Image.asset('assets/icons/world.png'),
+                                                            ):
+                                                            Container(
+                                                              height: 15,
+                                                              width: 20,
+                                                              child: Image.asset('assets/icons/lock_open.png'),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ]
+                                                  )
+                                              )
 
-                                        ),
-                                      ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
 
                                   ],

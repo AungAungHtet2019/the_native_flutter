@@ -9,7 +9,11 @@ class SuccessedReportHistoryProvider extends ChangeNotifier{
 
 
   List<ReportHistory> successedReportHistoryModel = [];
+  List<ReportHistory> successedReportHistoryByUserList = [];
+
   bool dataReturnStatus = false;
+  bool getSuccessedReportHistoryByUserStatus = false;
+
 
   int? current_page;
   int? total_count;
@@ -107,6 +111,57 @@ class SuccessedReportHistoryProvider extends ChangeNotifier{
       rethrow;
     }
   }
+
+  Future<bool> getSuccessedReporReportHistoryByUser({required String personId, required String groupId})async {
+
+    successedReportHistoryByUserList.clear();
+    getSuccessedReportHistoryByUserStatus = false;
+    notifyListeners();
+
+    bool status = true;
+
+    Map body={
+      'userID':personId,
+      'GroupId':groupId,
+
+    };
+    var jsonbody = json.encode(body);
+    try{
+      await ApiService.getSuccessedReportHistoryByUser(jsonbody).then((success) {
+        print("++++++++++++++++++++++++"+success.toString());
+        print("***********************");
+        List<dynamic> list = json.decode(success);
+        print("getSuccessedReportHistoryByUser data is ** "+list.toString());
+        // reportHistoryByUserList.clear();
+        for(int i = 0; i < list.length; i++){
+          try{
+            successedReportHistoryByUserList.add(ReportHistory.fromJson(list[i]));
+          }
+          catch(ex){
+            // rethrow;
+            status = false;
+            getSuccessedReportHistoryByUserStatus = false;
+            notifyListeners();
+            return status;
+          }
+        }
+        status = true;
+        getSuccessedReportHistoryByUserStatus = true;
+        notifyListeners();
+        changedataReturnStatus();
+        return status;
+      });
+    }
+    catch(ex){
+      // rethrow;
+      status = false;
+      getSuccessedReportHistoryByUserStatus = false;
+      notifyListeners();
+      return status;
+    }
+    return status;
+  }
+
 
 
   List<ReportHistory> get SuccessedReportHistoryModel => successedReportHistoryModel;
