@@ -84,7 +84,7 @@ class URLS {
   static const String close_case_file_URL =domain+'/api/User/close_case_file';
   static const String get_successed_report_history_URL =domain+'/api/User/get_successed_report_history';
   static const String get_successed_report_history_Pagination_URL =domain+'/api/Report/get_successed_report_history_pagination';
-  static const String get_successed_report_history_by_user_URL =domain+'/api/User/get_successed_report_history_by_user';
+  static const String get_successed_report_history_by_user_URL =domain+'/api/Report/get_successed_report_history_by_user';
 
 
 

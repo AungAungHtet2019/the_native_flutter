@@ -48,7 +48,7 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
 
   Widget _mainWidget(){
     final Size size = MediaQuery.of(context).size;
-    return Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList.length == 0  && Provider.of<ReportHistoryProvider>(context,listen: true).getReportHistoryByUserStatus == false ? ListView.builder(
+    return Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList.length == 0  && Provider.of<SuccessedReportHistoryProvider>(context,listen: true).getSuccessedReportHistoryByUserStatus == false ? ListView.builder(
       padding: const EdgeInsets.all(20),
       itemCount: 3,
       itemBuilder: (BuildContext context, int index) {
@@ -75,9 +75,9 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
         );
       },
     )
-        :Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList.length == 0 && Provider.of<ReportHistoryProvider>(context,listen: true).getReportHistoryByUserStatus == true  ? Center(child: Text("No record found")):
+        :Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList.length == 0 && Provider.of<SuccessedReportHistoryProvider>(context,listen: true).getSuccessedReportHistoryByUserStatus == true  ? Center(child: Text("No record found")):
     ListView.builder(
-        itemCount: Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList.length,
+        itemCount: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList.length,
         itemBuilder: (context,index){
           return Card(
             child: Column(
@@ -96,7 +96,7 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
                                   Container(
                                     height: 40,
                                     width: 40,
-                                    child: Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
+                                    child: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].UserProfilePicture == "User_Profile_Picture" ? CircleAvatar(
                                       radius: 70.0,
                                       backgroundImage: AssetImage('assets/images/profile-unknown.png'),
                                       backgroundColor: Colors.white,
@@ -106,7 +106,7 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
                                         width: 40,
                                         height: 40,
                                         fit: BoxFit.cover,
-                                        imageUrl: Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].DomainName+Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].UserProfilePicture,
+                                        imageUrl: Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].DomainName+Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].UserProfilePicture,
                                         progressIndicatorBuilder: (context, url, downloadProgress) =>
                                             CircularProgressIndicator(value: downloadProgress.progress),
                                         errorWidget: (context, url, error) => Icon(Icons.error),
@@ -119,18 +119,19 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
                                           child:Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children:[
-                                                Text(Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
+                                                Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].PersonName,style: TextStyle(fontWeight: FontWeight.bold),),
                                                 Row(
                                                   children: [
-                                                    Text((Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].CreatedDate.replaceAll("T", " ")).split(".")[0]),
+                                                    Text((Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].CreatedDate.replaceAll("T", " ")).split(".")[0]),
+                                                    Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].PublicStatus == true ? Container(
+                                                      height: 15,
+                                                      width: 20,
+                                                      child: Image.asset('assets/icons/world.png'),
+                                                    ):
                                                     Container(
                                                       height: 15,
                                                       width: 20,
-                                                      // child: CircleAvatar(
-                                                      //   backgroundImage: AssetImage('assets/icons/world.png'),
-                                                      //   backgroundColor: Colors.white,
-                                                      // ),
-                                                      child: Image.asset('assets/icons/world.png'),
+                                                      child: Image.asset('assets/icons/lock_open.png'),
                                                     ),
                                                   ],
                                                 )
@@ -150,8 +151,8 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
                   ],
                 ),
 
-                Text(Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].CaseSubject,style: TextStyle(fontWeight: FontWeight.bold),),
-                ReportDetailPage(Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index]
+                Text(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].CaseSubject,style: TextStyle(fontWeight: FontWeight.bold),),
+                ReportDetailPage(Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index]
                   // ,reportHistoryModel[index].CaseID
                 ),
                 Divider(
@@ -172,7 +173,7 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
                             ,style: TextStyle(fontWeight: FontWeight.bold),),
 
                           //ပြန်ကြားစာအရေအတွက်အား (အထက်ဌာနမှ ပြန်ကြားသည့်အရေအတွက်သာဖော်ပြန်ရန်) ကိုယ်မဟုတ်သည့်ပြန်ကြားစာအရေအတွက်ဖော်ပြထားခြင်းဖြစ်သည်။
-                          Text(" "+Provider.of<ReportHistoryProvider>(context,listen: true).reportHistoryByUserList[index].caseReplied.where((e) => e.PersonID != widget.personId).toList().length.toString()+" စောင်",style: TextStyle(fontWeight: FontWeight.bold),)
+                          Text(" "+Provider.of<SuccessedReportHistoryProvider>(context,listen: true).successedReportHistoryByUserList[index].caseReplied.where((e) => e.PersonID != widget.personId).toList().length.toString()+" စောင်",style: TextStyle(fontWeight: FontWeight.bold),)
 
                         ],
                       ),
@@ -193,7 +194,7 @@ class _SuccessedReportHistoryByUserPageState extends State<SuccessedReportHistor
   }
 
   void selectSuccessedReportHistoryByUser({required String personId, required String groupId}) async{
-    bool status = await Provider.of<SuccessedReportHistoryProvider>(context,listen: false).getSuccessedReporReportHistoryByUser(personId: personId, groupId: groupId);
+    bool status = await Provider.of<SuccessedReportHistoryProvider>(context,listen: false).getSuccessedReportReportHistoryByUser(personId: personId, groupId: groupId);
   }
 
 

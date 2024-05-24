@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _saveRegisterUserStatus()async{
 
     prefs = await SharedPreferences.getInstance();
-    prefs.setString("Testing", "Hello Babylay");
+    prefs.setString("Testing", "Hello Baby lay");
     print(prefs.get("Testing"));
 
     SharedPreferences sp = await SharedPreferences.getInstance();

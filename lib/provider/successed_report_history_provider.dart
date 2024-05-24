@@ -112,7 +112,7 @@ class SuccessedReportHistoryProvider extends ChangeNotifier{
     }
   }
 
-  Future<bool> getSuccessedReporReportHistoryByUser({required String personId, required String groupId})async {
+  Future<bool> getSuccessedReportReportHistoryByUser({required String personId, required String groupId})async {
 
     successedReportHistoryByUserList.clear();
     getSuccessedReportHistoryByUserStatus = false;
